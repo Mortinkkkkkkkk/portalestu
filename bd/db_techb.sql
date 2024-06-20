@@ -1,4 +1,4 @@
--- Adminer 4.8.1 MySQL 5.5.5-10.5.23-MariaDB-1:10.5.23+maria~ubu2004 dump
+-- Adminer 4.8.1 MySQL 5.5.5-10.5.25-MariaDB-ubu2004 dump
 
 SET NAMES utf8;
 SET time_zone = '+00:00';
@@ -10,6 +10,21 @@ SET NAMES utf8mb4;
 DROP DATABASE IF EXISTS `db_techb`;
 CREATE DATABASE `db_techb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
 USE `db_techb`;
+
+DROP TABLE IF EXISTS `tb_comentario`;
+CREATE TABLE `tb_comentario` (
+  `id_comentario` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
+  `id_jogo` int(11) NOT NULL,
+  `nota` enum('1,2,3,4,5,6,7,8,9,10') NOT NULL,
+  `comentario` varchar(1000) NOT NULL,
+  PRIMARY KEY (`id_comentario`),
+  KEY `id_usuario` (`id_usuario`),
+  KEY `id_jogo` (`id_jogo`),
+  CONSTRAINT `tb_comentario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`Id_usuario`),
+  CONSTRAINT `tb_comentario_ibfk_2` FOREIGN KEY (`id_jogo`) REFERENCES `tb_jogo` (`id_jogo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 DROP TABLE IF EXISTS `tb_foto`;
 CREATE TABLE `tb_foto` (
@@ -66,4 +81,4 @@ CREATE TABLE `tb_venda` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
--- 2024-06-18 13:07:14
+-- 2024-06-20 11:32:13
