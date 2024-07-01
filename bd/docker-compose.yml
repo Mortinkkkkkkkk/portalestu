@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   php:
-    container_name: "Techbazaar"
+    container_name: "portalestudante"
     image: php:8.1.16-apache
     volumes:
       - ./../public/:/var/www/html/
@@ -9,14 +9,14 @@ services:
       - 89:80
   db:
     image: mariadb:10.5
-    container_name: 'bd_tech'
+    container_name: 'bd_portal'
     restart: always
     environment:
       - MARIADB_USER=root
       - MARIADB_ROOT_PASSWORD=123
   adminer:
     image: adminer:4.8.1
-    container_name: "adminer_tech"
+    container_name: "adminer_portal"
     restart: always
     ports:
       - 812:8080
