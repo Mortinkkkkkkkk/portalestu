@@ -4,7 +4,7 @@ services:
     container_name: "portalestudante"
     image: php:8.1.16-apache
     volumes:
-      - ./../public/:/var/www/html/
+      - ./../public/site/:/var/www/html/
     ports:
       - 89:80
   db:

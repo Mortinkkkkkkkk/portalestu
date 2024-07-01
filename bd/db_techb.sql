@@ -1,4 +1,4 @@
--- Adminer 4.8.1 MySQL 5.5.5-10.5.25-MariaDB-ubu2004 dump
+-- Adminer 4.8.1 MySQL 5.5.5-10.5.23-MariaDB-1:10.5.23+maria~ubu2004 dump
 
 SET NAMES utf8;
 SET time_zone = '+00:00';
@@ -7,78 +7,65 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 SET NAMES utf8mb4;
 
-DROP DATABASE IF EXISTS `db_techb`;
-CREATE DATABASE `db_techb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `db_techb`;
+DROP DATABASE IF EXISTS `bd_estudatil`;
+CREATE DATABASE `bd_estudatil` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `bd_estudatil`;
 
 DROP TABLE IF EXISTS `tb_comentario`;
 CREATE TABLE `tb_comentario` (
   `id_comentario` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(11) NOT NULL,
-  `id_jogo` int(11) NOT NULL,
-  `nota` enum('1,2,3,4,5,6,7,8,9,10') NOT NULL,
+  `id_post` int(11) NOT NULL,
+  `resposta_id` int(11) DEFAULT NULL,
   `comentario` varchar(1000) NOT NULL,
   PRIMARY KEY (`id_comentario`),
-  KEY `id_usuario` (`id_usuario`),
-  KEY `id_jogo` (`id_jogo`),
-  CONSTRAINT `tb_comentario_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`Id_usuario`),
-  CONSTRAINT `tb_comentario_ibfk_2` FOREIGN KEY (`id_jogo`) REFERENCES `tb_jogo` (`id_jogo`)
+  KEY `id_post` (`id_post`),
+  CONSTRAINT `tb_comentario_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `tb_post` (`id_post`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-DROP TABLE IF EXISTS `tb_foto`;
-CREATE TABLE `tb_foto` (
-  `id_foto` int(11) NOT NULL AUTO_INCREMENT,
-  `id_jogo` int(11) NOT NULL,
-  `arquivo_foto` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_foto`),
-  KEY `id_jogo` (`id_jogo`),
-  CONSTRAINT `tb_foto_ibfk_1` FOREIGN KEY (`id_jogo`) REFERENCES `tb_jogo` (`id_jogo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
-DROP TABLE IF EXISTS `tb_jogo`;
-CREATE TABLE `tb_jogo` (
-  `id_jogo` int(11) NOT NULL AUTO_INCREMENT,
-  `preco_jogo` int(11) NOT NULL,
-  `desconto` float NOT NULL,
-  `titulo_jogo` varchar(30) NOT NULL,
-  `capa_jogo` varchar(100) NOT NULL,
+DROP TABLE IF EXISTS `tb_filtro`;
+CREATE TABLE `tb_filtro` (
+  `id_filtro` int(11) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(11) NOT NULL,
-  `data_lancamento` date NOT NULL,
-  `genero` varchar(30) NOT NULL,
-  `descricao` varchar(6000) NOT NULL,
-  PRIMARY KEY (`id_jogo`),
+  `filtro` enum('linguagem,matematica') NOT NULL,
+  PRIMARY KEY (`id_filtro`),
   KEY `id_usuario` (`id_usuario`),
-  CONSTRAINT `tb_jogo_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`Id_usuario`)
+  CONSTRAINT `tb_filtro_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`id_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+DROP TABLE IF EXISTS `tb_midia`;
+CREATE TABLE `tb_midia` (
+  `id_midia` int(11) NOT NULL AUTO_INCREMENT,
+  `id_post` int(11) NOT NULL,
+  `midia` varchar(1000) NOT NULL,
+  PRIMARY KEY (`id_midia`),
+  KEY `id_post` (`id_post`),
+  CONSTRAINT `tb_midia_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `tb_post` (`id_post`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+DROP TABLE IF EXISTS `tb_post`;
+CREATE TABLE `tb_post` (
+  `id_post` int(11) NOT NULL AUTO_INCREMENT,
+  `legenda` varchar(1000) NOT NULL,
+  `curtida` int(11) NOT NULL,
+  `data_postagem` date NOT NULL,
+  `filtro` enum('liguagem,matematica') NOT NULL,
+  PRIMARY KEY (`id_post`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 DROP TABLE IF EXISTS `tb_usuario`;
 CREATE TABLE `tb_usuario` (
-  `Id_usuario` int(11) NOT NULL AUTO_INCREMENT,
-  `idade_usuario` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
   `nome_usuario` varchar(30) NOT NULL,
   `senha_usuario` varchar(30) NOT NULL,
   `email_usuario` varchar(30) NOT NULL,
-  `cpf` varchar(11) NOT NULL,
-  `tipo` char(1) NOT NULL,
-  PRIMARY KEY (`Id_usuario`)
+  `certificado` varchar(100) DEFAULT NULL,
+  `tipo` varchar(1) NOT NULL,
+  PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
-DROP TABLE IF EXISTS `tb_venda`;
-CREATE TABLE `tb_venda` (
-  `id_venda` int(11) NOT NULL AUTO_INCREMENT,
-  `id_usuario` int(11) NOT NULL,
-  `id_jogo` int(11) NOT NULL,
-  `data_compra` date NOT NULL,
-  PRIMARY KEY (`id_venda`),
-  KEY `id_usuario` (`id_usuario`),
-  KEY `id_jogo` (`id_jogo`),
-  CONSTRAINT `tb_venda_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`Id_usuario`),
-  CONSTRAINT `tb_venda_ibfk_2` FOREIGN KEY (`id_jogo`) REFERENCES `tb_jogo` (`id_jogo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
--- 2024-06-20 11:32:13
+-- 2024-07-01 10:56:51
