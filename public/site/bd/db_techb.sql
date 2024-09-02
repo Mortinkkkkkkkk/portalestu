@@ -7,9 +7,9 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 SET NAMES utf8mb4;
 
-DROP DATABASE IF EXISTS `bd_estudatil`;
-CREATE DATABASE `bd_estudatil` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `bd_estudatil`;
+DROP DATABASE IF EXISTS `bd_estudantil`;
+CREATE DATABASE `bd_estudantil` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `bd_estudantil`;
 
 DROP TABLE IF EXISTS `tb_comentario`;
 CREATE TABLE `tb_comentario` (
