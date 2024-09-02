@@ -8,6 +8,11 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .post{
+            border: 2px black solid;
+        }
+    </style>
 </head>
 <body>
     <h1>universo estudantil</h1>
@@ -27,7 +32,7 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
                     $midia = bdcompleto($conexao,$sqlimg);
                     while ($img = mysqli_fetch_array($midia)){
                         ?>
-                        <img src="<?php echo $img['midia'];?>" alt="imagine uma">
+                        <img src="/assets/img/<?php echo $img['midia'];?>" alt="imagine uma">
                         <?php
                     }
                     $legenda = $row['legenda'];
@@ -38,6 +43,7 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
                     <p><? echo $datapostagem; ?></p>
                     <p><? echo $filtro; ?></p>
 
+                    </div>
                     <?php
 
                 }
@@ -47,7 +53,6 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
         
         ?>
 
-        </div>
     </div>
 
 </body>
