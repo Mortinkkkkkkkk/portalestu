@@ -42,7 +42,23 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
                     <p><? echo $legenda; ?></p>
                     <p><? echo $datapostagem; ?></p>
                     <p><? echo $filtro; ?></p>
-
+                    <?php
+                        $sql_comenta = "SELECT * FROM tb_comentario WHERE id_post = $idpost";
+                        $result_comenta = bdcompleto($conexao,$sql_comenta);
+                        if (mysqli_num_rows($result_comenta) > 0) {
+                            while ($row_coment = mysqli_fetch_array($result_comenta)){
+                                $comentario = $row_coment["comentario"];
+                                echo $comentario;
+                            }
+                        } else {
+                            echo "nenhum comentario";
+                        }
+                    ?>
+                    <form action="/controle/controle_comentario.php">
+                        <label for="comentario">Comente:</label>
+                        <input type="text">
+                        <input type="submit" value="enviar">
+                    </form>
                     </div>
                     <?php
 
