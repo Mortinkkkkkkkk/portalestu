@@ -1,3 +1,7 @@
+<?php
+include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +10,6 @@
     <title>Document</title>
 </head>
 <body>
-    teste
-    
+
 </body>
 </html>
