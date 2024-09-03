@@ -69,3 +69,21 @@ CREATE TABLE `tb_usuario` (
 
 
 -- 2024-07-01 10:56:51
+INSERT INTO tb_post (legenda, data_postagem, filtro)
+VALUES ('Exploração de novos conceitos em linguagens de programação', '2024-09-01', 'linguagem');
+
+-- Inserção 2
+INSERT INTO tb_post (legenda, data_postagem, filtro)
+VALUES ('Como resolver equações quadráticas de maneira eficiente', '2024-09-02', 'matematica');
+
+-- Inserção 3
+INSERT INTO tb_post (legenda, data_postagem, filtro)
+VALUES ('Análise crítica da história moderna', '2024-09-03', 'ciencias humanas');
+
+-- Inserção 4
+INSERT INTO tb_post (legenda, data_postagem, filtro)
+VALUES ('O impacto das mudanças climáticas na biodiversidade', '2024-09-04', 'ciencias naturais');
+
+-- Inserção 5
+INSERT INTO tb_post (legenda, data_postagem, filtro)
+VALUES ('Dicas para melhorar a estrutura da redação', '2024-09-05', 'redacao');

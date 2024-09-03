@@ -12,6 +12,9 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
         .post{
             border: 2px black solid;
         }
+        .comentario{
+            border: 2px red dotted;
+        }
     </style>
 </head>
 <body>
@@ -21,6 +24,7 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
 
     <h3>posts:</h3>
     <div class="container-posts">
+        <p>Criar um <a href="form_post.html">Post</a></p>
         <?php
             $sql = "SELECT * FROM tb_post";
             $result = bdcompleto($conexao,$sql);
@@ -48,15 +52,29 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
                         if (mysqli_num_rows($result_comenta) > 0) {
                             while ($row_coment = mysqli_fetch_array($result_comenta)){
                                 $comentario = $row_coment["comentario"];
-                                echo $comentario;
+                                $id_comentario = $row_coment["id_comentario"];
+                                $resposta = $row_coment["resposta_id"];
+                                ?><div class="comentario"><p><?php
+                                if ($resposta != null) {
+                                    echo ">";
+                                }
+                                echo $comentario;?></p></div>
+                                <form action="controle/controle_comentario.php?case=comentario" method="post">
+                                    <input type="text" name="resposta">
+                                    <input type="hidden" name=" id_comentario" value="<?echo $id_comentario;?>">
+                                    <input type="hidden" name="id_post" value="<?echo $idpost;?>">
+                                    <input type="submit" value="responder">
+                                </form>
+                                <?php
                             }
                         } else {
                             echo "nenhum comentario";
                         }
                     ?>
-                    <form action="/controle/controle_comentario.php">
+                    <form action="/controle/controle_comentario.php?case=post" method="post">
                         <label for="comentario">Comente:</label>
-                        <input type="text">
+                        <input type="text" name="comentario">
+                        <input type="hidden" name="id_post" value="<?echo $idpost?>">
                         <input type="submit" value="enviar">
                     </form>
                     </div>
