@@ -27,18 +27,18 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
         <p>Criar um <a href="form_post.html">Post</a></p>
         <?php
             $sql = "SELECT * FROM tb_post";
-            $result = bdcompleto($conexao,$sql);
-            if (mysqli_num_rows($result) > 0) {
+            $result = selectSql($sql,'',['idpost','curtida','legenda','datapostagem','filtro']);
+            print_r($result);
                 while ($row = mysqli_fetch_array($result)) {
                     echo "<div class='post'>";
                     $idpost = $row['id_post'];
-                    $sqlimg = "SELECT midia FROM tb_midia WHERE id_post = $idpost";
-                    $midia = bdcompleto($conexao,$sqlimg);
+                    $sqlimg = "SELECT midia FROM tb_midia WHERE id_post = ?";
+                    $midia = selectSql($sqlimg,"i",$idpost);
                     while ($img = mysqli_fetch_array($midia)){
                         ?>
                         <img src="/assets/img/<?php echo $img['midia'];?>" alt="imagine uma">
                         <?php
-                    }
+                    };
                     $legenda = $row['legenda'];
                     $datapostagem = $row['data_postagem'];
                     $filtro = $row['filtro'];
@@ -47,8 +47,8 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
                     <p><? echo $datapostagem; ?></p>
                     <p><? echo $filtro; ?></p>
                     <?php
-                        $sql_comenta = "SELECT * FROM tb_comentario WHERE id_post = $idpost";
-                        $result_comenta = bdcompleto($conexao,$sql_comenta);
+                        $sql_comenta = "SELECT * FROM tb_comentario WHERE id_post = ?";
+                        $result_comenta = selectSql($sql_comenta,"i",$idpost);
                         if (mysqli_num_rows($result_comenta) > 0) {
                             while ($row_coment = mysqli_fetch_array($result_comenta)){
                                 $comentario = $row_coment["comentario"];
@@ -57,7 +57,7 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
                                 ?><div class="comentario"><p><?php
                                 if ($resposta != null) {
                                     echo ">";
-                                }
+                                };
                                 echo $comentario;?></p></div>
                                 <form action="controle/controle_comentario.php?case=comentario" method="post">
                                     <input type="text" name="resposta">
@@ -66,10 +66,10 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
                                     <input type="submit" value="responder">
                                 </form>
                                 <?php
-                            }
+                            };
                         } else {
                             echo "nenhum comentario";
-                        }
+                        };
                     ?>
                     <form action="/controle/controle_comentario.php?case=post" method="post">
                         <label for="comentario">Comente:</label>
@@ -81,7 +81,6 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
                     <?php
 
                 }
-            }
 
         
         
