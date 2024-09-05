@@ -3,6 +3,7 @@
     $case = $_REQUEST['case'];
     switch ($case) {
         case 'cadastro':
+            $conexao = conectarDB();
             $img = $_REQUEST['imagem'];
             $legenda = $_REQUEST['legenda'];
             $data_postagem = $_REQUEST['datapostagem'];
