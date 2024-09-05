@@ -28,7 +28,7 @@
             $result = [];
             if (mysqli_stmt_num_rows($stmt) > 0){
                 while (mysqli_stmt_fetch($stmt)){
-                    $result = [...$dados];
+                    $result[] = [...$dados];
                 }
             }
             mysqli_stmt_close($stmt);
