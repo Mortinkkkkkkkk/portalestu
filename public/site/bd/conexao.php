@@ -15,35 +15,21 @@
 
         mysqli_stmt_execute($stmt);
 
-        return $result;
         mysqli_stmt_close($stmt);
+        
+        return $result;
     }   
-    function selectSql($sql,$tipos,$dados){
+
+    function selectIdSql($sql,$id) {
         $conexao = conectarDB();
         $stmt = mysqli_prepare($conexao,$sql);
-        if ($tipos === '') {
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_bind_result($stmt, ...$dados);
-            mysqli_stmt_store_result($stmt);
-            $result = [];
-            if (mysqli_stmt_num_rows($stmt) > 0){
-                while (mysqli_stmt_fetch($stmt)){
-                    $result[] = [...$dados];
-                }
-            }
-            mysqli_stmt_close($stmt);
-            return $result;
-        } else {
-            $stmt = mysqli_prepare($conexao,$sql);
-            mysqli_stmt_bind_param($stmt,$tipos,...$dados);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_bind_result($stmt, ...$dados);
-            if (mysqli_stmt_fetch($stmt)){
-                return $dados;
-            }
-            mysqli_stmt_close($stmt);
+        mysqli_stmt_bind_param($stmt,'i',$idpost);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $dado);
+        mysqli_stmt_store_result($stmt);
+        $lista = [];
+        while (mysqli_stmt_fetch($stmt)){
+            $lista[] = [$dado];
         }
-
-
     }
 ?>

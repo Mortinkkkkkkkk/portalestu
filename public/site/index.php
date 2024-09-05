@@ -27,18 +27,24 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
         <p>Criar um <a href="form_post.html">Post</a></p>
         <?php
             $sql = "SELECT * FROM tb_post";
-            $result = selectSql($sql,'',['idpost','curtida','legenda','datapostagem','filtro']);
-            print_r($result);
+            $conexao = conectarDB()
+            $result = mysqli_query(conectarDB(),$sql);
                 while ($row = mysqli_fetch_array($result)) {
                     echo "<div class='post'>";
                     $idpost = $row['id_post'];
-                    $sqlimg = "SELECT midia FROM tb_midia WHERE id_post = ?";
-                    $midia = selectSql($sqlimg,"i",$idpost);
-                    while ($img = mysqli_fetch_array($midia)){
+                    $sqlimg = "SELECT  midia FROM tb_midia WHERE id_post= ?";
+                    $stmt_img = mysqli_prepare($conexao,$sqlimg);
+                    mysqli_stmt_bind_param($stmt_img,'i',$idpost);
+                    mysqli_stmt_execute($stmt_img);
+                    mysqli_stmt_bind_result($stmt_img, $img);
+                    mysqli_stmt_store_result($stmt_img);
+                    $midia = [];
+                    while (mysqli_stmt_fetch($stmt_img)){
+                        $midia[] = [$img];
+                    }
                         ?>
-                        <img src="/assets/img/<?php echo $img['midia'];?>" alt="imagine uma">
+                        <img src="/assets/img/<?php echo $img;?>" alt="imagine uma">
                         <?php
-                    };
                     $legenda = $row['legenda'];
                     $datapostagem = $row['data_postagem'];
                     $filtro = $row['filtro'];
@@ -48,7 +54,7 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
                     <p><? echo $filtro; ?></p>
                     <?php
                         $sql_comenta = "SELECT * FROM tb_comentario WHERE id_post = ?";
-                        $result_comenta = selectSql($sql_comenta,"i",$idpost);
+                        $result_comenta = selectIdSql($sql_comenta,$idpost);
                         if (mysqli_num_rows($result_comenta) > 0) {
                             while ($row_coment = mysqli_fetch_array($result_comenta)){
                                 $comentario = $row_coment["comentario"];
