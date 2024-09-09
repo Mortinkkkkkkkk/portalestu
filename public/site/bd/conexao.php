@@ -20,16 +20,5 @@
         return $result;
     }   
 
-    function selectIdSql($sql,$id) {
-        $conexao = conectarDB();
-        $stmt = mysqli_prepare($conexao,$sql);
-        mysqli_stmt_bind_param($stmt,'i',$idpost);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_bind_result($stmt, $dado);
-        mysqli_stmt_store_result($stmt);
-        $lista = [];
-        while (mysqli_stmt_fetch($stmt)){
-            $lista[] = [$dado];
-        }
-    }
+
 ?>

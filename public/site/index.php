@@ -21,13 +21,14 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
     <h1>universo estudantil</h1>
     <h3>usuario:</h3>
     <p>criacao e lista de <a href="usuario.php">usuario</a></p>
-
+    <p>hora agora</p>
+    <?echo date("y-m-d h:i:s");?>
     <h3>posts:</h3>
     <div class="container-posts">
         <p>Criar um <a href="form_post.html">Post</a></p>
         <?php
             $sql = "SELECT * FROM tb_post";
-            $conexao = conectarDB()
+            $conexao = conectarDB();
             $result = mysqli_query(conectarDB(),$sql);
                 while ($row = mysqli_fetch_array($result)) {
                     echo "<div class='post'>";
@@ -41,25 +42,30 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
                     $midia = [];
                     while (mysqli_stmt_fetch($stmt_img)){
                         $midia[] = [$img];
-                    }
                         ?>
                         <img src="/assets/img/<?php echo $img;?>" alt="imagine uma">
                         <?php
+                    }
                     $legenda = $row['legenda'];
                     $datapostagem = $row['data_postagem'];
                     $filtro = $row['filtro'];
+                    mysqli_stmt_close($stmt_img);
                     ?>
                     <p><? echo $legenda; ?></p>
                     <p><? echo $datapostagem; ?></p>
                     <p><? echo $filtro; ?></p>
                     <?php
-                        $sql_comenta = "SELECT * FROM tb_comentario WHERE id_post = ?";
-                        $result_comenta = selectIdSql($sql_comenta,$idpost);
-                        if (mysqli_num_rows($result_comenta) > 0) {
-                            while ($row_coment = mysqli_fetch_array($result_comenta)){
-                                $comentario = $row_coment["comentario"];
-                                $id_comentario = $row_coment["id_comentario"];
-                                $resposta = $row_coment["resposta_id"];
+                        $sql_coment = "SELECT comentario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ?";
+                        $stmt_coment = mysqli_prepare($conexao,$sql_coment);
+                        mysqli_stmt_bind_param($stmt_coment,'i',$idpost);
+                        mysqli_stmt_execute($stmt_coment);
+                        mysqli_stmt_bind_result($stmt_coment, $coment, $id_coment, $respostastmt);
+                        mysqli_stmt_store_result($stmt_coment);
+                        if (mysqli_stmt_num_rows($stmt_coment) > 0) {
+                            while (mysqli_stmt_fetch($stmt_coment)){
+                                $comentario = $coment;
+                                $id_comentario = $id_coment;
+                                $resposta = $respostastmt;
                                 ?><div class="comentario"><p><?php
                                 if ($resposta != null) {
                                     echo ">";
@@ -76,6 +82,7 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
                         } else {
                             echo "nenhum comentario";
                         };
+                        mysqli_stmt_close($stmt_coment);
                     ?>
                     <form action="/controle/controle_comentario.php?case=post" method="post">
                         <label for="comentario">Comente:</label>

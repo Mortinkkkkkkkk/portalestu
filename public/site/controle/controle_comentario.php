@@ -1,6 +1,7 @@
 <?php
     include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
     $case = $_REQUEST['case'];
+    $conexao = conectarDB();
     switch ($case) {
         case 'post': 
             $id_post = $_REQUEST['id_post'];
@@ -13,7 +14,7 @@
             header("location: ../index.php");
             exit();
             break;
-        
+            
         case 'comentario':
             $id_post = $_REQUEST['id_post'];
             $id_comentario = $_REQUEST['id_comentario'];

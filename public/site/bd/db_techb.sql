@@ -1,4 +1,4 @@
--- Adminer 4.8.1 MySQL 5.5.5-10.5.23-MariaDB-1:10.5.23+maria~ubu2004 dump
+-- Adminer 4.8.1 MySQL 5.5.5-10.5.24-MariaDB-1:10.5.24+maria~ubu2004 dump
 
 SET NAMES utf8;
 SET time_zone = '+00:00';
@@ -7,9 +7,9 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 SET NAMES utf8mb4;
 
-DROP DATABASE IF EXISTS `bd_estudantil`;
-CREATE DATABASE `bd_estudantil` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `bd_estudantil`;
+DROP DATABASE IF EXISTS `bd_estudatil`;
+CREATE DATABASE `bd_estudatil` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
+USE `bd_estudatil`;
 
 DROP TABLE IF EXISTS `tb_comentario`;
 CREATE TABLE `tb_comentario` (
@@ -22,6 +22,14 @@ CREATE TABLE `tb_comentario` (
   CONSTRAINT `tb_comentario_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `tb_post` (`id_post`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO `tb_comentario` (`id_comentario`, `id_post`, `resposta_id`, `comentario`) VALUES
+(1,	1,	NULL,	'testettetete'),
+(2,	1,	NULL,	'tetststste'),
+(3,	1,	NULL,	'omaga'),
+(4,	1,	NULL,	'omg'),
+(5,	2,	NULL,	''),
+(6,	1,	1,	'resposta'),
+(7,	10,	NULL,	'ttt');
 
 DROP TABLE IF EXISTS `tb_filtro`;
 CREATE TABLE `tb_filtro` (
@@ -44,17 +52,33 @@ CREATE TABLE `tb_midia` (
   CONSTRAINT `tb_midia_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `tb_post` (`id_post`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO `tb_midia` (`id_midia`, `id_post`, `midia`) VALUES
+(6,	1,	'matematica.jpeg'),
+(7,	2,	'quimic.jpeg'),
+(8,	3,	'redacao.jpeg'),
+(9,	4,	'images.png'),
+(10,	5,	'imagem2.png'),
+(11,	4,	'redacao.jpeg'),
+(12,	10,	'golden.jpeg');
 
 DROP TABLE IF EXISTS `tb_post`;
 CREATE TABLE `tb_post` (
   `id_post` int(11) NOT NULL AUTO_INCREMENT,
   `legenda` varchar(1000) NOT NULL,
-  `curtida` int(11) NOT NULL,
-  `data_postagem` date NOT NULL,
-  `filtro` enum('liguagem,matematica') NOT NULL,
+  `data_postagem` datetime NOT NULL,
+  `filtro` enum('liguagem','matematica','ciencias naturais','ciencia humanas','redacao') NOT NULL,
   PRIMARY KEY (`id_post`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO `tb_post` (`id_post`, `legenda`, `data_postagem`, `filtro`) VALUES
+(1,	'Este é um post sobre matemática',	'2024-09-01 00:00:00',	'matematica'),
+(2,	'Descubra os fundamentos das ciências naturais',	'2024-09-02 00:00:00',	'ciencias naturais'),
+(3,	'Como dominar a redação de forma eficaz',	'2024-09-03 00:00:00',	'redacao'),
+(4,	'Explorando os conceitos básicos de linguagens',	'2024-09-04 00:00:00',	'liguagem'),
+(5,	'top 10 sociologos da atualidade',	'2024-09-02 00:00:00',	'ciencia humanas'),
+(8,	'post teste',	'2444-09-09 00:00:00',	'matematica'),
+(9,	'post teste',	'2444-09-09 00:00:00',	'matematica'),
+(10,	'post teste',	'2311-02-12 00:00:00',	'matematica');
 
 DROP TABLE IF EXISTS `tb_usuario`;
 CREATE TABLE `tb_usuario` (
@@ -68,22 +92,4 @@ CREATE TABLE `tb_usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
--- 2024-07-01 10:56:51
-INSERT INTO tb_post (legenda, data_postagem, filtro)
-VALUES ('Exploração de novos conceitos em linguagens de programação', '2024-09-01', 'linguagem');
-
--- Inserção 2
-INSERT INTO tb_post (legenda, data_postagem, filtro)
-VALUES ('Como resolver equações quadráticas de maneira eficiente', '2024-09-02', 'matematica');
-
--- Inserção 3
-INSERT INTO tb_post (legenda, data_postagem, filtro)
-VALUES ('Análise crítica da história moderna', '2024-09-03', 'ciencias humanas');
-
--- Inserção 4
-INSERT INTO tb_post (legenda, data_postagem, filtro)
-VALUES ('O impacto das mudanças climáticas na biodiversidade', '2024-09-04', 'ciencias naturais');
-
--- Inserção 5
-INSERT INTO tb_post (legenda, data_postagem, filtro)
-VALUES ('Dicas para melhorar a estrutura da redação', '2024-09-05', 'redacao');
+-- 2024-09-09 13:48:12
