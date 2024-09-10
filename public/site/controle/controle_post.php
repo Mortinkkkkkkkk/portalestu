@@ -15,15 +15,14 @@
             //select do post
             if ($resultado) {
                 $sql_slct_post = "SELECT id_post FROM tb_post WHERE data_postagem = ? ";
-                $stmt_slct_post = mysqli_prepare($conexao,$sql_slct_post);
-                mysqli_stmt_bind_param($stmt_slct_post,'s',$data_postagem);
-                mysqli_stmt_execute($stmt_slct_post);
-                mysqli_stmt_bind_result($stmt_slct_post, $id_post);
-                mysqli_stmt_store_result($stmt_slct_post);
-                //cadastro da img
-                while (mysqli_stmt_fetch($stmt_slct_post)){
-                    $idpost = $id_post;
+                $select = executaSql($sql_slct_post,'s',$data_postagem);
+                if (sizeof($select[1]) > 0) {
+                    foreach ($select[1] as $row) {
+                        $idpost = $row["id_post"];
+                    }
                 }
+                
+                //cadastro da img
                 $sql_cad_img = "INSERT INTO tb_midia (midia, id_post) VALUES (?, ?) ";
                 $result_img = executaSql($sql_cad_img,'si',[$img,$idpost]);
                 if (!$result_img){

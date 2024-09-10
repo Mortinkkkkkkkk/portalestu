@@ -15,9 +15,38 @@
 
         mysqli_stmt_execute($stmt);
 
+        //select
+        if ($sql[0] == 'S') {
+           $resultados = mysqli_stmt_get_result($stmt);
+           if ($resultados) {
+                $resultados = mysqli_fetch_all($resultados, MYSQLI_ASSOC);
+           }
+           return [$result, $resultados];
+        }
+
         mysqli_stmt_close($stmt);
         
         return $result;
+    }   
+
+    function SelectallSql($sql){
+        $conexao = conectarDB();
+
+        $stmt = mysqli_prepare($conexao,$sql);
+
+        mysqli_stmt_execute($stmt);
+
+        //select
+        if ($sql[0] == 'S') {
+           $resultados = mysqli_stmt_get_result($stmt);
+           if ($resultados) {
+                $resultados = mysqli_fetch_all($resultados, MYSQLI_ASSOC);
+           }
+           return $resultados;
+        }
+
+        mysqli_stmt_close($stmt);
+        
     }   
 
 
