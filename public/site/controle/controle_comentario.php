@@ -3,30 +3,32 @@
     $case = $_REQUEST['case'];
     $conexao = conectarDB();
     switch ($case) {
-        case 'post': 
+        case 'post':
+            $iduser = $_REQUEST['id_user']; 
             $id_post = $_REQUEST['id_post'];
             $comentario = $_REQUEST['comentario'];
-            $sql = "INSERT INTO tb_comentario (id_post,comentario) VALUES (?, ?)";
-            $stmt = mysqli_prepare($conexao,$sql);
-            mysqli_stmt_bind_param($stmt, "is", $id_post, $comentario);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-            header("location: ../index.php");
-            exit();
+            $sql = "INSERT INTO tb_comentario (id_post,id_usuario,comentario) VALUES (?, ?, ?)";
+            executaSql($sql,'iis',[$id_post, $iduser, $comentario]);
+            
+            echo " <script>
+                    window.location.href='/index.php';
+                </script> ";
+            
             break;
             
         case 'comentario':
+            $iduser = $_REQUEST['id_user'];
             $id_post = $_REQUEST['id_post'];
             $id_comentario = $_REQUEST['id_comentario'];
             $comentario = $_REQUEST['resposta'];
 
-            $sql = "INSERT INTO tb_comentario (id_post,resposta_id ,comentario) VALUES (?, ?,?)";
-            $stmt = mysqli_prepare($conexao,$sql);
-            mysqli_stmt_bind_param($stmt, "iis", $id_post,$id_comentario,$comentario);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-            header("location: ../index.php");
-            exit();            
+            $sql = "INSERT INTO tb_comentario (id_post,id_usuario,resposta_id ,comentario) VALUES (?, ?, ?, ?)";
+            executaSql($sql,'iiis',[$id_post,$iduser,$id_comentario,$comentario]);
+            
+            echo " <script>
+                    window.location.href='/index.php';
+                </script> ";
+
             break;
 
     }

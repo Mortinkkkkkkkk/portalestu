@@ -1,7 +1,10 @@
 <?php 
-
 include_once ($_SERVER["DOCUMENT_ROOT"]."/bd/conexao.php");
-
+session_start();
+if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
+    $iduser = $_SESSION['id_usuario'];
+    $tipo = $_SESSION['tipo'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,8 +19,8 @@ include_once ($_SERVER["DOCUMENT_ROOT"]."/bd/conexao.php");
     
     <h3>Lista de usuario</h3>
     <?php 
-        $sql_list_user = "SELECT * FROM tb_usuario";
-        $result_list_user = SelectallSql($sql_list_user);
+        $sql_list_user = "SELECT * FROM tb_usuario WHERE tipo != ?";
+        $result_list_user = executaSql($sql_list_user,'s',[$tipo]);
         if (sizeof($result_list_user) > 0) {
                 ?>
                 <table>

@@ -1,5 +1,10 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
+session_start();
+if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
+    $iduser = $_SESSION['id_usuario'];
+    $tipo = $_SESSION['tipo'];
+}
 
 ?>
 <!DOCTYPE html>
@@ -19,6 +24,9 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
 </head>
 <body>
     <h1>universo estudantil</h1>
+    <?= $tipo;?>
+    <h3><a href="login.html">login</a></h3>
+    <h3><a href="/controle/controle_usuario.php?case=logout">Deslogin</a></h3>
     <h3>usuario:</h3>
     <p>criacao e lista de <a href="usuario.php">usuario</a></p>
     <p>hora agora</p>
@@ -60,11 +68,16 @@ include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
                                 if ($resposta != null) {
                                     echo ">";
                                 };
-                                echo $comentario;?></p></div>
+                                echo $comentario;?></p></div><?php
+                                if (!isset($iduser)){
+                                    $iduser = 1;
+                                }
+                                ?>
                                 <form action="controle/controle_comentario.php?case=comentario" method="post">
                                     <input type="text" name="resposta">
-                                    <input type="hidden" name=" id_comentario" value="<?echo $id_comentario;?>">
-                                    <input type="hidden" name="id_post" value="<?echo $idpost;?>">
+                                    <input type="hidden" name="id_user" value="<?= $iduser;?>">
+                                    <input type="hidden" name=" id_comentario" value="<?= $id_comentario;?>">
+                                    <input type="hidden" name="id_post" value="<?= $idpost;?>">
                                     <input type="submit" value="responder">
                                 </form>
                                 <?php

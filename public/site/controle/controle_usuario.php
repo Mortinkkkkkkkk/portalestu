@@ -1,6 +1,6 @@
 <?php
     include_once($_SERVER["DOCUMENT_ROOT"]."/bd/conexao.php");
-    $case = $_REQUEST['caso'];
+    $case = $_REQUEST['case'];
     switch ($case) {
         // usuario
         case 'userinsert':
@@ -50,6 +50,41 @@
                         window.location.href='/usuario.php';
                     </script>";
             }
+            break;
+        // login e logout
+        case 'login' :
+            session_start();
+            $email = $_REQUEST['email'];
+            $senha = $_REQUEST['senha'];
+            $sql = "SELECT `tipo`, `id_usuario` FROM `tb_usuario` WHERE `senha_usuario` = ? AND `email_usuario` = ? ";
+            $result = executaSql($sql,'ss',[$senha, $email]);
+            if (sizeof($result[1]) > 0) {
+                foreach ($result[1] as $row) {
+                    $tipo = $row['tipo'];
+                    $id = $row['id_usuario'];
+                }
+                $_SESSION['tipo'] = $tipo;
+                $_SESSION['id_usuario'] = $id;
+                echo "<script>
+                    window.alert('Logado >:P')
+                    window.location.href='/index.php';
+                </script>";
+            } else {
+                echo "<script>
+                    window.alert('Deu errado')
+                    window.location.href='/login.html';
+                </script>";
+            }
+            break;
+        case 'logout':
+            session_start();
+            session_destroy();
+            echo "<script>
+                    window.alert('Deslogado :P')
+                    window.location.href='/login.html';
+                </script>";
+            break;
+
 
 
 

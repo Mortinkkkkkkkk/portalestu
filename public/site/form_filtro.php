@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Selecione 3 filtros</h1>
-    <form action="/controle/controle_usuario.php?caso=filterinsert" method="post">
+    <form action="/controle/controle_usuario.php?case=filterinsert" method="post">
         <label for="flt1">Filtro 1</label>
         <select name="flt1" id="filtro">
             <option value="linguagem">Linguagem</option>
