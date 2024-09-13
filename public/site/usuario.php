@@ -19,8 +19,8 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
     
     <h3>Lista de usuario</h3>
     <?php 
-        $sql_list_user = "SELECT * FROM tb_usuario WHERE tipo != ?";
-        $result_list_user = executaSql($sql_list_user,'s',[$tipo]);
+        $sql_list_user = "SELECT * FROM tb_usuario WHERE tipo != 'U'";
+        $result_list_user = SelectallSql($sql_list_user);
         if (sizeof($result_list_user) > 0) {
                 ?>
                 <table>

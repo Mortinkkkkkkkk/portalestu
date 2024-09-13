@@ -1,4 +1,4 @@
--- Adminer 4.8.1 MySQL 5.5.5-10.5.24-MariaDB-1:10.5.24+maria~ubu2004 dump
+-- Adminer 4.8.1 MySQL 5.5.5-10.5.26-MariaDB-ubu2004 dump
 
 SET NAMES utf8;
 SET time_zone = '+00:00';
@@ -15,32 +15,31 @@ DROP TABLE IF EXISTS `tb_comentario`;
 CREATE TABLE `tb_comentario` (
   `id_comentario` int(11) NOT NULL AUTO_INCREMENT,
   `id_post` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
   `resposta_id` int(11) DEFAULT NULL,
   `comentario` varchar(1000) NOT NULL,
   PRIMARY KEY (`id_comentario`),
   KEY `id_post` (`id_post`),
-  CONSTRAINT `tb_comentario_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `tb_post` (`id_post`)
+  KEY `id_usuario` (`id_usuario`),
+  CONSTRAINT `tb_comentario_ibfk_3` FOREIGN KEY (`id_post`) REFERENCES `tb_post` (`id_post`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `tb_comentario_ibfk_4` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `tb_comentario` (`id_comentario`, `id_post`, `resposta_id`, `comentario`) VALUES
-(1,	1,	NULL,	'testettetete'),
-(2,	1,	NULL,	'tetststste'),
-(3,	1,	NULL,	'omaga'),
-(4,	1,	NULL,	'omg'),
-(5,	2,	NULL,	''),
-(6,	1,	1,	'resposta'),
-(7,	10,	NULL,	'ttt');
 
 DROP TABLE IF EXISTS `tb_filtro`;
 CREATE TABLE `tb_filtro` (
   `id_filtro` int(11) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(11) NOT NULL,
-  `filtro` enum('linguagem,matematica') NOT NULL,
+  `filtro` enum('liguagem','matematica','ciencias naturais','ciencia humanas','redacao') NOT NULL,
   PRIMARY KEY (`id_filtro`),
   KEY `id_usuario` (`id_usuario`),
-  CONSTRAINT `tb_filtro_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`id_usuario`)
+  CONSTRAINT `tb_filtro_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO `tb_filtro` (`id_filtro`, `id_usuario`, `filtro`) VALUES
+(1,	2,	'redacao'),
+(2,	2,	'ciencia humanas'),
+(3,	2,	'matematica');
 
 DROP TABLE IF EXISTS `tb_midia`;
 CREATE TABLE `tb_midia` (
@@ -49,36 +48,26 @@ CREATE TABLE `tb_midia` (
   `midia` varchar(1000) NOT NULL,
   PRIMARY KEY (`id_midia`),
   KEY `id_post` (`id_post`),
-  CONSTRAINT `tb_midia_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `tb_post` (`id_post`)
+  CONSTRAINT `tb_midia_ibfk_2` FOREIGN KEY (`id_post`) REFERENCES `tb_post` (`id_post`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `tb_midia` (`id_midia`, `id_post`, `midia`) VALUES
-(6,	1,	'matematica.jpeg'),
-(7,	2,	'quimic.jpeg'),
-(8,	3,	'redacao.jpeg'),
-(9,	4,	'images.png'),
-(10,	5,	'imagem2.png'),
-(11,	4,	'redacao.jpeg'),
-(12,	10,	'golden.jpeg');
+(1,	2,	'imagem2.png');
 
 DROP TABLE IF EXISTS `tb_post`;
 CREATE TABLE `tb_post` (
   `id_post` int(11) NOT NULL AUTO_INCREMENT,
-  `legenda` varchar(1000) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `legenda` varchar(300) NOT NULL,
   `data_postagem` datetime NOT NULL,
   `filtro` enum('liguagem','matematica','ciencias naturais','ciencia humanas','redacao') NOT NULL,
-  PRIMARY KEY (`id_post`)
+  PRIMARY KEY (`id_post`),
+  KEY `id_usuario` (`id_usuario`),
+  CONSTRAINT `tb_post_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `tb_post` (`id_post`, `legenda`, `data_postagem`, `filtro`) VALUES
-(1,	'Este é um post sobre matemática',	'2024-09-01 00:00:00',	'matematica'),
-(2,	'Descubra os fundamentos das ciências naturais',	'2024-09-02 00:00:00',	'ciencias naturais'),
-(3,	'Como dominar a redação de forma eficaz',	'2024-09-03 00:00:00',	'redacao'),
-(4,	'Explorando os conceitos básicos de linguagens',	'2024-09-04 00:00:00',	'liguagem'),
-(5,	'top 10 sociologos da atualidade',	'2024-09-02 00:00:00',	'ciencia humanas'),
-(8,	'post teste',	'2444-09-09 00:00:00',	'matematica'),
-(9,	'post teste',	'2444-09-09 00:00:00',	'matematica'),
-(10,	'post teste',	'2311-02-12 00:00:00',	'matematica');
+INSERT INTO `tb_post` (`id_post`, `id_usuario`, `legenda`, `data_postagem`, `filtro`) VALUES
+(2,	2,	'mudeimesmo',	'2024-09-13 07:44:15',	'ciencias naturais');
 
 DROP TABLE IF EXISTS `tb_usuario`;
 CREATE TABLE `tb_usuario` (
@@ -88,8 +77,12 @@ CREATE TABLE `tb_usuario` (
   `email_usuario` varchar(30) NOT NULL,
   `certificado` varchar(100) DEFAULT NULL,
   `tipo` varchar(1) NOT NULL,
+  `foto_usuario` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO `tb_usuario` (`id_usuario`, `nome_usuario`, `senha_usuario`, `email_usuario`, `certificado`, `tipo`, `foto_usuario`) VALUES
+(1,	'usuariofantasma',	'lIlIllI',	'qwerty@gami.com',	'MLBB',	'U',	NULL),
+(2,	'Aaaaa',	'aaaa',	'aaaa@gmail.com',	'aaaa',	'A',	NULL);
 
--- 2024-09-09 13:48:12
+-- 2024-09-13 19:49:50

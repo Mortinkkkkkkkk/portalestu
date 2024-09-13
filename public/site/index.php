@@ -33,13 +33,14 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
     <?echo date("y-m-d h:i:s");?>
     <h3>posts:</h3>
     <div class="container-posts">
-        <p>Criar um <a href="form_post.html">Post</a></p>
+        <p>Criar um <a href="form_post.php?case=insert">Post</a></p>
         <?php
             $sql = "SELECT * FROM tb_post";
             $conexao = conectarDB();
             $result = mysqli_query(conectarDB(),$sql);
                 while ($row = mysqli_fetch_array($result)) {
                     echo "<div class='post'>";
+                    $iduser_post = $row['id_usuario'];
                     $idpost = $row['id_post'];
                     $sqlimg = "SELECT  midia FROM tb_midia WHERE id_post= ?";
                     $midia = executaSql($sqlimg,'i',[$idpost]); 
@@ -92,6 +93,17 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
                         <input type="hidden" name="id_post" value="<?echo $idpost?>">
                         <input type="submit" value="enviar">
                     </form>
+                    <?php 
+                        // $iduser = id do usuario logado
+                        // $iduser_post = id do usaurio que postou
+                        if (isset($iduser)) {
+                            if ($iduser_post == $iduser) {
+                            ?>
+                            <p>Editar post: <a href="/controle/controle_post.php?case=delete&id=<?=$idpost?>">Deletar</a> <a href="form_post.php?case=update&id=<?=$idpost?>">Atualizar</a></p>
+                            <?php
+                        }
+                    }
+                    ?>
                     </div>
                     <?php
 
