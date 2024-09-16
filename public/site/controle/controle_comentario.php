@@ -4,11 +4,11 @@
     $conexao = conectarDB();
     switch ($case) {
         case 'post':
-            $iduser = $_REQUEST['id_user']; 
             $id_post = $_REQUEST['id_post'];
+            $id_user = $_REQUEST['id_user']; 
             $comentario = $_REQUEST['comentario'];
             $sql = "INSERT INTO tb_comentario (id_post,id_usuario,comentario) VALUES (?, ?, ?)";
-            executaSql($sql,'iis',[$id_post, $iduser, $comentario]);
+            executaSql($sql,'iis',[$id_post, $id_user, $comentario]);
             
             echo " <script>
                     window.location.href='/index.php';

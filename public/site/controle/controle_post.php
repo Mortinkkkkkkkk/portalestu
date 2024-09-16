@@ -49,7 +49,6 @@
                 $data_postagem = date("y-m-d h:i:s");
                 $legenda = $_REQUEST['legenda'];
                 $filtro = $_REQUEST['filtro'];
-                $img = $_REQUEST['img'];
                 $sql_upd_post = "UPDATE tb_post SET id_post = ?, id_usuario = ?, legenda = ?, data_postagem = ?, filtro = ?
                 WHERE id_post = ?;";
                 $result_upd_post = executaSql($sql_upd_post,'iisssi',[$idpost, $iduser, $legenda, $data_postagem, $filtro, $idpost]);

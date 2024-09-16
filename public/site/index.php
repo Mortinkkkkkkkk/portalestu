@@ -24,7 +24,6 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
 </head>
 <body>
     <h1>universo estudantil</h1>
-    <?= $tipo;?>
     <h3><a href="login.html">login</a></h3>
     <h3><a href="/controle/controle_usuario.php?case=logout">Deslogin</a></h3>
     <h3>usuario:</h3>
@@ -58,11 +57,12 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
                     <p><? echo $datapostagem; ?></p>
                     <p><? echo $filtro; ?></p>
                     <?php
-                        $sql_coment = "SELECT comentario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ?";
+                        $sql_coment = "SELECT comentario,id_usuario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ?";
                         $resultcoment = executaSql($sql_coment,'i',[$idpost]);
                         if (sizeof($resultcoment[1]) > 0) {
                             foreach ($resultcoment[1] as $listcoment){
                                 $comentario = $listcoment['comentario'];
+                                $iduser_coment = $listcoment['id_usuario'];
                                 $id_comentario = $listcoment['id_comentario'];
                                 $resposta = $listcoment['resposta_id'];
                                 ?><div class="comentario"><p><?php
@@ -70,14 +70,21 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
                                     echo ">";
                                 };
                                 echo $comentario;?></p></div><?php
-                                if (!isset($iduser)){
-                                    $iduser = 1;
+                                if (isset($_SESSION)) {
+                                    if (!isset($iduser)){
+                                        $iduser = 1;
+                                    }
+                                    if ($iduser == $iduser_coment && $iduser != 1) {
+                                        ?>
+                                            <p><a href="/controle/controle_comentario.php?case=deletar">DELETAR</a> COMENTARIO</p>
+                                        <?php
+                                    }
                                 }
                                 ?>
                                 <form action="controle/controle_comentario.php?case=comentario" method="post">
                                     <input type="text" name="resposta">
                                     <input type="hidden" name="id_user" value="<?= $iduser;?>">
-                                    <input type="hidden" name=" id_comentario" value="<?= $id_comentario;?>">
+                                    <input type="hidden" name="id_comentario" value="<?= $id_comentario;?>">
                                     <input type="hidden" name="id_post" value="<?= $idpost;?>">
                                     <input type="submit" value="responder">
                                 </form>
@@ -91,6 +98,7 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
                         <label for="comentario">Comente:</label>
                         <input type="text" name="comentario">
                         <input type="hidden" name="id_post" value="<?echo $idpost?>">
+                        <input type="hidden" name="id_user" value="<?= $iduser;?>">
                         <input type="submit" value="enviar">
                     </form>
                     <?php 
