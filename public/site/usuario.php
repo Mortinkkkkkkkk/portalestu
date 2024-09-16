@@ -1,7 +1,7 @@
 <?php 
 include_once ($_SERVER["DOCUMENT_ROOT"]."/bd/conexao.php");
 session_start();
-if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
+if (isset($_SESSION['id_usuario'])){
     $iduser = $_SESSION['id_usuario'];
     $tipo = $_SESSION['tipo'];
 }
@@ -29,12 +29,13 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
                             <td>Nome</td>
                             <td>Email</td>
                             <td>Certificado</td>
-                            <td>tipo</td>
+                            <td>Tipo</td>
+                            <td>Editar</td>
                         </tr>
                         <?php
             foreach ($result_list_user as $list_user){
                 ?>
-                    <tr>
+                    <>
                         <td><?= $list_user['nome_usuario']?></td>
                         <td><?= $list_user['email_usuario']?></td>
                         <td><?php 
@@ -52,6 +53,14 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
                                 echo "Professor";
                             }
                         ?></td>
+                        <?php
+                            $editar = $list_user["id_usuario"];
+                            if (isset($iduser)) {
+                                if ($iduser == $editar || $tipo == "X"){
+                                                                        
+                                }
+                            }
+                        ?>
                     </tr>
                 <?php
             }

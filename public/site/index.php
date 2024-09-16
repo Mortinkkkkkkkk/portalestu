@@ -76,7 +76,7 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
                                     }
                                     if ($iduser == $iduser_coment && $iduser != 1) {
                                         ?>
-                                            <p><a href="/controle/controle_comentario.php?case=deletar">DELETAR</a> COMENTARIO</p>
+                                            <p><a href="/controle/controle_comentario.php?case=deletar&id=<?=$id_comentario?>">DELETAR</a> COMENTARIO</p>
                                         <?php
                                     }
                                 }

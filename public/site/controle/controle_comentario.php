@@ -30,6 +30,14 @@
                 </script> ";
 
             break;
+        case 'deletar':
+            $id_comentario = $_REQUEST['id'];
+            $sql = "DELETE FROM tb_comentario WHERE id_comentario = ?";
+            executaSql($sql,'i',[$id_comentario]);
+            echo "<script>
+                    window.location.href='/index.php';
+                </script> ";
+            break;
 
     }
 
