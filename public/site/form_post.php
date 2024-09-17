@@ -19,7 +19,6 @@ switch ($case) {
         $result = executaSql($sql,'i',[$idpost]);
         foreach ($result[1] as $row) {
             $legenda = $row['legenda'];
-            $img = 'teste';
             $filtro = $row['filtro'];
         }
         $modo = 'update';

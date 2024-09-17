@@ -15,7 +15,7 @@ if (isset($_SESSION['id_usuario'])){
 </head>
 <body>
     <h1>Usuario</h1>
-    <h3>Cadastrar usuario <a href="form_usuario.html">+</a></h3>
+    <h3>Cadastrar usuario <a href="form_usuario.php?caso=insert">+</a></h3>
     
     <h3>Lista de usuario</h3>
     <?php 
@@ -35,7 +35,6 @@ if (isset($_SESSION['id_usuario'])){
                         <?php
             foreach ($result_list_user as $list_user){
                 ?>
-                    <>
                         <td><?= $list_user['nome_usuario']?></td>
                         <td><?= $list_user['email_usuario']?></td>
                         <td><?php 
@@ -57,7 +56,10 @@ if (isset($_SESSION['id_usuario'])){
                             $editar = $list_user["id_usuario"];
                             if (isset($iduser)) {
                                 if ($iduser == $editar || $tipo == "X"){
-                                                                        
+                                        ?>
+                                            <td><a href="form_usuario.php?caso=update&id=<?= $iduser?>">Editar</a></td>
+                                            <td><a href="/controle/controle_usuario.php?case=delete&id=<?= $iduser?>">Deletar</a></td>
+                                        <?php                                   
                                 }
                             }
                         ?>
