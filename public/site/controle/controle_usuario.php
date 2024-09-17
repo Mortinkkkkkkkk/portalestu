@@ -1,5 +1,6 @@
 <?php
     include_once($_SERVER["DOCUMENT_ROOT"]."/bd/conexao.php");
+    session_start();
     $case = $_REQUEST['case'];
     switch ($case) {
         // usuario
@@ -42,12 +43,29 @@
             $result = executaSql($sql,'isssssi',[$iduser,$nome,$senha,$email,$certificado,$tipo,$iduser]);
             if ($result) {
                 echo "<script>
-                        window.alert('Deu certo')
-                        window.location.href='/usuario.php';
+                        window.location.href='/form_filtro.php?case=update&id=$iduser';
                     </script>";
             } else {
                 echo "<script>
                         window.alert('Deu errado')
+                        window.location.href='/usuario.php';
+                    </script>";
+            }
+            break;
+        case 'delete':
+            $iduser = $_REQUEST['id'];
+            $sql = "DELETE FROM tb_usuario
+            WHERE id_usuario = ?";
+            executaSql($sql,'i',[$iduser]);
+            if ($tipo == 'X'){
+                echo "<script>
+                        window.alert('100% excluido')
+                        window.location.href='/usuario.php';
+                    </script>";
+            } else {
+                session_destroy();
+                echo "<script>
+                        window.alert('100% excluido')
                         window.location.href='/usuario.php';
                     </script>";
             }
@@ -73,6 +91,24 @@
                     </script>";
             }
             break;
+        case 'filterupdate':
+            $sql_slct_filtros = "SELECT id_filtro FROM tb_filtro WHERE id_usuario = ?";
+            $iduser = $_REQUEST['id'];
+            $result_slct = executaSql($sql_slct_filtros,'i',[$iduser]);
+            if (sizeof($result_slct[1]) > 0) {
+                $filtro1 = $_REQUEST['flt1'];
+                $filtro2 = $_REQUEST['flt2'];
+                $filtro3 = $_REQUEST['flt3'];
+                $filtros = [$filtro1,$filtro2,$filtro3];
+                $sql_upd_filtro = 'UPDATE tb_filtro SET id_filtro = ?, id_usuario = ?, filtro = ?
+                WHERE id_filtro = ?';
+                foreach ($result_slct[1] as $row) {
+                    $idfiltro = $row['id_filtro'];
+                    executaSql($sql_upd_filtro,'iisi',[$idfiltro,$iduser,$filtros,$idfiltro]);
+                }
+                
+            }
+
         // login e logout
         case 'login' :
             session_start();

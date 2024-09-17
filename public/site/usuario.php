@@ -3,7 +3,7 @@ include_once ($_SERVER["DOCUMENT_ROOT"]."/bd/conexao.php");
 session_start();
 if (isset($_SESSION['id_usuario'])){
     $iduser = $_SESSION['id_usuario'];
-    $tipo = $_SESSION['tipo'];
+    $tipologado = $_SESSION['tipo'];
 }
 ?>
 <!DOCTYPE html>
@@ -14,6 +14,7 @@ if (isset($_SESSION['id_usuario'])){
     <title>Document</title>
 </head>
 <body>
+    <h5><a href="index.php">index</a></h5>
     <h1>Usuario</h1>
     <h3>Cadastrar usuario <a href="form_usuario.php?caso=insert">+</a></h3>
     
@@ -53,12 +54,12 @@ if (isset($_SESSION['id_usuario'])){
                             }
                         ?></td>
                         <?php
-                            $editar = $list_user["id_usuario"];
+                            $ideditar = $list_user["id_usuario"];
                             if (isset($iduser)) {
-                                if ($iduser == $editar || $tipo == "X"){
+                                if ($iduser == $ideditar || $tipologado == "X"){
                                         ?>
-                                            <td><a href="form_usuario.php?caso=update&id=<?= $iduser?>">Editar</a></td>
-                                            <td><a href="/controle/controle_usuario.php?case=delete&id=<?= $iduser?>">Deletar</a></td>
+                                            <td><a href="form_usuario.php?caso=update&id=<?=$ideditar?>">Editar</a></td>
+                                            <td><a href="/controle/controle_usuario.php?case=delete&id=<?= $ideditar?>&tipo=<?=$tipo?>">Deletar</a></td>
                                         <?php                                   
                                 }
                             }
