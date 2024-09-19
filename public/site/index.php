@@ -46,7 +46,7 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
                     foreach ($midia[1] as $listimg) {
                         $img = $listimg['midia'];
                         ?>
-                        <img src="/assets/img/<?php echo $img;?>" alt="imagine uma">
+                        <img src="<?= $img;?>" alt="imagine uma">
                         <?php
                     }
                     $legenda = $row['legenda'];

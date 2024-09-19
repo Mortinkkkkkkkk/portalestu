@@ -6,7 +6,6 @@
         case 'cadastro':
             $iduser = $_SESSION['id_usuario'];
             $conexao = conectarDB();
-            $img = $_REQUEST['imagem'];
             $legenda = $_REQUEST['legenda'];
             $data_postagem = date("y-m-d h:i:s");
             $filtro = $_REQUEST["filtro"];
@@ -21,11 +20,16 @@
                     foreach ($select[1] as $row) {
                         $idpost = $row["id_post"];
                     }
-                }
+                }                
                 
-                //cadastro da img
+                $pasta ="/assets/img/";
+                $ext_img = "." . pathinfo($_FILES['img_post']['name'], PATHINFO_EXTENSION);
+                $nome_img = time() . md5(uniqid()) . rand(1,100);
+                $arq_img = $pasta . $nome_img . $ext_img;
+                 
+                 move_uploaded_file($_FILES['img_post']['tmp_name'], $arq_img);
                 $sql_cad_img = "INSERT INTO tb_midia (midia, id_post) VALUES (?, ?) ";
-                $result_img = executaSql($sql_cad_img,'si',[$img,$idpost]);
+                $result_img = executaSql($sql_cad_img,'si',[$arq_img,$idpost]);
                 if (!$result_img){
                    echo " <script>
                             window.alert('Erro no cadastro da img')
