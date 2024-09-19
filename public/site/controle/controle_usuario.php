@@ -21,7 +21,7 @@
                         $userid = $row["id_usuario"];
                     }
                     echo "<script>
-                    window.location.href='/form_filtro.php?id=$userid';
+                    window.location.href='/form_filtro.php?case=insert&id=$userid';
                     </script>";
                 }
             } else { 
@@ -102,12 +102,24 @@
                 $filtros = [$filtro1,$filtro2,$filtro3];
                 $sql_upd_filtro = 'UPDATE tb_filtro SET id_filtro = ?, id_usuario = ?, filtro = ?
                 WHERE id_filtro = ?';
+                $num = 0;
                 foreach ($result_slct[1] as $row) {
                     $idfiltro = $row['id_filtro'];
-                    executaSql($sql_upd_filtro,'iisi',[$idfiltro,$iduser,$filtros,$idfiltro]);
+                    executaSql($sql_upd_filtro,'iisi',[$idfiltro,$iduser,$filtros[$num],$idfiltro]);
+                    $num += 1;
                 }
-                
-            }
+                echo "<script>
+                        window.alert('Deu certo')
+                         window.location.href='/usuario.php';
+                    </script>";
+                } else {
+                    echo "<script>
+                        window.alert('Deu errado')
+                         window.location.href='/usuario.php';
+                    </script>";
+                }
+
+            break;
 
         // login e logout
         case 'login' :

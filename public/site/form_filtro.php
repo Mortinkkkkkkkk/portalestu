@@ -10,7 +10,7 @@
             $titulo = "Atualize";
             $action = "filterupdate";
     }
-?>:
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

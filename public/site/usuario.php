@@ -31,6 +31,7 @@ if (isset($_SESSION['id_usuario'])){
                             <td>Email</td>
                             <td>Certificado</td>
                             <td>Tipo</td>
+                            <td>Filtros</td>
                             <td>Editar</td>
                         </tr>
                         <?php
@@ -54,7 +55,16 @@ if (isset($_SESSION['id_usuario'])){
                             }
                         ?></td>
                         <?php
-                            $ideditar = $list_user["id_usuario"];
+                        $sql_slct_filter = "SELECT * FROM tb_filtro WHERE id_usuario = ?";
+                        $ideditar = $list_user["id_usuario"];
+                        $result_filter = executaSql($sql_slct_filter,'i',[$ideditar]);
+                        if (sizeof($result_filter[1]) > 0){
+                            echo "<td>";
+                            foreach ($result_filter[1] as $list_filter){
+                                ?><?= $list_filter["filtro"];?><br><?php
+                            }
+                            echo "</td>";
+                        }
                             if (isset($iduser)) {
                                 if ($iduser == $ideditar || $tipologado == "X"){
                                         ?>
