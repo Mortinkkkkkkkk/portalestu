@@ -31,7 +31,7 @@
                 move_uploaded_file($_FILES['img_post']['tmp_name'], $arq_img_server);
                 
                 $sql_cad_img = "INSERT INTO tb_midia (midia, id_post) VALUES (?, ?) ";
-                $result_img = executaSql($sql_cad_img,'si',[$arq_img,$idpost]);
+                $result_img = executaSql($sql_cad_img,'si',[$arq_img_bd,$idpost]);
                 if (!$result_img){
                    echo " <script>
                             window.alert('Erro no cadastro da img')
