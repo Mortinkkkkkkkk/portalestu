@@ -22,12 +22,14 @@
                     }
                 }                
                 
-                $pasta ="/assets/img/";
+                $pasta_banco = "/assets/img/";
+                $pasta_servidor = $_SERVER['DOCUMENT_ROOT'] . "/assets/img/"; 
                 $ext_img = "." . pathinfo($_FILES['img_post']['name'], PATHINFO_EXTENSION);
                 $nome_img = time() . md5(uniqid()) . rand(1,100);
-                $arq_img = $pasta . $nome_img . $ext_img;
-                 
-                 move_uploaded_file($_FILES['img_post']['tmp_name'], $arq_img);
+                $arq_img_bd = $pasta_banco . $nome_img . $ext_img;
+                $arq_img_server = $pasta_servidor . $nome_img . $ext_img;
+                move_uploaded_file($_FILES['img_post']['tmp_name'], $arq_img_server);
+                
                 $sql_cad_img = "INSERT INTO tb_midia (midia, id_post) VALUES (?, ?) ";
                 $result_img = executaSql($sql_cad_img,'si',[$arq_img,$idpost]);
                 if (!$result_img){
