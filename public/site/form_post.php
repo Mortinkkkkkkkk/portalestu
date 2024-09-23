@@ -7,6 +7,7 @@ if(!isset($_SESSION['tipo'])){
 $case = $_REQUEST['case'];
 switch ($case) {
     case 'insert':
+        $titulo = 'Cadastre';
         $legenda = '';
         $img = '';
         $filtro = '';
@@ -14,6 +15,7 @@ switch ($case) {
         $modo = 'cadastro';
         break;
     case 'update':
+        $titulo = "Atualize";
         $idpost = $_REQUEST['id'];
         $sql = "SELECT * FROM tb_post WHERE id_post= ?";
         $result = executaSql($sql,'i',[$idpost]);
@@ -34,6 +36,7 @@ switch ($case) {
     <title>Document</title>
 </head>
 <body>
+    <h1><?= $titulo ?> um post</h1>
     <form action="/controle/controle_post.php?case=<?= $modo?>" enctype="multipart/form-data" method="post">
         <label for="imagem">Imagem:</label>
         <input type="file" name="img_post" id="img_post"><br>

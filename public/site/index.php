@@ -64,12 +64,34 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
                                 $comentario = $listcoment['comentario'];
                                 $iduser_coment = $listcoment['id_usuario'];
                                 $id_comentario = $listcoment['id_comentario'];
+                                $sql_comt_name_user = "SELECT nome_usuario FROM tb_usuario WHERE id_usuario = ?";
+                                $resultnomeusuer = executaSql($sql_comt_name_user,'i',[$iduser_coment]);
+                                
+                                $nome_user_coment = $resultnomeusuer[1][0];
+                                if ($iduser_coment == '1')
+                                $user_coment = "Anonimo";
+                                else {
+                                    $user_coment = $nome_user_coment['nome_usuario'];
+                                }
                                 $resposta = $listcoment['resposta_id'];
                                 ?><div class="comentario"><p><?php
                                 if ($resposta != null) {
-                                    echo ">";
-                                };
-                                echo $comentario;?></p></div><?php
+                                    // Pega o id do usuario do comentario de origem da resposta
+                                    $sql_cmnt_org = "SELECT id_usuario FROM tb_comentario WHERE id_comentario = ?";
+                                    $rslt_cmnt_org = executaSql($sql_cmnt_orig,'i',[$resposta]);
+                                    $row_cmt_org = $rslt_cmnt_org[1][0];
+                                    $id_us_cmnt_org = $row_cmt_org['id_usuario'];
+                                    // Pega o nome do usario do comentario de origem
+                                    $sql_nm_us_org = "SELECT nome_usuario FROM tb_usuario WHERE id_usuario = ?";
+                                    $rslt_nm_us_org = executaSql($sql_nm_us_org,'i',[$id_us_cmnt_org]);
+                                    $row_nm_us_org = $rslt_nm_us_org[1][0];
+                                    $nm_us_org = $row_nm_us_org['nome_usuario'];
+                                    // comentario:
+                                    echo $user_coment .$nm_us_org . ": " . $comentario ;?></p></div><?php
+
+                                } else {
+                                    echo $user_coment . ": " . $comentario ;?></p></div><?php
+                                }
                                 if (isset($_SESSION)) {
                                     if (!isset($iduser)){
                                         $iduser = 1;
