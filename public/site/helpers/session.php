@@ -1,0 +1,21 @@
+<?php 
+    include_once('redirect.php');
+    function sessionPermit($usuario) {
+        switch ($usuario) {
+            case "aluno":
+                if (!isset($_SESSION['id_usuario'])) {
+                    redirect('login','Essa pagina precisa de um login');
+                }
+                break;
+            case 'professor':
+                if (!isset($_SESSION['id_usuario']) || $_SESSION['tipo'] != 'P') {
+                    redirect('pagina_inicial','Somente Professores acessam essa pagina');
+                }
+            case 'admim':
+                if (!isset($_SESSION['id_usuario']) || $_SESSION['tipo'] != 'X') {
+                    redirect('pagina_inicial','Somente Admins acessam essa pagina');
+                }
+        }
+    }
+
+?>

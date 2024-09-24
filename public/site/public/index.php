@@ -1,9 +1,9 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
 session_start();
-if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
+if ($_SESSION['id_usuario']){
     $iduser = $_SESSION['id_usuario'];
-    $tipo = $_SESSION['tipo'];
+    $tipologado = $_SESSION['tipo'];
 }
 
 ?>
@@ -96,14 +96,14 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
                                     if (!isset($iduser)){
                                         $iduser = 1;
                                     }
-                                    if ($iduser == $iduser_coment && $iduser != 1) {
+                                    if ($iduser == $iduser_coment && $iduser != 1 ||  $tipologado == "X") {
                                         ?>
                                             <p><a href="/controle/controle_comentario.php?case=deletar&id=<?=$id_comentario?>">DELETAR</a> COMENTARIO</p>
                                         <?php
                                     }
                                 }
                                 ?>
-                                <form action="controle/controle_comentario.php?case=comentario" method="post">
+                                <form action="/controle/controle_comentario.php?case=comentario_resposta" method="post">
                                     <input type="text" name="resposta">
                                     <input type="hidden" name="id_user" value="<?= $iduser;?>">
                                     <input type="hidden" name="id_comentario" value="<?= $id_comentario;?>">
@@ -116,7 +116,7 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
                             echo "nenhum comentario";
                         };
                     ?>
-                    <form action="/controle/controle_comentario.php?case=post" method="post">
+                    <form action="/controle/controle_comentario.php?case=comentario_post" method="post">
                         <label for="comentario">Comente:</label>
                         <input type="text" name="comentario">
                         <input type="hidden" name="id_post" value="<?echo $idpost?>">
@@ -127,7 +127,7 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
                         // $iduser = id do usuario logado
                         // $iduser_post = id do usaurio que postou
                         if (isset($iduser)) {
-                            if ($iduser_post == $iduser) {
+                            if ($iduser_post == $iduser || $tipologado == "X") {
                             ?>
                             <p>Editar post: <a href="/controle/controle_post.php?case=delete&id=<?=$idpost?>">Deletar</a> <a href="form_post.php?case=update&id=<?=$idpost?>">Atualizar</a></p>
                             <?php

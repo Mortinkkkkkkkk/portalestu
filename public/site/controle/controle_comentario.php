@@ -3,20 +3,20 @@
     $case = $_REQUEST['case'];
     $conexao = conectarDB();
     switch ($case) {
-        case 'post':
+        case 'comentario_post':
             $id_post = $_REQUEST['id_post'];
             $id_user = $_REQUEST['id_user']; 
             $comentario = $_REQUEST['comentario'];
             $sql = "INSERT INTO tb_comentario (id_post,id_usuario,comentario) VALUES (?, ?, ?)";
             executaSql($sql,'iis',[$id_post, $id_user, $comentario]);
             
-            echo " <script>
-                    window.location.href='/index.php';
-                </script> ";
+            redirect('pagina_inicial','');
+                    
+                
             
             break;
             
-        case 'comentario':
+        case 'comentario_resposta':
             $iduser = $_REQUEST['id_user'];
             $id_post = $_REQUEST['id_post'];
             $id_comentario = $_REQUEST['id_comentario'];
@@ -25,9 +25,9 @@
             $sql = "INSERT INTO tb_comentario (id_post,id_usuario,resposta_id ,comentario) VALUES (?, ?, ?, ?)";
             executaSql($sql,'iiis',[$id_post,$iduser,$id_comentario,$comentario]);
             
-            echo " <script>
-                    window.location.href='/index.php';
-                </script> ";
+            redirect('pagina_inicial','');
+                    
+                
 
             break;
         case 'deletar':
@@ -41,11 +41,7 @@
                 }
             }
             executaSql($sql_delete,'i',[$id_comentario]);
-            echo "<script>
-                    window.location.href='/index.php';
-                </script> ";
-            break;
-
-    }
-
+            redirect('pagina_inicial','');
+            break;                  
+}
 ?>

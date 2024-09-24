@@ -21,7 +21,7 @@
                         $userid = $row["id_usuario"];
                     }
                     echo "<script>
-                    window.location.href='/form_filtro.php?case=insert&id=$userid';
+                        window.location.href='/form_filtro.php?case=insert&id=$userid';
                     </script>";
                 }
             } else { 

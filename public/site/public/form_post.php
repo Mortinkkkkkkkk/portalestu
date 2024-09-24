@@ -1,9 +1,8 @@
 <?php
 session_start();
 include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
-if(!isset($_SESSION['tipo'])){
-   echo "<script>window.location.href='/login.html'</script>"; 
-}
+include_once($_SERVER['DOCUMENT_ROOT']."/helpers/session.php");
+sessionPermit('professor');
 $case = $_REQUEST['case'];
 switch ($case) {
     case 'insert':

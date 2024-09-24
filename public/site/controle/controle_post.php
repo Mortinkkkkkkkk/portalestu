@@ -1,5 +1,6 @@
 <?php
     include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
+    include_once($_SERVER['DOCUMENT_ROOT']."/helpers/redirect.php");
     session_start();
     $case = $_REQUEST['case'];
     switch ($case) {
@@ -22,8 +23,8 @@
                     }
                 }                
                 
-                $pasta_banco = "/assets/img/";
-                $pasta_servidor = $_SERVER['DOCUMENT_ROOT'] . "/assets/img/"; 
+                $pasta_banco = "/public/assets/img/";
+                $pasta_servidor = $_SERVER['DOCUMENT_ROOT'] . "/public/assets/img/"; 
                 $ext_img = "." . pathinfo($_FILES['img_post']['name'], PATHINFO_EXTENSION);
                 $nome_img = time() . md5(uniqid()) . rand(1,100);
                 $arq_img_bd = $pasta_banco . $nome_img . $ext_img;
@@ -33,20 +34,11 @@
                 $sql_cad_img = "INSERT INTO tb_midia (midia, id_post) VALUES (?, ?) ";
                 $result_img = executaSql($sql_cad_img,'si',[$arq_img_bd,$idpost]);
                 if (!$result_img){
-                   echo " <script>
-                            window.alert('Erro no cadastro da img')
-                            window.location.href='/index.php';
-                        </script> ";
+                   redirect('pagina_incial','Erro no cadastro Img');
                 }
-                echo "<script>
-                        window.alert('Deu certo')
-                        window.location.href='/index.php';
-                    </script>";
+                redirect('pagina_inicial','Deu certo');
             } else {
-                echo "<script>
-                        window.alert('Erro no cadastro do post')
-                        window.location.href='/index.php';
-                    </script>";
+                redirect('pagina_inicial','Erro no cadastro Post');
             }
             break;
             case 'update':

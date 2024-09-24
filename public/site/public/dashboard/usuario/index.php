@@ -64,6 +64,8 @@ if (isset($_SESSION['id_usuario'])){
                                 ?><?= $list_filter["filtro"];?><br><?php
                             }
                             echo "</td>";
+                        } else {
+                            echo "<td>Não possui</td>";
                         }
                             if (isset($iduser)) {
                                 if ($iduser == $ideditar || $tipologado == "X"){
