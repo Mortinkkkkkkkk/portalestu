@@ -78,7 +78,7 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
                                 if ($resposta != null) {
                                     // Pega o id do usuario do comentario de origem da resposta
                                     $sql_cmnt_org = "SELECT id_usuario FROM tb_comentario WHERE id_comentario = ?";
-                                    $rslt_cmnt_org = executaSql($sql_cmnt_orig,'i',[$resposta]);
+                                    $rslt_cmnt_org = executaSql($sql_cmnt_org,'i',[$resposta]);
                                     $row_cmt_org = $rslt_cmnt_org[1][0];
                                     $id_us_cmnt_org = $row_cmt_org['id_usuario'];
                                     // Pega o nome do usario do comentario de origem
@@ -87,7 +87,7 @@ if (isset($_SESSION['tipo']) || isset($_SESSION['id_usario'])){
                                     $row_nm_us_org = $rslt_nm_us_org[1][0];
                                     $nm_us_org = $row_nm_us_org['nome_usuario'];
                                     // comentario:
-                                    echo $user_coment .$nm_us_org . ": " . $comentario ;?></p></div><?php
+                                    echo $user_coment ." Respondeu " .$nm_us_org . ": " . $comentario ;?></p></div><?php
 
                                 } else {
                                     echo $user_coment . ": " . $comentario ;?></p></div><?php

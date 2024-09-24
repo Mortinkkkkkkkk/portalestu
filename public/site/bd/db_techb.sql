@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS `tb_filtro`;
 CREATE TABLE `tb_filtro` (
   `id_filtro` int(11) NOT NULL AUTO_INCREMENT,
   `id_usuario` int(11) NOT NULL,
-  `filtro` enum('liguagem','matematica','ciencias naturais','ciencia humanas','redacao') NOT NULL,
+  `filtro` enum('linguagem','matematica','ciencias naturais','ciencia humanas','redacao') NOT NULL,
   PRIMARY KEY (`id_filtro`),
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `tb_filtro_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -60,7 +60,7 @@ CREATE TABLE `tb_post` (
   `id_usuario` int(11) NOT NULL,
   `legenda` varchar(300) NOT NULL,
   `data_postagem` datetime NOT NULL,
-  `filtro` enum('liguagem','matematica','ciencias naturais','ciencia humanas','redacao') NOT NULL,
+  `filtro` enum('linguagem','matematica','ciencias naturais','ciencia humanas','redacao') NOT NULL,
   PRIMARY KEY (`id_post`),
   KEY `id_usuario` (`id_usuario`),
   CONSTRAINT `tb_post_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE

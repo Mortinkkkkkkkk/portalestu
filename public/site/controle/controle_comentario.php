@@ -32,8 +32,15 @@
             break;
         case 'deletar':
             $id_comentario = $_REQUEST['id'];
-            $sql = "DELETE FROM tb_comentario WHERE id_comentario = ?";
-            executaSql($sql,'i',[$id_comentario]);
+            $sql_resposta = "SELECT id_comentario FROM tb_comentario WHERE resposta_id = ?";
+            $sql_delete = "DELETE FROM tb_comentario WHERE id_comentario = ?";
+            $rslt_resposta = executaSql($sql_resposta,'i',[$id_comentario]);
+            if (sizeof($rslt_resposta[1]) > 0){
+                foreach ($rslt_resposta[1] as $id_resposta) {
+                    executaSql($sql_delete,'i',[$id_resposta["id_comentario"]]);
+                }
+            }
+            executaSql($sql_delete,'i',[$id_comentario]);
             echo "<script>
                     window.location.href='/index.php';
                 </script> ";
