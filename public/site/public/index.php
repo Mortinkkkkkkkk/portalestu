@@ -1,7 +1,7 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
 session_start();
-if ($_SESSION['id_usuario']){
+if (isset($_SESSION['id_usuario'])){
     $iduser = $_SESSION['id_usuario'];
     $tipologado = $_SESSION['tipo'];
 }
@@ -25,16 +25,28 @@ if ($_SESSION['id_usuario']){
 </head>
 <body>
     <h1>universo estudantil</h1>
+    <?php 
+        if(!isset($iduser)) {
+    ?>
     <h3><a href="/index.html">login</a></h3>
+    <?php } else {?>
     <h3><a href="/controle/controle_usuario.php?case=logout">Deslogin</a></h3>
+    <?}?>
     <h3>usuario:</h3>
-    <p>criacao e lista de <a href="/public/dashboard/usuario/index.php">usuario</a></p>
-    <p>hora agora</p>
+    <?php 
+        if (!isset($iduser)){
+           ?><p><a href="/public/dashboard/usuario/form_usuario.php?caso=insert">Cadastra-se</a></p><?
+        } else if (isset($tipologado) && $tipologado == "X") {?>
+        <p>criacao e lista de <a href="/public/dashboard/usuario/index.php">usuario</a></p>
+        <p>hora agora</p>
+        <?}?>
     <?echo date("y-m-d h:i:s");?>
     <h3>posts:</h3>
     <div class="container-posts">
-        <p>Criar um <a href="/public/form_post.php?case=insert">Post</a></p>
         <?php
+            if (isset($tipologado) && $tipologado != "A") {
+            ?><p>Criar um <a href="/public/form_post.php?case=insert">Post</a></p><?php
+            }
             $sql = "SELECT * FROM tb_post";
             $conexao = conectarDB();
             $result = mysqli_query(conectarDB(),$sql);

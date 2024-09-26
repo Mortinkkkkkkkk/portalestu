@@ -6,6 +6,7 @@ if (isset($_SESSION['id_usuario'])){
     $tipologado = $_SESSION['tipo'];
 }
 ?>
+<!-- INDEX USUARIO -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

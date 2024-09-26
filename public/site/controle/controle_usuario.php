@@ -70,7 +70,10 @@
             $filtro3 = $_REQUEST['flt3'];
             $result = executaSql($sql,'isisis',[$iduser, $filtro1, $iduser, $filtro2, $iduser, $filtro3]);
             if ($result) {
-                redirect('usuario', 'Cadastro finalizado');
+                if (!isset($_SESSION['id_usuario'])) {
+                    redirect('login_err', 'Agora faça o login');
+                }
+                    redirect('usuario', 'Cadastro finalizado');
             } else {
                 redirect('usuario', 'Deu algo de errado');
             }
