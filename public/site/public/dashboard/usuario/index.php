@@ -14,7 +14,7 @@ if (isset($_SESSION['id_usuario'])){
     <title>Document</title>
 </head>
 <body>
-    <h5><a href="index.php">index</a></h5>
+    <h5><a href="/public/index.php">index</a></h5>
     <h1>Usuario</h1>
     <h3>Cadastrar usuario <a href="form_usuario.php?caso=insert">+</a></h3>
     

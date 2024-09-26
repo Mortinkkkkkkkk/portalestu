@@ -22,7 +22,7 @@
             case 'login_err':
                 echo "<script>
                     window.alert('$mensagem');
-                    window.location.href='/index.php';
+                    window.location.href='/index.html';
                 </script>";
                 break;
 

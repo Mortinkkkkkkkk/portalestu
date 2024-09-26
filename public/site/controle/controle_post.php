@@ -51,15 +51,9 @@
                 WHERE id_post = ?;";
                 $result_upd_post = executaSql($sql_upd_post,'iisssi',[$idpost, $iduser, $legenda, $data_postagem, $filtro, $idpost]);
                 if ($result_upd_post){
-                    echo "<script>
-                        window.alert('Deu certo')
-                        window.location.href='/index.php';
-                    </script>";  
+                    redirect('pagina_inicial', 'Atualizado!'); 
                 } else {
-                    echo "<script>
-                        window.alert('Deu errado')
-                        window.location.href='/index.php';
-                    </script>";
+                    redirect('pagina_inicial', 'Deu algo de errado');
                 }
                 break;
             case 'delete':
@@ -67,15 +61,9 @@
                 $sql_del = "DELETE FROM tb_post WHERE id_post = ?;";
                 $result_del = executaSql($sql_del,'i',[$idpost]);
                 if ($result_del) {
-                    echo "<script>
-                        window.alert('Deu certo')
-                        window.location.href='/index.php';
-                    </script>";  
+                    redirect('pagina_inicial', 'Deletado!');
                 } else {
-                    echo "<script>
-                        window.alert('Deu errado')
-                        window.location.href='/index.php';
-                    </script>";  
+                    redirect('pagina_inicial', 'Deu algo de errado');
                 }
                 break;
 

@@ -11,10 +11,13 @@
                 if (!isset($_SESSION['id_usuario']) || $_SESSION['tipo'] != 'P') {
                     redirect('pagina_inicial','Somente Professores acessam essa pagina');
                 }
+                break;
             case 'admim':
                 if (!isset($_SESSION['id_usuario']) || $_SESSION['tipo'] != 'X') {
                     redirect('pagina_inicial','Somente Admins acessam essa pagina');
                 }
+                break;
+                
         }
     }
 

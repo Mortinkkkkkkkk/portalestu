@@ -1,5 +1,6 @@
 <?php
     include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
+    include_once($_SERVER['DOCUMENT_ROOT']."/helpers/redirect.php");
     $case = $_REQUEST['case'];
     $conexao = conectarDB();
     switch ($case) {

@@ -1,5 +1,6 @@
 <?php
     include_once($_SERVER["DOCUMENT_ROOT"]."/bd/conexao.php");
+    include_once($_SERVER['DOCUMENT_ROOT']."/helpers/redirect.php");
     session_start();
     $case = $_REQUEST['case'];
     switch ($case) {
@@ -21,14 +22,11 @@
                         $userid = $row["id_usuario"];
                     }
                     echo "<script>
-                        window.location.href='/form_filtro.php?case=insert&id=$userid';
+                        window.location.href='/public/dashboard/usuario/form_filtro.php?case=insert&id=$userid';
                     </script>";
                 }
             } else { 
-                echo "<script>
-                        window.alert('Deu errado')
-                        window.location.href='/usuario.php';
-                    </script>";
+                redirect('usuario', 'Deu algo de errado');
             }
             break;
         case 'update':
@@ -43,13 +41,10 @@
             $result = executaSql($sql,'isssssi',[$iduser,$nome,$senha,$email,$certificado,$tipo,$iduser]);
             if ($result) {
                 echo "<script>
-                        window.location.href='/form_filtro.php?case=update&id=$iduser';
+                        window.location.href='/public/dashboard/usuario/form_filtro.php?case=update&id=$iduser';
                     </script>";
             } else {
-                echo "<script>
-                        window.alert('Deu errado')
-                        window.location.href='/usuario.php';
-                    </script>";
+                redirect('usuario', 'Deu algo de errado');
             }
             break;
         case 'delete':
@@ -58,16 +53,10 @@
             WHERE id_usuario = ?";
             executaSql($sql,'i',[$iduser]);
             if ($tipo == 'X'){
-                echo "<script>
-                        window.alert('100% excluido')
-                        window.location.href='/usuario.php';
-                    </script>";
+                redirect('usuario', '100% Deletado');
             } else {
                 session_destroy();
-                echo "<script>
-                        window.alert('100% excluido')
-                        window.location.href='/usuario.php';
-                    </script>";
+                redirect('usuario', '100% Deletado');
             }
             break;
         // filtro do usuario
@@ -80,15 +69,9 @@
             $filtro3 = $_REQUEST['flt3'];
             $result = executaSql($sql,'isisis',[$iduser, $filtro1, $iduser, $filtro2, $iduser, $filtro3]);
             if ($result) {
-                echo "<script>
-                        window.alert('Deu certo')
-                         window.location.href='/usuario.php';
-                    </script>";
+                redirect('usuario', 'Cadastro finalizado');
             } else {
-                echo "<script>
-                        window.alert('Deu errado')
-                        window.location.href='/usuario.php';
-                    </script>";
+                redirect('usuario', 'Deu algo de errado');
             }
             break;
         case 'filterupdate':
@@ -108,15 +91,9 @@
                     executaSql($sql_upd_filtro,'iisi',[$idfiltro,$iduser,$filtros[$num],$idfiltro]);
                     $num += 1;
                 }
-                echo "<script>
-                        window.alert('Deu certo')
-                         window.location.href='/usuario.php';
-                    </script>";
+                redirect('usuario', 'Atualizado');
                 } else {
-                    echo "<script>
-                        window.alert('Deu errado')
-                         window.location.href='/usuario.php';
-                    </script>";
+                    redirect('usuario', 'Deu algo de errado');
                 }
 
             break;
@@ -135,24 +112,15 @@
                 }
                 $_SESSION['tipo'] = $tipo;
                 $_SESSION['id_usuario'] = $id;
-                echo "<script>
-                    window.alert('Logado >:P')
-                    window.location.href='/index.php';
-                </script>";
+                redirect('pagina_inicial', 'Logado >:P');
             } else {
-                echo "<script>
-                    window.alert('Deu errado')
-                    window.location.href='/login.html';
-                </script>";
+                redirect('login_err', 'Email ou Senha errado');
             }
             break;
         case 'logout':
             session_start();
             session_destroy();
-            echo "<script>
-                    window.alert('Deslogado :P')
-                    window.location.href='/login.html';
-                </script>";
+            redirect('login_err', 'Deslogado :P');
             break;
 
 

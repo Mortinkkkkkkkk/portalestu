@@ -27,12 +27,12 @@ if ($_SESSION['id_usuario']){
     <h3><a href="login.html">login</a></h3>
     <h3><a href="/controle/controle_usuario.php?case=logout">Deslogin</a></h3>
     <h3>usuario:</h3>
-    <p>criacao e lista de <a href="usuario.php">usuario</a></p>
+    <p>criacao e lista de <a href="/public/dashboard/usuario/index.php">usuario</a></p>
     <p>hora agora</p>
     <?echo date("y-m-d h:i:s");?>
     <h3>posts:</h3>
     <div class="container-posts">
-        <p>Criar um <a href="form_post.php?case=insert">Post</a></p>
+        <p>Criar um <a href="/public/form_post.php?case=insert">Post</a></p>
         <?php
             $sql = "SELECT * FROM tb_post";
             $conexao = conectarDB();
