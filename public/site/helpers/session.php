@@ -8,7 +8,7 @@
                 }
                 break;
             case 'professor':
-                if (!isset($_SESSION['id_usuario']) || $_SESSION['tipo'] != 'P') {
+                if (!isset($_SESSION['id_usuario']) || $_SESSION['tipo'] != 'P' && $_SESSION['tipo'] != 'X') {
                     redirect('pagina_inicial','Somente Professores acessam essa pagina');
                 }
                 break;
@@ -17,7 +17,7 @@
                     redirect('pagina_inicial','Somente Admins acessam essa pagina');
                 }
                 break;
-                
+
         }
     }
 

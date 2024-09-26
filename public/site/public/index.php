@@ -7,6 +7,7 @@ if ($_SESSION['id_usuario']){
 }
 
 ?>
+<!-- INDEX POST -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +25,7 @@ if ($_SESSION['id_usuario']){
 </head>
 <body>
     <h1>universo estudantil</h1>
-    <h3><a href="login.html">login</a></h3>
+    <h3><a href="/index.html">login</a></h3>
     <h3><a href="/controle/controle_usuario.php?case=logout">Deslogin</a></h3>
     <h3>usuario:</h3>
     <p>criacao e lista de <a href="/public/dashboard/usuario/index.php">usuario</a></p>

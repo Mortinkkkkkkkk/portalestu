@@ -3,6 +3,7 @@
     include_once($_SERVER['DOCUMENT_ROOT']."/helpers/redirect.php");
     session_start();
     $case = $_REQUEST['case'];
+    $tipologado = $_SESSION['tipo'];
     switch ($case) {
         // usuario
         case 'userinsert':
@@ -52,7 +53,7 @@
             $sql = "DELETE FROM tb_usuario
             WHERE id_usuario = ?";
             executaSql($sql,'i',[$iduser]);
-            if ($tipo == 'X'){
+            if ($tipologado == 'X'){
                 redirect('usuario', '100% Deletado');
             } else {
                 session_destroy();
