@@ -36,10 +36,6 @@ CREATE TABLE `tb_filtro` (
   CONSTRAINT `tb_filtro_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `tb_filtro` (`id_filtro`, `id_usuario`, `filtro`) VALUES
-(1,	2,	'redacao'),
-(2,	2,	'ciencia humanas'),
-(3,	2,	'matematica');
 
 DROP TABLE IF EXISTS `tb_midia`;
 CREATE TABLE `tb_midia` (
@@ -50,9 +46,6 @@ CREATE TABLE `tb_midia` (
   KEY `id_post` (`id_post`),
   CONSTRAINT `tb_midia_ibfk_2` FOREIGN KEY (`id_post`) REFERENCES `tb_post` (`id_post`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-INSERT INTO `tb_midia` (`id_midia`, `id_post`, `midia`) VALUES
-(1,	2,	'imagem2.png');
 
 DROP TABLE IF EXISTS `tb_post`;
 CREATE TABLE `tb_post` (
@@ -66,8 +59,6 @@ CREATE TABLE `tb_post` (
   CONSTRAINT `tb_post_ibfk_2` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `tb_post` (`id_post`, `id_usuario`, `legenda`, `data_postagem`, `filtro`) VALUES
-(2,	2,	'mudeimesmo',	'2024-09-13 07:44:15',	'ciencias naturais');
 
 DROP TABLE IF EXISTS `tb_usuario`;
 CREATE TABLE `tb_usuario` (
@@ -81,8 +72,48 @@ CREATE TABLE `tb_usuario` (
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+INSERT INTO `tb_comentario` (`id_comentario`, `id_post`, `id_usuario`, `resposta_id`, `comentario`) VALUES
+(3,	4,	2,	NULL,	'pppppppp'),
+(8,	4,	2,	3,	'aaaaaaaaaaaaaa'),
+(9,	5,	2,	NULL,	'Navio duh'),
+(10,	5,	7,	9,	'nao'),
+(11,	6,	7,	NULL,	'se meu ');
+
+INSERT INTO `tb_filtro` (`id_filtro`, `id_usuario`, `filtro`) VALUES
+(1,	2,	'redacao'),
+(2,	2,	'ciencia humanas'),
+(3,	2,	'matematica'),
+(7,	4,	'linguagem'),
+(8,	4,	'linguagem'),
+(9,	4,	'linguagem'),
+(10,	5,	'ciencia humanas'),
+(11,	5,	'matematica'),
+(12,	5,	'ciencias naturais'),
+(13,	6,	'ciencias naturais'),
+(14,	6,	'ciencias naturais'),
+(15,	6,	'ciencias naturais'),
+(16,	7,	'matematica'),
+(17,	7,	'matematica'),
+(18,	7,	'matematica');
+
+INSERT INTO `tb_midia` (`id_midia`, `id_post`, `midia`) VALUES
+(2,	3,	'/public/assets/img/1727700844b551e9c2918843bbca7dd37d84783c0058.jpg'),
+(3,	4,	'/public/assets/img/1727701137add4462f4ae25e0d50f262f76e14d7a632.jpeg'),
+(4,	5,	'/public/assets/img/172770349122bf7672bdf6d94bb2e3514bfcd63d5d23.png'),
+(5,	6,	'/public/assets/img/17277041585af90edbdb3fc08a50e8ed6cf7fae21b93.jpeg');
+
+INSERT INTO `tb_post` (`id_post`, `id_usuario`, `legenda`, `data_postagem`, `filtro`) VALUES
+(3,	2,	'teste',	'2024-09-30 12:54:03',	'ciencia humanas'),
+(4,	2,	'img',	'2024-09-30 12:58:57',	'linguagem'),
+(5,	2,	'Nenhuma, palavra do português que começa com N  ',	'2024-09-30 01:38:11',	'linguagem'),
+(6,	7,	'Como acha a hipotenusa',	'2024-09-30 01:49:18',	'matematica');
+
 INSERT INTO `tb_usuario` (`id_usuario`, `nome_usuario`, `senha_usuario`, `email_usuario`, `certificado`, `tipo`, `foto_usuario`) VALUES
 (1,	'usuariofantasma',	'lIlIllI',	'qwerty@gami.com',	'MLBB',	'U',	NULL),
-(2,	'Aaaaa',	'aaaa',	'aaaa@gmail.com',	'aaaa',	'A',	NULL);
+(2,	'Aaaaa',	'aaaa',	'aaaa@gmail.com',	'aaaa',	'X',	NULL),
+(4,	'pobre',	'erbop',	'pobre@gmail.com',	'',	'A',	NULL),
+(5,	'rico',	'ocir',	'rico@gmail.com',	'',	'A',	NULL),
+(6,	'Tree carvalho',	'arvore',	'palmeiras@gmail.com',	'Botanico',	'P',	NULL),
+(7,	'X',	'doismaisdois',	'hipotenusa@gmail.com',	'Matematico',	'P',	NULL);
 
--- 2024-09-13 19:49:50
+-- 2024-09-30 13:50:01
