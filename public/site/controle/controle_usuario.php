@@ -41,6 +41,8 @@
             WHERE id_usuario = ?";
             $result = executaSql($sql,'isssssi',[$iduser,$nome,$senha,$email,$certificado,$tipo,$iduser]);
             if ($result) {
+                if ($tipo == "P")
+                    echo redirect('index');
                 echo "<script>
                         window.location.href='/public/dashboard/usuario/form_filtro.php?case=update&id=$iduser';
                     </script>";

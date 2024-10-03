@@ -36,7 +36,7 @@ if (isset($_SESSION['id_usuario'])){
                             <td>Editar</td>
                         </tr>
                         <?php
-            foreach ($result_list_user as $list_user){
+            foreach ($result_list_user[1] as $list_user){
                 ?>
                         <td><?= $list_user['nome_usuario']?></td>
                         <td><?= $list_user['email_usuario']?></td>

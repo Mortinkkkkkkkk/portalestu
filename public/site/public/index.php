@@ -14,8 +14,8 @@ if (isset($_SESSION['id_usuario'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Universo Estudantil</title>
-    <link rel="icon" type="image/x-icon" href="/public/site/public/assets/img/logo.ico">
-    <link rel="stylesheet" href="/public/site/public/assets/css/index.css">
+    <link rel="icon" type="image/x-icon" href="/public/assets/img/logo.ico">
+    <link rel="stylesheet" href="/public/assets/css/index.css">
     <style>
         .post{
             border: 2px black solid;
@@ -28,7 +28,7 @@ if (isset($_SESSION['id_usuario'])){
 <body>
 <header>
     <div class="logo-container">
-            <img src="/public/site/public/assets/img/logo.png" alt="Logo Universo Estudantil" class="logo">
+            <img src="/public/assets/img/logo.png" alt="Logo Universo Estudantil" class="logo">
             <h1>Universo Estudantil</h1>
         </div>
         <nav>
@@ -82,8 +82,6 @@ if (isset($_SESSION['id_usuario'])){
                 </li>
                 
     </header>
-
-    <h1>universo estudantil</h1>
     <?php 
         if(!isset($iduser)) {
     ?>
@@ -106,10 +104,42 @@ if (isset($_SESSION['id_usuario'])){
             if (isset($tipologado) && $tipologado != "A") {
             ?><p>Criar um <a href="/public/form_post.php?case=insert">Post</a></p><?php
             }
-            $sql = "SELECT * FROM tb_post";
-            $conexao = conectarDB();
-            $result = mysqli_query(conectarDB(),$sql);
-                while ($row = mysqli_fetch_array($result)) {
+            ?>
+            <form action="/public/index.php" method="post">
+                <label for="pesquisa">Procurar:</label>
+                <input type="text" name="pesquisa" id="100">
+                <select name="opcao_pesq" id="">
+                    <option value="data">Data</option>
+                    <option value="legenda">Legenda</option>
+                    <option value="filtro">Filtro</option>
+                </select>
+                <input type="submit" value="Pesquisar">
+            </form>
+            <?php
+            if (isset($_REQUEST['pesquisa'])) {
+                ?>
+                <a href="/public/index.php">Voltar</a>
+                <?php
+                $pesquisa ="%" . $_REQUEST['pesquisa'] . "%";
+                $opcao_pesq = $_REQUEST['opcao_pesq'];
+                switch ($opcao_pesq) {
+                    case "data" :
+                        $sql = "SELECT * FROM tb_post WHERE data_postagem LIKE ?";
+                        break;
+                    case "legenda":
+                        $sql = "SELECT * FROM tb_post WHERE legenda LIKE ?";
+                        break;
+                    case "filtro":
+                        $sql = "SELECT * FROM tb_post WHERE filtro LIKE ?";
+                        break;
+                }
+                $rslt_pesq = executaSql($sql,'s',[$pesquisa]);
+
+            } else {
+                $sql = "SELECT * FROM tb_post";
+                $rslt_pesq = SelectallSql($sql);
+            }
+                foreach ($rslt_pesq[1] as $row) {
                     echo "<div class='post'>";
                     $iduser_post = $row['id_usuario'];
                     $idpost = $row['id_post'];
@@ -164,7 +194,7 @@ if (isset($_SESSION['id_usuario'])){
                                 } else {
                                     echo $user_coment . ": " . $comentario ;?></p></div><?php
                                 }
-                                if (isset($_SESSION)) {
+                                if (isset($_SESSION) && isset($tipologado)) {
                                     if (!isset($iduser)){
                                         $iduser = 1;
                                     }
@@ -198,7 +228,7 @@ if (isset($_SESSION['id_usuario'])){
                     <?php 
                         // $iduser = id do usuario logado
                         // $iduser_post = id do usaurio que postou
-                        if (isset($iduser)) {
+                        if (isset($iduser)  && isset($tipologado)) {
                             if ($iduser_post == $iduser || $tipologado == "X") {
                             ?>
                             <p>Editar post: <a href="/controle/controle_post.php?case=delete&id=<?=$idpost?>">Deletar</a> <a href="form_post.php?case=update&id=<?=$idpost?>">Atualizar</a></p>
@@ -207,11 +237,11 @@ if (isset($_SESSION['id_usuario'])){
                     }
                     ?>
                     </div>
+                
                     <?php
 
                 }
 
-        
         
         ?>
 

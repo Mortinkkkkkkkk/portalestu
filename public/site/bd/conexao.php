@@ -34,12 +34,12 @@
 
         $stmt = mysqli_prepare($conexao,$sql);
 
-        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_execute($stmt);
         $resultados = mysqli_stmt_get_result($stmt);
         if ($resultados) {
                 $resultados = mysqli_fetch_all($resultados, MYSQLI_ASSOC);
            }
-           return $resultados;
+           return [$result, $resultados];
 
         mysqli_stmt_close($stmt);
         
