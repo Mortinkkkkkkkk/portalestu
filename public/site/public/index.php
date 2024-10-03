@@ -97,7 +97,6 @@ if (isset($_SESSION['id_usuario'])){
         <p>criacao e lista de <a href="/public/dashboard/usuario/index.php">usuario</a></p>
         <p>hora agora</p>
         <?}?>
-    <?echo date("y-m-d h:i:s");?>
     <h3>posts:</h3>
     <div class="container-posts">
         <?php
@@ -109,8 +108,8 @@ if (isset($_SESSION['id_usuario'])){
                 <label for="pesquisa">Procurar:</label>
                 <input type="text" name="pesquisa" id="100">
                 <select name="opcao_pesq" id="">
-                    <option value="data">Data</option>
                     <option value="legenda">Legenda</option>
+                    <option value="data">Data</option>
                     <option value="filtro">Filtro</option>
                 </select>
                 <input type="submit" value="Pesquisar">

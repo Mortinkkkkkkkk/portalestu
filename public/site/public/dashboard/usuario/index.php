@@ -1,6 +1,8 @@
 <?php 
 include_once ($_SERVER["DOCUMENT_ROOT"]."/bd/conexao.php");
+include_once($_SERVER['DOCUMENT_ROOT']."/helpers/session.php");
 session_start();
+sessionPermit('admim');
 if (isset($_SESSION['id_usuario'])){
     $iduser = $_SESSION['id_usuario'];
     $tipologado = $_SESSION['tipo'];

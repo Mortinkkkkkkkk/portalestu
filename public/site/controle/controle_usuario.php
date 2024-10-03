@@ -3,7 +3,9 @@
     include_once($_SERVER['DOCUMENT_ROOT']."/helpers/redirect.php");
     session_start();
     $case = $_REQUEST['case'];
-    $tipologado = $_SESSION['tipo'];
+    if (isset($_SESSION['tipo'])) {
+        $tipologado = $_SESSION['tipo'];
+    }
     switch ($case) {
         // usuario
         case 'userinsert':
@@ -22,9 +24,13 @@
                     foreach ($iduser[1] as $row) {
                         $userid = $row["id_usuario"];
                     }
+                    if ($tipo == "P")
+                    echo redirect('usuario', 'Cadastrado com sucesso');
+                    else {
                     echo "<script>
                         window.location.href='/public/dashboard/usuario/form_filtro.php?case=insert&id=$userid';
                     </script>";
+                    }
                 }
             } else { 
                 redirect('usuario', 'Deu algo de errado');
@@ -42,10 +48,12 @@
             $result = executaSql($sql,'isssssi',[$iduser,$nome,$senha,$email,$certificado,$tipo,$iduser]);
             if ($result) {
                 if ($tipo == "P")
-                    echo redirect('index');
+                    echo redirect('usuario', 'Cadastrado com sucesso');
+                else {
                 echo "<script>
                         window.location.href='/public/dashboard/usuario/form_filtro.php?case=update&id=$iduser';
                     </script>";
+                }
             } else {
                 redirect('usuario', 'Deu algo de errado');
             }

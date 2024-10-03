@@ -1,6 +1,6 @@
 <?php 
     include_once('redirect.php');
-    function sessionPermit($usuario) {
+        function sessionPermit($usuario) {
         switch ($usuario) {
             case "aluno":
                 if (!isset($_SESSION['id_usuario'])) {
