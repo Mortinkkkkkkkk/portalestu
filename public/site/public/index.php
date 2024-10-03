@@ -13,7 +13,9 @@ if (isset($_SESSION['id_usuario'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Universo Estudantil</title>
+    <link rel="icon" type="image/x-icon" href="/public/site/public/assets/img/logo.ico">
+    <link rel="stylesheet" href="/public/site/public/assets/css/index.css">
     <style>
         .post{
             border: 2px black solid;
@@ -24,6 +26,63 @@ if (isset($_SESSION['id_usuario'])){
     </style>
 </head>
 <body>
+<header>
+    <div class="logo-container">
+            <img src="/public/site/public/assets/img/logo.png" alt="Logo Universo Estudantil" class="logo">
+            <h1>Universo Estudantil</h1>
+        </div>
+        <nav>
+            <ul class="menu">
+                <li><a href="#noticias">Notícias</a>
+                    <ul class="submenu">
+                        <li><a href="#ultimas">Últimas notícias</a></li>
+                        <li><a href="#educacao">Educação</a></li>
+                        <li><a href="#tecnologia">Tecnologia</a></li>
+                        <li><a href="#ciencia">Ciência</a></li>
+                    </ul>
+                </li>
+                <li><a href="#enem">ENEM</a>
+                    <ul class="submenu">
+                        <li><a href="#provas">Provas Anteriores</a></li>
+                        <li><a href="#simulados">Simulados</a></li>
+                        <li><a href="#dicas">Dicas de Estudo</a></li>
+                        <li><a href="#calendario">Calendário</a></li>
+                        <li><a href="#inscricoes">Inscrições</a></li>
+                        <li><a href="#editais">Editais</a></li>
+                    </ul>
+                </li>
+                <li><a href="#materias">Matérias</a>
+                    <ul class="submenu">
+                        <li><a href="#matematica">Matemática</a></li>
+                        <li><a href="#linguagens">Linguagens</a></li>
+                        <li><a href="#ciencias-natureza">Ciências da Natureza</a></li>
+                        <li><a href="#ciencias-humanas">Ciências Humanas</a></li>
+                        <li><a href="#redacao">Redação</a></li>
+                    </ul>
+                </li>
+                <li><a href="#vocacional">Orientação Vocacional</a>
+                    <ul class="submenu">
+                        <li><a href="#testes">Testes Vocacionais</a></li>
+                        <li><a href="#carreiras">Carreiras</a></li>
+                        <li><a href="#depoimentos">Depoimentos de Profissionais</a></li>
+                    </ul>
+                </li>
+                <li><a href="#blog">Blog</a>
+                    <ul class="submenu">
+                        <li><a href="#artigos">Artigos</a></li>
+                        <li><a href="#entrevistas">Entrevistas</a></li>
+                        <li><a href="#opiniao">Opinião</a></li>
+                    </ul>
+                </li>
+                <li><a href="#contato">Contato</a>
+                    <ul class="submenu">
+                        <li><a href="#fale-conosco">Fale Conosco</a></li>
+                        <li><a href="#faq">Perguntas Frequentes (FAQ)</a></li>
+                    </ul>
+                </li>
+                
+    </header>
+
     <h1>universo estudantil</h1>
     <?php 
         if(!isset($iduser)) {

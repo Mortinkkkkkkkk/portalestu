@@ -1,0 +1,112 @@
+/* Definição de cores */
+:root {
+    --azul-claro: #5CB6F9;
+    --azul-pastel: #CAE8FF;
+    --azul-escuro-vibrante: #233DFF;
+    --azul-marinho: #050A30;
+    --branco: #FFFFFF; /* Definindo a cor branca */
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--azul-pastel); /* Fundo claro */
+}
+
+header {
+    background-color: var(--azul-marinho); /* Fundo do cabeçalho */
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: var(--azul-claro);
+}
+
+.menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.menu li {
+    margin: 0 15px;
+    position: relative;
+}
+
+.menu a {
+    text-decoration: none;
+    color: var(--branco); /* Cor do texto branco para contraste */
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.menu a:hover {
+    background-color: var(--azul-claro); /* Hover no link */
+    color: var(--azul-marinho); /* Cor do texto no hover */
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    background-color: var(--azul-marinho); /* Fundo do submenu */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    top: 100%;
+    left: 0;
+}
+
+.menu li:hover .submenu {
+    display: block;
+}
+
+.submenu li {
+    margin: 0;
+}
+
+.submenu a {
+    padding: 10px 20px;
+    display: block;
+    color: var(--branco); /* Cor do texto branco no submenu */
+}
+
+.submenu a:hover {
+    background-color: var(--azul-claro); /* Hover no submenu */
+    color: var(--azul-marinho);
+}
+
+.container-posts {
+    background-color: var(--branco); /* Fundo branco para a área de posts */
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.post {
+    background-color: var(--azul-pastel); /* Fundo pastel claro para cada post */
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.post p {
+    color: var(--azul-marinho); /* Texto dos posts em azul-marinho */
+}
+.logo-container {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Tornando a logo redonda */
+    margin-right: 15px; /* Espaçamento entre logo e título */
+}
