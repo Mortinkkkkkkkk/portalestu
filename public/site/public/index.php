@@ -153,9 +153,13 @@ if (isset($_SESSION['id_usuario'])){
                     $legenda = $row['legenda'];
                     $datapostagem = $row['data_postagem'];
                     $filtro = $row['filtro'];
+                    $datapostagem = strtotime($datapostagem); 
+                    $datapostagem = date('y-m-d h:i:s',$datapostagem);
+                    $datatratada = date("y-m-d h:i:s") + $datapostagem;
+                    ;
                     ?>
                     <p><? echo $legenda; ?></p>
-                    <p><? echo $datapostagem; ?></p>
+                    <p><? echo $datatratada; ?></p>
                     <p><? echo $filtro; ?></p>
                     <?php
                         $sql_coment = "SELECT comentario,id_usuario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ?";
