@@ -37,8 +37,11 @@ switch ($case) {
 <body>
     <h1><?= $titulo ?> um post</h1>
     <form action="/controle/controle_post.php?case=<?= $modo?>" enctype="multipart/form-data" method="post">
-        <label for="imagem">Imagem:</label>
+       <?php 
+            if ($case == 'insert') {        
+        ?><label for="imagem">Imagem:</label>
         <input type="file" name="img_post" id="img_post"><br>
+        <?}?>
         <label for="legenda">Legenda:</label>
         <input type="text" name="legenda" value="<?= $legenda ?>"><br>
         <select value="<?= $filtro?>" name="filtro" id="filtro">
