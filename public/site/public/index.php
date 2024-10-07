@@ -133,11 +133,17 @@ if (isset($_SESSION['id_usuario'])){
                         break;
                 }
                 $rslt_pesq = executaSql($sql,'s',[$pesquisa]);
-
-            } else {
+                if (sizeof($rslt_pesq[1]) == 0) {
+                    $nada = true;
+                } else {
+                    $nada = false;
+                }
+            } else if (!isset($_REQUEST['pesquisa'])){
                 $sql = "SELECT * FROM tb_post";
                 $rslt_pesq = SelectallSql($sql);
-            }
+                $nada = false;
+            }   
+            if (!$nada) {
                 foreach ($rslt_pesq[1] as $row) {
                     echo "<div class='post'>";
                     $iduser_post = $row['id_usuario'];
@@ -153,13 +159,14 @@ if (isset($_SESSION['id_usuario'])){
                     $legenda = $row['legenda'];
                     $datapostagem = $row['data_postagem'];
                     $filtro = $row['filtro'];
-                    $datapostagem = strtotime($datapostagem); 
-                    $datapostagem = date('y-m-d h:i:s',$datapostagem);
-                    $datatratada = date("y-m-d h:i:s") + $datapostagem;
+                    // $datapostagem = strtotime($datapostagem); 
+                    // $datapostagem = date('y-m-d h:i:s',$datapostagem);
+                    // $datatratada = date("y-m-d h:i:s") + $datapostagem;
                     ;
                     ?>
                     <p><? echo $legenda; ?></p>
-                    <p><? echo $datatratada; ?></p>
+                    <!-- <p><? echo $datatratada; ?></p> -->
+                    <p><?= $datapostagem?></p>
                     <p><? echo $filtro; ?></p>
                     <?php
                         $sql_coment = "SELECT comentario,id_usuario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ?";
@@ -244,7 +251,13 @@ if (isset($_SESSION['id_usuario'])){
                     <?php
 
                 }
-
+            } else {
+                ?>
+                <div class='post'>
+                    <p>Nenhum Post Encontrado</p>
+                </div>
+                <?php
+            }
         
         ?>
 
