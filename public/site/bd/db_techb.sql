@@ -72,12 +72,14 @@ CREATE TABLE `tb_usuario` (
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
 INSERT INTO `tb_comentario` (`id_comentario`, `id_post`, `id_usuario`, `resposta_id`, `comentario`) VALUES
 (3,	4,	2,	NULL,	'pppppppp'),
 (8,	4,	2,	3,	'aaaaaaaaaaaaaa'),
 (9,	5,	2,	NULL,	'Navio duh'),
 (10,	5,	7,	9,	'nao'),
-(11,	6,	7,	NULL,	'se meu ');
+(11,	6,	7,	NULL,	'se meu '),
+(12,	7,	2,	NULL,	'teste');
 
 INSERT INTO `tb_filtro` (`id_filtro`, `id_usuario`, `filtro`) VALUES
 (1,	2,	'redacao'),
@@ -97,16 +99,18 @@ INSERT INTO `tb_filtro` (`id_filtro`, `id_usuario`, `filtro`) VALUES
 (18,	7,	'matematica');
 
 INSERT INTO `tb_midia` (`id_midia`, `id_post`, `midia`) VALUES
-(2,	3,	'/public/assets/img/1727700844b551e9c2918843bbca7dd37d84783c0058.jpg'),
 (3,	4,	'/public/assets/img/1727701137add4462f4ae25e0d50f262f76e14d7a632.jpeg'),
 (4,	5,	'/public/assets/img/172770349122bf7672bdf6d94bb2e3514bfcd63d5d23.png'),
-(5,	6,	'/public/assets/img/17277041585af90edbdb3fc08a50e8ed6cf7fae21b93.jpeg');
+(5,	6,	'/public/assets/img/17277041585af90edbdb3fc08a50e8ed6cf7fae21b93.jpeg'),
+(6,	7,	'/public/assets/img/1728382589d3ab6dbb1747349bc3cb3f309fbbaf2670.jpeg'),
+(7,	8,	'/public/assets/img/1728382731336067bff510caba57fabae15049e0a762.jpeg');
 
 INSERT INTO `tb_post` (`id_post`, `id_usuario`, `legenda`, `data_postagem`, `filtro`) VALUES
-(3,	2,	'teste',	'2024-09-30 12:54:03',	'ciencia humanas'),
 (4,	2,	'img',	'2024-09-30 12:58:57',	'linguagem'),
 (5,	2,	'Nenhuma, palavra do português que começa com N  ',	'2024-09-30 01:38:11',	'linguagem'),
-(6,	7,	'Como acha a hipotenusa',	'2024-09-30 01:49:18',	'matematica');
+(6,	7,	'Como acha a hipotenusa',	'2024-09-30 01:49:18',	'matematica'),
+(7,	2,	'quimica',	'2024-10-08 10:16:29',	'ciencias naturais'),
+(8,	2,	'filosofia',	'2024-10-08 10:18:51',	'ciencia humanas');
 
 INSERT INTO `tb_usuario` (`id_usuario`, `nome_usuario`, `senha_usuario`, `email_usuario`, `certificado`, `tipo`, `foto_usuario`) VALUES
 (1,	'usuariofantasma',	'lIlIllI',	'qwerty@gami.com',	'MLBB',	'U',	NULL),
@@ -116,4 +120,4 @@ INSERT INTO `tb_usuario` (`id_usuario`, `nome_usuario`, `senha_usuario`, `email_
 (6,	'Tree carvalho',	'arvore',	'palmeiras@gmail.com',	'Botanico',	'P',	NULL),
 (7,	'X',	'doismaisdois',	'hipotenusa@gmail.com',	'Matematico',	'P',	NULL);
 
--- 2024-09-30 13:50:01
+-- 2024-10-08 10:23:04
