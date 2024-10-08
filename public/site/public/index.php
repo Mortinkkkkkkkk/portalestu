@@ -38,43 +38,40 @@ if (isset($_SESSION['id_usuario'])){
             <ul class="menu">
                 <li><a href="#noticias">Notícias</a>
                     <ul class="submenu">
-                        <li><a href="#ultimas">Últimas notícias</a></li>
-                        <li><a href="#educacao">Educação</a></li>
-                        <li><a href="#tecnologia">Tecnologia</a></li>
-                        <li><a href="#ciencia">Ciência</a></li>
+                        <li><a href="">Últimas notícias</a></li>
+                        <li><a href="?fltPsq=edu">Educação</a></li>
+                        <li><a href="?fltPsq=cie">Ciência</a></li>
                     </ul>
                 </li>
                 <li><a href="#enem">ENEM</a>
                     <ul class="submenu">
-                        <li><a href="#provas">Provas Anteriores</a></li>
-                        <li><a href="#simulados">Simulados</a></li>
-                        <li><a href="#dicas">Dicas de Estudo</a></li>
-                        <li><a href="#calendario">Calendário</a></li>
-                        <li><a href="#inscricoes">Inscrições</a></li>
-                        <li><a href="#editais">Editais</a></li>
+                        <li><a href="?fltPsq=sim">Simulados</a></li>
+                        <li><a href="?fltPsq=dica">Dicas de Estudo</a></li>
+                        <li><a href="?fltPsq=ins">Inscrições</a></li>
+                        <li><a href="?fltPsq=edital">Editais</a></li>
                     </ul>
                 </li>
                 <li><a href="#materias">Matérias</a>
                     <ul class="submenu">
-                        <li><a href="#matematica">Matemática</a></li>
-                        <li><a href="#linguagens">Linguagens</a></li>
-                        <li><a href="#ciencias-natureza">Ciências da Natureza</a></li>
-                        <li><a href="#ciencias-humanas">Ciências Humanas</a></li>
-                        <li><a href="#redacao">Redação</a></li>
+                        <li><a href="?fltPsq=mat">Matemática</a></li>
+                        <li><a href="?fltPsq=lin">Linguagens</a></li>
+                        <li><a href="?fltPsq=cienat">Ciências da Natureza</a></li>
+                        <li><a href="?fltPsq=ciehum">Ciências Humanas</a></li>
+                        <li><a href="?fltPsq=red">Redação</a></li>
                     </ul>
                 </li>
                 <li><a href="#vocacional">Orientação Vocacional</a>
                     <ul class="submenu">
-                        <li><a href="#testes">Testes Vocacionais</a></li>
+                        <li><a href="?fltPsq=testes">Testes Vocacionais</a></li>
                         <li><a href="#carreiras">Carreiras</a></li>
                         <li><a href="#depoimentos">Depoimentos de Profissionais</a></li>
                     </ul>
                 </li>
                 <li><a href="#blog">Blog</a>
                     <ul class="submenu">
-                        <li><a href="#artigos">Artigos</a></li>
-                        <li><a href="#entrevistas">Entrevistas</a></li>
-                        <li><a href="#opiniao">Opinião</a></li>
+                        <li><a href="?fltPsq=artigos">Artigos</a></li>
+                        <li><a href="?fltPsq=entrevistas">Entrevistas</a></li>
+                        <li><a href="?fltPsq=opiniao">Opinião</a></li>
                     </ul>
                 </li>
                 <li><a href="#contato">Contato</a>
@@ -141,7 +138,27 @@ if (isset($_SESSION['id_usuario'])){
                 } else {
                     $nada = false;
                 }
-            } else if (!isset($_REQUEST['pesquisa'])){
+            } else if(!isset($_REQUEST['pesquisa']) && isset($_REQUEST['fltPsq'])){
+                $fltPsq = $_REQUEST['fltPsq'];
+                switch ($fltPsq) {
+                    case 'edu':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'linguagem' OR filtro = 'matematica' OR filtro = 'ciencia naturais' OR filtro = 'ciencia humanas' OR filtro = 'redacao'";
+                        break;
+                    case 'cie':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'ciencias humanas' OR filtro = 'ciencias naturais'";
+                        break;
+                    case 'sim':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'simulados'";
+                        break;
+                    
+                }
+                $rslt_pesq = SelectallSql($sql);
+                if (sizeof($rslt_pesq[1]) == 0) {
+                    $nada = true;
+                } else {
+                    $nada = false;
+                }
+            } else {
                 $sql = "SELECT * FROM tb_post";
                 $rslt_pesq = SelectallSql($sql);
                 $nada = false;
