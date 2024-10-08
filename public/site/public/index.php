@@ -23,6 +23,9 @@ if (isset($_SESSION['id_usuario'])){
         .comentario{
             border: 2px red dotted;
         }
+        .resposta {
+            margin-left: 100px;
+        }
     </style>
 </head>
 <body>
@@ -97,11 +100,11 @@ if (isset($_SESSION['id_usuario'])){
         <p>criacao e lista de <a href="/public/dashboard/usuario/index.php">usuario</a></p>
         <p>hora agora</p>
         <?}?>
-    <h3>posts:</h3>
+    <h3>Noticias:</h3>
     <div class="container-posts">
         <?php
             if (isset($tipologado) && $tipologado != "A") {
-            ?><p>Criar um <a href="/public/form_post.php?case=insert">Post</a></p><?php
+            ?><p>Criar um <a href="/public/form_post.php?case=insert">Noticias</a></p><?php
             }
             ?>
             <form action="/public/index.php" method="post">
@@ -169,7 +172,7 @@ if (isset($_SESSION['id_usuario'])){
                     <p><?= $datapostagem?></p>
                     <p><? echo $filtro; ?></p>
                     <?php
-                        $sql_coment = "SELECT comentario,id_usuario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ?";
+                        $sql_coment = "SELECT comentario,id_usuario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ? ORDER BY id_comentario, resposta_id";
                         $resultcoment = executaSql($sql_coment,'i',[$idpost]);
                         if (sizeof($resultcoment[1]) > 0) {
                             foreach ($resultcoment[1] as $listcoment){
@@ -186,8 +189,8 @@ if (isset($_SESSION['id_usuario'])){
                                     $user_coment = $nome_user_coment['nome_usuario'];
                                 }
                                 $resposta = $listcoment['resposta_id'];
-                                ?><div class="comentario"><p><?php
                                 if ($resposta != null) {
+                                    ?><div class="comentario resposta"><p><?php
                                     // Pega o id do usuario do comentario de origem da resposta
                                     $sql_cmnt_org = "SELECT id_usuario FROM tb_comentario WHERE id_comentario = ?";
                                     $rslt_cmnt_org = executaSql($sql_cmnt_org,'i',[$resposta]);
@@ -199,20 +202,11 @@ if (isset($_SESSION['id_usuario'])){
                                     $row_nm_us_org = $rslt_nm_us_org[1][0];
                                     $nm_us_org = $row_nm_us_org['nome_usuario'];
                                     // comentario:
-                                    echo $user_coment ." Respondeu " .$nm_us_org . ": " . $comentario ;?></p></div><?php
+                                    echo $user_coment ." Respondeu " .$nm_us_org . ": " . $comentario ;?></p><?php
 
                                 } else {
-                                    echo $user_coment . ": " . $comentario ;?></p></div><?php
-                                }
-                                if (isset($_SESSION) && isset($tipologado)) {
-                                    if (!isset($iduser)){
-                                        $iduser = 1;
-                                    }
-                                    if ($iduser == $iduser_coment && $iduser != 1 ||  $tipologado == "X") {
-                                        ?>
-                                            <p><a href="/controle/controle_comentario.php?case=deletar&id=<?=$id_comentario?>">DELETAR</a> COMENTARIO</p>
-                                        <?php
-                                    }
+                                    ?><div class="comentario"><p><?php
+                                    echo $user_coment . ": " . $comentario ;?></p><?php
                                 }
                                 ?>
                                 <form action="/controle/controle_comentario.php?case=comentario_resposta" method="post">
@@ -223,6 +217,16 @@ if (isset($_SESSION['id_usuario'])){
                                     <input type="submit" value="responder">
                                 </form>
                                 <?php
+                                if (isset($_SESSION) && isset($tipologado)) {
+                                    if (!isset($iduser)){
+                                        $iduser = 1;
+                                    }
+                                    if ($iduser == $iduser_coment && $iduser != 1 ||  $tipologado == "X") {
+                                        ?>
+                                            <p><a href="/controle/controle_comentario.php?case=deletar&id=<?=$id_comentario?>">DELETAR</a> COMENTARIO</p></div>
+                                            <?php
+                                    }
+                                }
                             };
                         } else {
                             echo "nenhum comentario";

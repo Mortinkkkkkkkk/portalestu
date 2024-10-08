@@ -47,9 +47,16 @@ switch ($case) {
         <select value="<?= $filtro?>" name="filtro" id="filtro">
             <option value="linguagem">Linguagem</option>
             <option value="matematica">Matematica</option>
-            <option value="ciencia humanas">Ciencias Humanas</option>
             <option value="ciencias naturais">Ciencias da Natureza</option>
+            <option value="ciencia humanas">Ciencia Humanas</option>
             <option value="redacao">Redação</option>
+            <option value="edital">Edital</option>
+            <option value="dicasdeestudo">Dicas de Estudo</option>
+            <option value="testesvocaional">Teste Vocaional</option>
+            <option value="artigos">Artigo</option>
+            <option value="entrevistas">Entrevista</option>
+            <option value="inscricao">Inscrição</option>
+            <option value="simulados">Simulado</option> 
         </select>
         <input type="hidden" name="id" value="<?= $idpost?>">
         <input type="submit" value="enviar">
