@@ -38,7 +38,7 @@ if (isset($_SESSION['id_usuario'])){
             <ul class="menu">
                 <li><a href="#noticias">Notícias</a>
                     <ul class="submenu">
-                        <li><a href="">Últimas notícias</a></li>
+                        <li><a href="index.php">Últimas notícias</a></li>
                         <li><a href="?fltPsq=edu">Educação</a></li>
                         <li><a href="?fltPsq=cie">Ciência</a></li>
                     </ul>
@@ -145,10 +145,16 @@ if (isset($_SESSION['id_usuario'])){
                         $sql = "SELECT * FROM tb_post WHERE filtro = 'linguagem' OR filtro = 'matematica' OR filtro = 'ciencia naturais' OR filtro = 'ciencia humanas' OR filtro = 'redacao'";
                         break;
                     case 'cie':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'ciencias humanas' OR filtro = 'ciencias naturais'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'ciencia humanas' OR filtro = 'ciencias naturais'";
                         break;
                     case 'sim':
                         $sql = "SELECT * FROM tb_post WHERE filtro = 'simulados'";
+                        break;
+                    case 'dica':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'dicasdeestudo'";
+                        break;
+                    case 'ins':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'inscricao'";
                         break;
                     
                 }
