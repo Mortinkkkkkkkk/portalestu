@@ -171,7 +171,7 @@ if (isset($_SESSION['id_usuario'])){
             }   
             if (!$nada) {
                 foreach ($rslt_pesq[1] as $row) {
-                    echo "<div class='post'>";
+                    ?><div class="post"><?
                     $iduser_post = $row['id_usuario'];
                     $idpost = $row['id_post'];
                     $sqlimg = "SELECT  midia FROM tb_midia WHERE id_post= ?";
@@ -250,6 +250,7 @@ if (isset($_SESSION['id_usuario'])){
                                             <?php
                                     }
                                 }
+                                ?></div><?
                             };
                         } else {
                             echo "nenhum comentario";
@@ -273,8 +274,8 @@ if (isset($_SESSION['id_usuario'])){
                         }
                     }
                     ?>
-                    </div>
-                
+                    
+                </div>
                     <?php
 
                 }
@@ -287,8 +288,7 @@ if (isset($_SESSION['id_usuario'])){
             }
         
         ?>
-
-    </div>
+</div>
 
 </body>
 </html>
