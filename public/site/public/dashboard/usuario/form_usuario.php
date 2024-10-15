@@ -39,7 +39,7 @@
 <body>
     <h1><?= $titulo;?>  do Usuario</h1>
     <div>
-        <form action="/controle/controle_usuario.php?case=<?= $modo;?>&id=<?= $id;?>" method="post">
+        <form action="/controle/controle_usuario.php?case=<?= $modo;?>&id=<?= $id;?>" enctype="multipart/form-data" method="post">
             <label for="nome">Nome:</label>
             <input value="<?= $nome;?>" type="text" name="nome"> <br>
             <label for="senha">Senha:</label>
@@ -52,6 +52,9 @@
                 <option value="A">Aluno</option>
                 <option value="P">Professor</option>
             </select>
+            <br>
+            <label for="img">Foto de perfil</label><br>
+            <input type="file" name="img" id="img">
             <br>
             <input type="submit" value="enviar">
         </form>

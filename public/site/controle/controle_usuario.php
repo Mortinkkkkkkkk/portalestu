@@ -9,14 +9,21 @@
     switch ($case) {
         // usuario
         case 'userinsert':
-            $sql = "INSERT INTO tb_usuario (nome_usuario, senha_usuario, email_usuario, certificado, tipo)
-            VALUES (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO tb_usuario (nome_usuario, senha_usuario, email_usuario, certificado, tipo, foto_usuario)
+            VALUES (?, ?, ?, ?, ?, ?)";
             $nome = $_REQUEST['nome'];
             $senha = $_REQUEST['senha'];
             $email = $_REQUEST['email'];
             $certificado = $_REQUEST['certificado'];
             $tipo = $_REQUEST['tipo'];
-            $result = executaSql($sql,'sssss',[$nome,$senha,$email,$certificado,$tipo]);
+            $pasta_banco = "/public/assets/img/perfil/";
+            $pasta_servidor = $_SERVER['DOCUMENT_ROOT'] . "/public/assets/img/perfil/"; 
+            $ext_img = "." . pathinfo($_FILES['img_post']['name'], PATHINFO_EXTENSION);
+            $nome_img = time() . md5(uniqid()) . rand(1,50);
+            $arq_img_bd = $pasta_banco . $nome_img . $ext_img;
+            $arq_img_server = $pasta_servidor . $nome_img . $ext_img;
+            move_uploaded_file($_FILES['img_post']['tmp_name'], $arq_img_server);
+            $result = executaSql($sql,'ssssss',[$nome,$senha,$email,$certificado,$tipo,$arq_img_bd]);
             if ($result) {
                 $sql_iduser = "SELECT id_usuario FROM tb_usuario WHERE senha_usuario = ? AND email_usuario = ?";
                 $iduser = executaSql($sql_iduser,'ss',[$senha, $email]);
@@ -43,16 +50,21 @@
             $email = $_REQUEST['email'];
             $certificado = $_REQUEST['certificado'];
             $tipo = $_REQUEST['tipo'];
-            $sql = "UPDATE tb_usuario SET id_usuario = ?, nome_usuario = ?,senha_usuario = ?,email_usuario = ?,certificado = ?,tipo = ?,foto_usuario = NULL
+            $sql = "UPDATE tb_usuario SET id_usuario = ?, nome_usuario = ?,senha_usuario = ?,email_usuario = ?,certificado = ?,tipo = ?,foto_usuario = ?
             WHERE id_usuario = ?";
-            $result = executaSql($sql,'isssssi',[$iduser,$nome,$senha,$email,$certificado,$tipo,$iduser]);
+            $pasta_banco = "/public/assets/img/perfil/";
+            $pasta_servidor = $_SERVER['DOCUMENT_ROOT'] . "/public/assets/img/perfil/"; 
+            $ext_img = "." . pathinfo($_FILES['img_post']['name'], PATHINFO_EXTENSION);
+            $nome_img = time() . md5(uniqid()) . rand(1,50);
+            $arq_img_bd = $pasta_banco . $nome_img . $ext_img;
+            $arq_img_server = $pasta_servidor . $nome_img . $ext_img;
+            move_uploaded_file($_FILES['img_post']['tmp_name'], $arq_img_server);
+            $result = executaSql($sql,'issssssi',[$iduser,$nome,$senha,$email,$certificado,$tipo, $arq_img_bd,$iduser,]);
             if ($result) {
-                if ($tipo == "P")
-                    echo redirect('usuario', 'Cadastrado com sucesso');
+                if ($tipologado == "X")
+                    redirect('usuario', 'Atualizado com sucesso');
                 else {
-                echo "<script>
-                        window.location.href='/public/dashboard/usuario/form_filtro.php?case=update&id=$iduser';
-                    </script>";
+                    redirect('perfil','Atualizado com sucesso');
                 }
             } else {
                 redirect('usuario', 'Deu algo de errado');

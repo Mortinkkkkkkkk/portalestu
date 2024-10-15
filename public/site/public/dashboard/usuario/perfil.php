@@ -41,7 +41,7 @@
             redirect("pagina_inicial","Usuario não existente");
         }
         ?>
-        <p><?= $foto?></p>
+        <img src="<?= $foto?>" alt="imagine uma">
         <p><?= $nome?></p>
         <p><?= $email?></p>
         <?php 
@@ -57,7 +57,7 @@
                     break;
             }
         ?>
-        <p><a href="form_usuario.php?case=update">Alterar o perfil</a></p>
+        <p><a href="form_usuario.php?caso=update&id=<?= $idusuario?>">Alterar o perfil</a></p>
         <p><a href="form_filtro.php?case=update">Alterar os filtros</a></p>
         <?php
         if ($tipo != "A") {
@@ -67,7 +67,8 @@
                 foreach ($rslt_pst_prfl[1] as $row_pst) {
                     ?><div class="post"><?                    
                     $idpost = $row_pst['id_post'];
-                    $sqlimg = "SELECT  midia FROM tb_midia WHERE id_post= ?";
+                    $iduser_post = $row_pst['id_usuario'];
+                    $sqlimg = "SELECT  midia FROM tb_midia WHERE id_post = ?";
                     $midia = executaSql($sqlimg,'i',[$idpost]); 
                     foreach ($midia[1] as $listimg) {
                         $img = $listimg['midia'];
@@ -83,8 +84,8 @@
                     <p><?= $datapostagem?></p>
                     <p><? echo $filtro; ?></p>
                     <?php
-                    if (isset($iduser)  && isset($tipologado)) {
-                        if ($iduser_post == $iduser || $tipologado == "X") {
+                    if (isset($idusuario)  && isset($tipologado)) {
+                        if ($iduser_post == $idusuario || $tipologado == "X") {
                         ?>
                         <p>Editar post: <a href="/controle/controle_post.php?case=delete&id=<?=$idpost?>">Deletar</a> <a href="form_post.php?case=update&id=<?=$idpost?>">Atualizar</a></p>
                         <?php

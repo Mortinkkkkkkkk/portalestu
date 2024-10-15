@@ -19,6 +19,12 @@
                     window.location.href='/public/dashboard/usuario/index.php';
                 </script>";
                 break;
+            case 'perfil':
+                echo "<script>
+                    window.alert('$mensagem');
+                    window.location.href='/public/dashboard/usuario/perfil.php';
+                </script>";
+                break;
             case 'login_err':
                 echo "<script>
                     window.alert('$mensagem');
