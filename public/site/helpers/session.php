@@ -4,7 +4,7 @@
         switch ($usuario) {
             case "aluno":
                 if (!isset($_SESSION['id_usuario'])) {
-                    redirect('login','Essa pagina precisa de um login');
+                    redirect('login_err','Essa pagina precisa de um login');
                 }
                 break;
             case 'professor':
