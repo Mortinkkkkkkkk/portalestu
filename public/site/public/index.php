@@ -156,7 +156,39 @@ if (isset($_SESSION['id_usuario'])){
                     case 'ins':
                         $sql = "SELECT * FROM tb_post WHERE filtro = 'inscricao'";
                         break;
-                    
+                    case 'edital':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'edital'";
+                        break;
+                    case 'mat':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'matematica'";
+                        break;
+                    case 'lin':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'linguagem'";
+                        break;
+                    case 'cienat':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'ciencias naturais'";
+                        break;
+                    case 'ciehum':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'ciencia humanas'";
+                        break;
+                    case 'red':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'redacao'";
+                        break;
+                    case 'testes':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'testesvocacional'";
+                        break;
+                    case 'artigos':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'artigos'";
+                        break;
+                    case 'entrevistas':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'entrevistas'";
+                        break;
+                    case 'opiniao':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'opiniao'";
+                        break;
+                    default: 
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'filtronaoexitentepradarerrodeproposito'";
+                        break;
                 }
                 $rslt_pesq = SelectallSql($sql);
                 if (sizeof($rslt_pesq[1]) == 0) {
