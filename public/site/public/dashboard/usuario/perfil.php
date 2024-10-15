@@ -41,6 +41,7 @@
             redirect("pagina_inicial","Usuario não existente");
         }
         ?>
+        <p><?= $foto?></p>
         <p><?= $nome?></p>
         <p><?= $email?></p>
         <?php 
@@ -56,7 +57,8 @@
                     break;
             }
         ?>
-        <p><?= $foto?></p>
+        <p><a href="form_usuario.php?case=update">Alterar o perfil</a></p>
+        <p><a href="form_filtro.php?case=update">Alterar os filtros</a></p>
         <?php
         if ($tipo != "A") {
             $sql_pst_prfl = "SELECT * FROM tb_post WHERE id_usuario = ? ORDER BY data_postagem DESC, fixado";
@@ -92,7 +94,15 @@
                     </div>
                     <?php
                 }
-            } 
+            } else {
+                ?><div class="post">
+                    <p>Não a post feito por esse usuario</p>
+                </div><?php
+            }
+        } else {
+            ?><div class="post">
+                    <p>Esse usuario é um aluno</p>
+                </div><?php
         }
     ?>
 </body>
