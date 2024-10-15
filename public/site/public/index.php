@@ -95,7 +95,10 @@ if (isset($_SESSION['id_usuario'])){
            ?><p><a href="/public/dashboard/usuario/form_usuario.php?caso=insert">Cadastra-se</a></p><?
         } else if (isset($tipologado) && $tipologado == "X") {?>
         <p>criacao e lista de <a href="/public/dashboard/usuario/index.php">usuario</a></p>
-        <p>hora agora</p>
+        <?php }
+            if (isset($iduser)) {
+        ?>
+        <p><a href="/public/dashboard/usuario/perfil.php">Perfil</a></p>
         <?}?>
     <h3>Noticias:</h3>
     <div class="container-posts">
