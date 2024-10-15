@@ -123,13 +123,13 @@ if (isset($_SESSION['id_usuario'])){
                 $opcao_pesq = $_REQUEST['opcao_pesq'];
                 switch ($opcao_pesq) {
                     case "data" :
-                        $sql = "SELECT * FROM tb_post WHERE data_postagem LIKE ?";
+                        $sql = "SELECT * FROM tb_post WHERE data_postagem LIKE ? ORDER BY data_postagem DESC";
                         break;
                     case "legenda":
-                        $sql = "SELECT * FROM tb_post WHERE legenda LIKE ?";
+                        $sql = "SELECT * FROM tb_post WHERE legenda LIKE ? ORDER BY data_postagem DESC";
                         break;
                     case "filtro":
-                        $sql = "SELECT * FROM tb_post WHERE filtro LIKE ?";
+                        $sql = "SELECT * FROM tb_post WHERE filtro LIKE ? ORDER BY data_postagem DESC";
                         break;
                 }
                 $rslt_pesq = executaSql($sql,'s',[$pesquisa]);
@@ -142,49 +142,49 @@ if (isset($_SESSION['id_usuario'])){
                 $fltPsq = $_REQUEST['fltPsq'];
                 switch ($fltPsq) {
                     case 'edu':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'linguagem' OR filtro = 'matematica' OR filtro = 'ciencia naturais' OR filtro = 'ciencia humanas' OR filtro = 'redacao'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'linguagem' OR filtro = 'matematica' OR filtro = 'ciencia naturais' OR filtro = 'ciencia humanas' OR filtro = 'redacao' ORDER BY data_postagem DESC";
                         break;
                     case 'cie':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'ciencia humanas' OR filtro = 'ciencias naturais'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'ciencia humanas' OR filtro = 'ciencias naturais' ORDER BY data_postagem DESC";
                         break;
                     case 'sim':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'simulados'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'simulados' ORDER BY data_postagem DESC";
                         break;
                     case 'dica':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'dicasdeestudo'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'dicasdeestudo' ORDER BY data_postagem DESC";
                         break;
                     case 'ins':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'inscricao'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'inscricao' ORDER BY data_postagem DESC";
                         break;
                     case 'edital':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'edital'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'edital' ORDER BY data_postagem DESC";
                         break;
                     case 'mat':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'matematica'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'matematica' ORDER BY data_postagem DESC";
                         break;
                     case 'lin':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'linguagem'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'linguagem' ORDER BY data_postagem DESC";
                         break;
                     case 'cienat':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'ciencias naturais'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'ciencias naturais' ORDER BY data_postagem DESC";
                         break;
                     case 'ciehum':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'ciencia humanas'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'ciencia humanas' ORDER BY data_postagem DESC";
                         break;
                     case 'red':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'redacao'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'redacao' ORDER BY data_postagem DESC";
                         break;
                     case 'testes':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'testesvocacional'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'testesvocacional' ORDER BY data_postagem DESC";
                         break;
                     case 'artigos':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'artigos'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'artigos' ORDER BY data_postagem DESC";
                         break;
                     case 'entrevistas':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'entrevistas'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'entrevistas' ORDER BY data_postagem DESC";
                         break;
                     case 'opiniao':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'opiniao'";
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'opiniao' ORDER BY data_postagem DESC";
                         break;
                     default: 
                         $sql = "SELECT * FROM tb_post WHERE filtro = 'filtronaoexitentepradarerrodeproposito'";
