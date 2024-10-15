@@ -165,7 +165,7 @@ if (isset($_SESSION['id_usuario'])){
                     $nada = false;
                 }
             } else {
-                $sql = "SELECT * FROM tb_post";
+                $sql = "SELECT * FROM tb_post ORDER BY data_postagem DESC";
                 $rslt_pesq = SelectallSql($sql);
                 $nada = false;
             }   
@@ -250,7 +250,7 @@ if (isset($_SESSION['id_usuario'])){
                                             <?php
                                     }
                                 }
-                                ?></div><?
+                                ?><?
                             };
                         } else {
                             echo "nenhum comentario";
