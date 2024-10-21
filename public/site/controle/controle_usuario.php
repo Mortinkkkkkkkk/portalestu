@@ -16,14 +16,20 @@
             $email = $_REQUEST['email'];
             $certificado = $_REQUEST['certificado'];
             $tipo = $_REQUEST['tipo'];
-            $pasta_banco = "/public/assets/img/perfil/";
-            $pasta_servidor = $_SERVER['DOCUMENT_ROOT'] . "/public/assets/img/perfil/"; 
-            $ext_img = "." . pathinfo($_FILES['img_post']['name'], PATHINFO_EXTENSION);
-            $nome_img = time() . md5(uniqid()) . rand(1,50);
-            $arq_img_bd = $pasta_banco . $nome_img . $ext_img;
-            $arq_img_server = $pasta_servidor . $nome_img . $ext_img;
-            move_uploaded_file($_FILES['img_post']['tmp_name'], $arq_img_server);
-            $result = executaSql($sql,'ssssss',[$nome,$senha,$email,$certificado,$tipo,$arq_img_bd]);
+            if ($_FILES['img']['name'] == '') {
+                $arq_img_bd = "/public/assets/img/perfil/pessoasemfoto.jpeg";
+                $result = executaSql($sql,'ssssss',[$nome,$senha,$email,$certificado,$tipo,$arq_img_bd]);
+            }
+            else {
+                $pasta_banco = "/public/assets/img/perfil/";
+                $pasta_servidor = $_SERVER['DOCUMENT_ROOT'] . "/public/assets/img/perfil/"; 
+                $ext_img = "." . pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
+    $nome_img = time() . md5(uniqid()) . rand(1,50);
+                $arq_img_bd = $pasta_banco . $nome_img . $ext_img;
+                $arq_img_server = $pasta_servidor . $nome_img . $ext_img;
+                $result = executaSql($sql,'ssssss',[$nome,$senha,$email,$certificado,$tipo,$arq_img_bd]);
+                move_uploaded_file($_FILES['img']['tmp_name'], $arq_img_server);
+            }
             if ($result) {
                 $sql_iduser = "SELECT id_usuario FROM tb_usuario WHERE senha_usuario = ? AND email_usuario = ?";
                 $iduser = executaSql($sql_iduser,'ss',[$senha, $email]);
