@@ -5,8 +5,12 @@
     session_start();
     if (isset($_REQUEST['iduser'])) {
         $idusuario = $_REQUEST['iduser'];
+        $iduser = $_SESSION['id_usuario'];
+    $tipologado = $_SESSION['tipo'];
     } else if (isset($_SESSION['id_usuario'])) {
         $idusuario = $_SESSION['id_usuario'];
+        $iduser = $_SESSION['id_usuario'];
+        $tipologado = $_SESSION['tipo'];
     } else {
         sessionPermit('aluno');
     }
@@ -58,7 +62,7 @@
             }
         ?>
         <p><a href="form_usuario.php?caso=update&id=<?= $idusuario?>">Alterar o perfil</a></p>
-        <p><a href="form_filtro.php?case=update">Alterar os filtros</a></p>
+        <p><a href="form_filtro.php?case=update&id=<?= $idusuario?>">Alterar os filtros</a></p>
         <?php
         if ($tipo != "A") {
             $sql_pst_prfl = "SELECT * FROM tb_post WHERE id_usuario = ? ORDER BY data_postagem DESC, fixado";
@@ -84,7 +88,7 @@
                     <p><?= $datapostagem?></p>
                     <p><? echo $filtro; ?></p>
                     <?php
-                    if (isset($idusuario)  && isset($tipologado)) {
+                    if (isset($idusuario) && isset($tipologado)) {
                         if ($iduser_post == $idusuario || $tipologado == "X") {
                         ?>
                         <p>Editar post: <a href="/controle/controle_post.php?case=delete&id=<?=$idpost?>">Deletar</a> <a href="form_post.php?case=update&id=<?=$idpost?>">Atualizar</a></p>

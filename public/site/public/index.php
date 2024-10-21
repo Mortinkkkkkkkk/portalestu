@@ -16,15 +16,11 @@ if (isset($_SESSION['id_usuario'])){
     <title>Universo Estudantil</title>
     <link rel="icon" type="image/x-icon" href="/public/assets/img/logo.ico">
     <link rel="stylesheet" href="/public/assets/css/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        .post{
-            border: 2px black solid;
-        }
-        .comentario{
-            border: 2px red dotted;
-        }
-        .resposta {
-            margin-left: 100px;
+        .img-perfil {
+            width: 50px;
+            border-radius: 100%;
         }
     </style>
 </head>
@@ -206,29 +202,43 @@ if (isset($_SESSION['id_usuario'])){
             }   
             if (!$nada) {
                 foreach ($rslt_pesq[1] as $row) {
-                    ?><div class="post"><?
+                    ?><div class="card mb-3" style="max-width: 540px">
+                        <div class="row g-0">
+                            <div class=""><?
                     $iduser_post = $row['id_usuario'];
                     $idpost = $row['id_post'];
+                    $sqluser = "SELECT foto_usuario, nome_usuario FROM tb_usuario WHERE id_usuario = ?";
+                    $rslt_usr_prfl = executaSql($sqluser,'i',[$iduser_post]);
+                    foreach ($rslt_usr_prfl[1] as $listprfl) {
+                        $imgprfl = $listprfl['foto_usuario'];
+                        $username = $listprfl['nome_usuario'];
+                    }
+                    ?>
+                    <div class="col-md-1">
+                        <img src="<?= $imgprfl?>" class="img-perfil float-start" alt="imagina uma">
+                        <a href="/public/dashboard/usuario/perfil.php?iduser=<?= $iduser_post?>"><?= $username?></a>
+                    </div>
+                    <?php
                     $sqlimg = "SELECT  midia FROM tb_midia WHERE id_post= ?";
                     $midia = executaSql($sqlimg,'i',[$idpost]); 
                     foreach ($midia[1] as $listimg) {
                         $img = $listimg['midia'];
                         ?>
-                        <img src="<?= $img;?>" alt="imagine uma">
+                        <img src="<?= $img;?>" class="img-size rounded-start" alt="imagine uma">
+                        </div>
                         <?php
                     }
                     $legenda = $row['legenda'];
                     $datapostagem = $row['data_postagem'];
                     $filtro = $row['filtro'];
-                    // $datapostagem = strtotime($datapostagem); 
-                    // $datapostagem = date('y-m-d h:i:s',$datapostagem);
-                    // $datatratada = date("y-m-d h:i:s") + $datapostagem;
                     ;
                     ?>
-                    <p><? echo $legenda; ?></p>
-                    <!-- <p><? echo $datatratada; ?></p> -->
-                    <p><?= $datapostagem?></p>
-                    <p><? echo $filtro; ?></p>
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $legenda?></h5>
+                            <p class="card-text"><?= $datapostagem?></p>
+                        </div>
+                    </div>
                     <?php
                         $sql_coment = "SELECT comentario,id_usuario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ? ORDER BY id_comentario, resposta_id";
                         $resultcoment = executaSql($sql_coment,'i',[$idpost]);
@@ -311,6 +321,8 @@ if (isset($_SESSION['id_usuario'])){
                     ?>
                     
                 </div>
+                </div>
+                
                     <?php
 
                 }
@@ -324,6 +336,6 @@ if (isset($_SESSION['id_usuario'])){
         
         ?>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
