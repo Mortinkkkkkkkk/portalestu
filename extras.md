@@ -1,4 +1,7 @@
- 
+<!-- Frameworks -->
+    Ion Icons
+    Bootstrap
+<!-- Comandos -->
 Comando do docker-compose
  docker-compose up -d
 Comandos dentro do container php
