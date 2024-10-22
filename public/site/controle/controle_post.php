@@ -56,6 +56,27 @@
                     redirect('pagina_inicial', 'Deu algo de errado');
                 }
                 break;
+            case 'pin':
+                $idpost = $_REQUEST['id'];
+                $func = $_REQUEST['func'];
+                if ($func == "Fixar") {
+                    $sql_upd_pin =" UPDATE tb_post SET 
+                        fixado = 1
+                    WHERE id_post = ?";
+                    $pin = "Fixado";
+                } else if ($func == "Desfixar") {
+                    $sql_upd_pin =" UPDATE tb_post SET 
+                        fixado = 0
+                    WHERE id_post = ?";
+                    $pin = "Desfixado";
+                }
+                $rslt_upd_pin = executaSql($sql_upd_pin,'i',[$idpost]);
+                if ($rslt_upd_pin) {
+                    redirect('pin','');
+                } else {
+                    redirect('pin','');
+                }
+                break;
             case 'delete':
                 $idpost = $_REQUEST['id'];
                 $sql_del = "DELETE FROM tb_post WHERE id_post = ?;";

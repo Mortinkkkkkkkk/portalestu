@@ -21,6 +21,26 @@ if (isset($_SESSION['id_usuario'])){
         .img-perfil {
             width: 50px;
             border-radius: 100%;
+            margin: 5px 10px 0 5px;
+        }
+        .img-size {
+            width: 100%;
+            height: 300px;
+        }
+        .div-user {
+            display: flex;
+            flex-direction: row;
+        }
+        .div-user a {
+            text-align: center;
+            text-decoration: none;
+            margin-top: 10px;
+            color: #000;
+        }
+        .resposta {
+            padding-left: 10px;
+            margin-left: 50px;
+            border-left: solid 2px gray;
         }
     </style>
 </head>
@@ -214,7 +234,7 @@ if (isset($_SESSION['id_usuario'])){
                         $username = $listprfl['nome_usuario'];
                     }
                     ?>
-                    <div class="col-md-1">
+                    <div class="div-user">
                         <img src="<?= $imgprfl?>" class="img-perfil float-start" alt="imagina uma">
                         <a href="/public/dashboard/usuario/perfil.php?iduser=<?= $iduser_post?>"><?= $username?></a>
                     </div>
@@ -225,14 +245,15 @@ if (isset($_SESSION['id_usuario'])){
                         $img = $listimg['midia'];
                         ?>
                         <img src="<?= $img;?>" class="img-size rounded-start" alt="imagine uma">
-                        </div>
                         <?php
                     }
+
                     $legenda = $row['legenda'];
                     $datapostagem = $row['data_postagem'];
                     $filtro = $row['filtro'];
                     ;
                     ?>
+                            </div>
                     <div class="col-md-12">
                         <div class="card-body">
                             <h5 class="card-title"><?= $legenda?></h5>
@@ -277,6 +298,7 @@ if (isset($_SESSION['id_usuario'])){
                                     echo $user_coment . ": " . $comentario ;?></p><?php
                                 }
                                 ?>
+                                <p class="teste">texte</p>
                                 <form action="/controle/controle_comentario.php?case=comentario_resposta" method="post">
                                     <input type="text" name="resposta">
                                     <input type="hidden" name="id_user" value="<?= $iduser;?>">

@@ -25,6 +25,11 @@
                     window.location.href='/public/dashboard/usuario/perfil.php';
                 </script>";
                 break;
+            case 'pin':
+                echo "<script>
+                    window.location.href='/public/dashboard/usuario/perfil.php';
+                </script>";
+                break;
             case 'login_err':
                 echo "<script>
                     window.alert('$mensagem');

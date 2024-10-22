@@ -21,15 +21,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        .post{
-            border: 2px black solid;
-            margin-bottom: 10px;
+        .pin {
+            position: absolute;
+            left: 46%;
+            top: -8%;
+            font-size: 50px;
+            rotate: 45deg;
         }
+
     </style>
 
 </head>
 <body>
+    <a href="/public/index.php"><ion-icon name="home-outline"></ion-icon></a><br>
     <?php
         $sql_usr_prfl = "SELECT * FROM tb_usuario WHERE id_usuario = ?";
         $rslt_usr_prfl = executaSql($sql_usr_prfl, 'i', [$idusuario]);
@@ -65,11 +71,14 @@
         <p><a href="form_filtro.php?case=update&id=<?= $idusuario?>">Alterar os filtros</a></p>
         <?php
         if ($tipo != "A") {
-            $sql_pst_prfl = "SELECT * FROM tb_post WHERE id_usuario = ? ORDER BY data_postagem DESC, fixado";
+            $sql_pst_prfl = "SELECT * FROM tb_post WHERE id_usuario = ? ORDER BY fixado DESC, data_postagem DESC";
             $rslt_pst_prfl = executaSql($sql_pst_prfl,'i',[$idusuario]);
             if (sizeof($rslt_pst_prfl[1]) > 0 ){
                 foreach ($rslt_pst_prfl[1] as $row_pst) {
-                    ?><div class="post"><?                    
+                    ?><div class="card mb-3" style="max-width: 720px">
+                        <div class="row g-0">
+                            <div class=" ">
+                            <?                    
                     $idpost = $row_pst['id_post'];
                     $iduser_post = $row_pst['id_usuario'];
                     $sqlimg = "SELECT  midia FROM tb_midia WHERE id_post = ?";
@@ -83,20 +92,36 @@
                     $legenda = $row_pst['legenda'];
                     $datapostagem = $row_pst['data_postagem'];
                     $filtro = $row_pst['filtro'];
+                    $fixado = $row_pst['fixado'];
+                    if ($fixado == 1) { 
+                        ?><ion-icon name="pin-sharp" class="pin" ></ion-icon><?
+                    }
                     ?>
-                    <p><? echo $legenda; ?></p>
-                    <p><?= $datapostagem?></p>
-                    <p><? echo $filtro; ?></p>
+                    <div class="col-md-12">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $legenda; ?></h5>
+                            <p class="card-text"><?= $datapostagem?></p>
+                        </div>
+                    </div>
                     <?php
                     if (isset($idusuario) && isset($tipologado)) {
                         if ($iduser_post == $idusuario || $tipologado == "X") {
                         ?>
-                        <p>Editar post: <a href="/controle/controle_post.php?case=delete&id=<?=$idpost?>">Deletar</a> <a href="form_post.php?case=update&id=<?=$idpost?>">Atualizar</a></p>
+                        <p class="card-text">Editar post: <a href="/controle/controle_post.php?case=delete&id=<?=$idpost?>">Deletar</a> <a href="form_post.php?case=update&id=<?=$idpost?>">Atualizar</a></p>
                         <?php
+                        } 
+                        if ($fixado == 0) {
+                            $txt_pin = "Fixar";
+                        } else {
+                            $txt_pin = "Desfixar";
                         }
+                        ?> <p class="card-text"><a href="/controle/controle_post.php?case=pin&id=<?= $idpost?>&func=<?= $txt_pin?>"><?= $txt_pin?></a></p>
+                        <?php
                     }
                     ?>
                     </div>
+                        </div>
+                      </div>
                     <?php
                 }
             } else {
@@ -110,5 +135,10 @@
                 </div><?php
         }
     ?>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
 </body>
 </html>
