@@ -17,32 +17,7 @@ if (isset($_SESSION['id_usuario'])){
     <link rel="icon" type="image/x-icon" href="/public/assets/img/logo.ico">
     <link rel="stylesheet" href="/public/assets/css/index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <style>
-        .img-perfil {
-            width: 50px;
-            border-radius: 100%;
-            margin: 5px 10px 0 5px;
-        }
-        .img-size {
-            width: 100%;
-            height: 300px;
-        }
-        .div-user {
-            display: flex;
-            flex-direction: row;
-        }
-        .div-user a {
-            text-align: center;
-            text-decoration: none;
-            margin-top: 10px;
-            color: #000;
-        }
-        .resposta {
-            padding-left: 10px;
-            margin-left: 50px;
-            border-left: solid 2px gray;
-        }
-    </style>
+    <script src="/public/assets/js/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <header>
@@ -258,6 +233,10 @@ if (isset($_SESSION['id_usuario'])){
                         <div class="card-body">
                             <h5 class="card-title"><?= $legenda?></h5>
                             <p class="card-text"><?= $datapostagem?></p>
+                            
+                        </div>
+                        <div class="toggler">
+                            <ion-icon name="chatbox-ellipses-outline" class="btn-coment"></ion-icon>
                         </div>
                     </div>
                     <?php
@@ -279,7 +258,8 @@ if (isset($_SESSION['id_usuario'])){
                                 }
                                 $resposta = $listcoment['resposta_id'];
                                 if ($resposta != null) {
-                                    ?><div class="comentario resposta"><p><?php
+                                    ?><div class="comentario resposta" id="comentario" >
+                                        <p class="txt-resposta"><?php
                                     // Pega o id do usuario do comentario de origem da resposta
                                     $sql_cmnt_org = "SELECT id_usuario FROM tb_comentario WHERE id_comentario = ?";
                                     $rslt_cmnt_org = executaSql($sql_cmnt_org,'i',[$resposta]);
@@ -294,18 +274,18 @@ if (isset($_SESSION['id_usuario'])){
                                     echo $user_coment ." Respondeu " .$nm_us_org . ": " . $comentario ;?></p><?php
 
                                 } else {
-                                    ?><div class="comentario"><p><?php
+                                    ?><div class="comentario" id="comentario" ><p class="txt-coment"><?php
                                     echo $user_coment . ": " . $comentario ;?></p><?php
                                 }
                                 ?>
-                                <p class="teste">texte</p>
-                                <form action="/controle/controle_comentario.php?case=comentario_resposta" method="post">
-                                    <input type="text" name="resposta">
+                                <form class="form-resposta" action="/controle/controle_comentario.php?case=comentario_resposta" method="post">
+                                    <input type="text"  name="resposta">
                                     <input type="hidden" name="id_user" value="<?= $iduser;?>">
                                     <input type="hidden" name="id_comentario" value="<?= $id_comentario;?>">
                                     <input type="hidden" name="id_post" value="<?= $idpost;?>">
                                     <input type="submit" value="responder">
                                 </form>
+                                <p class="btn-responder">Responder</p>
                                 <?php
                                 if (isset($_SESSION) && isset($tipologado)) {
                                     if (!isset($iduser)){
@@ -320,7 +300,11 @@ if (isset($_SESSION['id_usuario'])){
                                 ?><?
                             };
                         } else {
-                            echo "nenhum comentario";
+                           ?>
+                            <div class="comentario">
+                                <p class="txt-coment">Esse Post não tem comentario</p>
+                            </div>
+                           <?php
                         };
                     ?>
                     <form action="/controle/controle_comentario.php?case=comentario_post" method="post">
@@ -358,6 +342,27 @@ if (isset($_SESSION['id_usuario'])){
         
         ?>
 </div>
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    $('document').ready(
+        function() {
+            $('.comentario').hide();
+            $('.form-resposta').hide();
+            $('.btn-coment').click(
+                function() {
+                    $('.comentario').toggle(300);
+                    
+                }
+            );
+            $('.btn-responder').click(
+                function(){
+                    $('.form-resposta').toggle(250);
+                }
+            );
+        }
+    );
+</script>
 </body>
 </html>
