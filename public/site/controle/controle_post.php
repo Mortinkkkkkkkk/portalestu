@@ -10,7 +10,10 @@
             $legenda = $_REQUEST['legenda'];
             $data_postagem = date("y-m-d h:i:s");
             $filtro = $_REQUEST["filtro"];
-            // cadastro do post
+            $count = $_REQUEST['count'];
+            for ($i = 0;$i <= $count;$i++) {
+                $imgs[]= $_REQUEST["img_post".$i];
+            }
             $sql_cad_post = "INSERT INTO tb_post VALUES (null, ?, ?, ?, ?);";
             $resultado = executaSql($sql_cad_post,'isss',[$iduser ,$legenda,$data_postagem,$filtro]);
             //select do post
@@ -21,24 +24,28 @@
                     foreach ($select[1] as $row) {
                         $idpost = $row["id_post"];
                     }
-                }                
+                }               
+
+
+                // $pasta_banco = "/public/assets/img/";
+                // $pasta_servidor = $_SERVER['DOCUMENT_ROOT'] . "/public/assets/img/"; 
+                // $ext_img = "." . pathinfo($_FILES['img_post']['name'], PATHINFO_EXTENSION);
+                // $nome_img = time() . md5(uniqid()) . rand(1,100);
+                // $arq_img_bd = $pasta_banco . $nome_img . $ext_img;
+                // $arq_img_server = $pasta_servidor . $nome_img . $ext_img;
+                // move_uploaded_file($_FILES['img_post']['tmp_name'], $arq_img_server);
                 
-                $pasta_banco = "/public/assets/img/";
-                $pasta_servidor = $_SERVER['DOCUMENT_ROOT'] . "/public/assets/img/"; 
-                $ext_img = "." . pathinfo($_FILES['img_post']['name'], PATHINFO_EXTENSION);
-                $nome_img = time() . md5(uniqid()) . rand(1,100);
-                $arq_img_bd = $pasta_banco . $nome_img . $ext_img;
-                $arq_img_server = $pasta_servidor . $nome_img . $ext_img;
-                move_uploaded_file($_FILES['img_post']['tmp_name'], $arq_img_server);
-                
-                $sql_cad_img = "INSERT INTO tb_midia (midia, id_post) VALUES (?, ?) ";
-                $result_img = executaSql($sql_cad_img,'si',[$arq_img_bd,$idpost]);
-                if (!$result_img){
-                   redirect('pagina_incial','Erro no cadastro Img');
-                }
-                redirect('pagina_inicial','Deu certo');
-            } else {
-                redirect('pagina_inicial','Erro no cadastro Post');
+                // $sql_cad_img = "INSERT INTO tb_midia (midia, id_post) VALUES (?, ?) ";
+                // $result_img = executaSql($sql_cad_img,'si',[$arq_img_bd,$idpost]);
+            
+            
+                //    if (!$result_img){
+            //        redirect('pagina_incial','Erro no cadastro Img');
+            //     }
+            //     redirect('pagina_inicial','Deu certo');
+            // } else {
+            //     redirect('pagina_inicial','Erro no cadastro Post');
+            // }
             }
             break;
             case 'update':

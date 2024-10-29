@@ -47,7 +47,7 @@ switch ($case) {
         ?>
         <label for="imagem">Imagens:</label>
         <div id="campos-img">
-            <input type="file" name="img_post" id="img_post0">
+            <input type="file" name="img_post0" id="img_post0">
             <ion-icon name="add-circle-outline" id="add-img"></ion-icon><br>        
         </div>
         <?}?>
@@ -68,8 +68,7 @@ switch ($case) {
             <option value="simulados">Simulado</option> 
         </select>
         <input type="hidden" name="id" value="<?= $idpost?>">
-        <input type="submit" value="enviar">
-
+        <input class="btn-envia" type="submit" value="enviar">
     </form>
 </body>
 <script>
@@ -79,9 +78,14 @@ switch ($case) {
             $('#add-img').click(
                 function(){
                     id++;
-                    $('#campos-img').append("<input type='file' name='img_post' id='img_post"+id+"'><br>")
+                    $('#campos-img').append("<input type='file' name='img_post"+id+"' id='img_post"+id+"'><br>")
                 }
             );
+            $('.btn-envia').click(
+                function(){
+                    $('form').append("<input type='hidden' name='count' value='"+id+"'>")
+                }
+            )
         }
     );
 </script>
