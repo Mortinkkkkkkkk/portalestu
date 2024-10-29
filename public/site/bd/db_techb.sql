@@ -117,7 +117,6 @@ CREATE TABLE `tb_usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `tb_usuario` (`id_usuario`, `nome_usuario`, `senha_usuario`, `email_usuario`, `certificado`, `tipo`, `foto_usuario`) VALUES
-(1,	'usuariofantasma',	'lIlIllI',	'qwerty@gami.com',	'MLBB',	'U',	NULL),
 (2,	'Aaaaa',	'aaaa',	'aaaa@gmail.com',	'aaaa',	'X',	NULL),
 (4,	'pobre',	'erbop',	'pobre@gmail.com',	'',	'A',	NULL),
 (5,	'rico',	'ocir',	'rico@gmail.com',	'',	'A',	NULL),

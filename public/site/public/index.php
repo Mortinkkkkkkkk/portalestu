@@ -236,12 +236,14 @@ if (isset($_SESSION['id_usuario'])){
                             
                         </div>
                         <div class="toggler">
-                            <ion-icon name="chatbox-ellipses-outline" class="btn-coment"></ion-icon>
+                            <ion-icon name="chatbox-ellipses-outline" class="btn-coment" id="btn-coment<?=$idpost?>"></ion-icon>
                         </div>
-                    </div>
+                        <div id="comentarios<?= $idpost?>">
+                    
                     <?php
                         $sql_coment = "SELECT comentario,id_usuario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ? ORDER BY id_comentario, resposta_id";
                         $resultcoment = executaSql($sql_coment,'i',[$idpost]);
+                        $list_coment_post[] = $idpost; 
                         if (sizeof($resultcoment[1]) > 0) {
                             foreach ($resultcoment[1] as $listcoment){
                                 $comentario = $listcoment['comentario'];
@@ -253,12 +255,13 @@ if (isset($_SESSION['id_usuario'])){
                                 $nome_user_coment = $resultnomeusuer[1][0];
                                 if ($iduser_coment == '1')
                                 $user_coment = "Anonimo";
+                                
                                 else {
                                     $user_coment = $nome_user_coment['nome_usuario'];
                                 }
                                 $resposta = $listcoment['resposta_id'];
                                 if ($resposta != null) {
-                                    ?><div class="comentario resposta" id="comentario" >
+                                    ?><div class="comentario resposta">
                                         <p class="txt-resposta"><?php
                                     // Pega o id do usuario do comentario de origem da resposta
                                     $sql_cmnt_org = "SELECT id_usuario FROM tb_comentario WHERE id_comentario = ?";
@@ -274,7 +277,7 @@ if (isset($_SESSION['id_usuario'])){
                                     echo $user_coment ." Respondeu " .$nm_us_org . ": " . $comentario ;?></p><?php
 
                                 } else {
-                                    ?><div class="comentario" id="comentario" ><p class="txt-coment"><?php
+                                    ?><div class="comentario" id="comentario<?=$id_comentario?>" ><p class="txt-coment"><?php
                                     echo $user_coment . ": " . $comentario ;?></p><?php
                                 }
                                 ?>
@@ -307,6 +310,8 @@ if (isset($_SESSION['id_usuario'])){
                            <?php
                         };
                     ?>
+                            </div>
+                        </div>
                     <form action="/controle/controle_comentario.php?case=comentario_post" method="post">
                         <label for="comentario">Comente:</label>
                         <input type="text" name="comentario">
@@ -338,6 +343,7 @@ if (isset($_SESSION['id_usuario'])){
                     <p>Nenhum Post Encontrado</p>
                 </div>
                 <?php
+                
             }
         
         ?>
@@ -348,14 +354,20 @@ if (isset($_SESSION['id_usuario'])){
 <script>
     $('document').ready(
         function() {
-            $('.comentario').hide();
-            $('.form-resposta').hide();
-            $('.btn-coment').click(
-                function() {
-                    $('.comentario').toggle(300);
+            let lista = [<?php foreach ($list_coment_post as $id_hider) {echo $id_hider . ",";}?>];
+            for (let index in lista) {
+                let btn_coment = "#btn-coment"+lista[index];
+                let coment = "#comentarios"+lista[index];
+                $(coment).hide();
+                $('.form-resposta').hide();
+                $(btn_coment).click(
+                    function() {
+                        $(coment).toggle(300);
+                    }
+                );
+            }
                     
-                }
-            );
+                    
             $('.btn-responder').click(
                 function(){
                     $('.form-resposta').toggle(250);
