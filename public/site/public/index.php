@@ -253,9 +253,10 @@ if (isset($_SESSION['id_usuario'])){
                                 $resultnomeusuer = executaSql($sql_comt_name_user,'i',[$iduser_coment]);
                                 
                                 $nome_user_coment = $resultnomeusuer[1][0];
-                                if ($iduser_coment == '1')
-                                $user_coment = "Anonimo";
-                                
+                                $list_form_id[] = $id_comentario; 
+                                if ($iduser_coment == '1') {
+                                    $user_coment = "Anonimo";
+                                }
                                 else {
                                     $user_coment = $nome_user_coment['nome_usuario'];
                                 }
@@ -281,14 +282,16 @@ if (isset($_SESSION['id_usuario'])){
                                     echo $user_coment . ": " . $comentario ;?></p><?php
                                 }
                                 ?>
-                                <form class="form-resposta" action="/controle/controle_comentario.php?case=comentario_resposta" method="post">
+                                <div id="form-resposta<?=$id_comentario?>">
+                                <form action="/controle/controle_comentario.php?case=comentario_resposta" method="post">
                                     <input type="text"  name="resposta">
                                     <input type="hidden" name="id_user" value="<?= $iduser;?>">
                                     <input type="hidden" name="id_comentario" value="<?= $id_comentario;?>">
                                     <input type="hidden" name="id_post" value="<?= $idpost;?>">
                                     <input type="submit" value="responder">
                                 </form>
-                                <p class="btn-responder">Responder</p>
+                                </div>
+                                <p id="btn-responder<?= $id_comentario?>">Responder</p>
                                 <?php
                                 if (isset($_SESSION) && isset($tipologado)) {
                                     if (!isset($iduser)){
@@ -359,20 +362,23 @@ if (isset($_SESSION['id_usuario'])){
                 let btn_coment = "#btn-coment"+lista[index];
                 let coment = "#comentarios"+lista[index];
                 $(coment).hide();
-                $('.form-resposta').hide();
                 $(btn_coment).click(
                     function() {
                         $(coment).toggle(300);
                     }
                 );
+            }     
+            let listform = [<?php foreach($list_form_id as $id_form){echo $id_form.",";}?>];
+            for (let teste in listform) {
+                let btn_responder = "#btn-responder"+listform[teste];
+                let form_resposta = "#form-resposta"+listform[teste];
+                $(form_resposta).hide();
+                $(btn_responder).click(
+                    function(){
+                        $(form_resposta).toggle(250);
+                    }
+                );
             }
-                    
-                    
-            $('.btn-responder').click(
-                function(){
-                    $('.form-resposta').toggle(250);
-                }
-            );
         }
     );
 </script>
