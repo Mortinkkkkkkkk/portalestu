@@ -33,14 +33,23 @@ switch ($case) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- chama o jquery -->
+    <script src="/public/assets/js/jquery-3.7.1.min.js"></script>
+    <!-- chama o ion icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </head>
 <body>
     <h1><?= $titulo ?> um post</h1>
     <form action="/controle/controle_post.php?case=<?= $modo?>" enctype="multipart/form-data" method="post">
        <?php 
             if ($case == 'insert') {        
-        ?><label for="imagem">Imagem:</label>
-        <input type="file" name="img_post" id="img_post"><br>
+        ?>
+        <label for="imagem">Imagens:</label>
+        <div id="campos-img">
+            <input type="file" name="img_post" id="img_post0">
+            <ion-icon name="add-circle-outline" id="add-img"></ion-icon><br>        
+        </div>
         <?}?>
         <label for="legenda">Legenda:</label>
         <input type="text" name="legenda" value="<?= $legenda ?>"><br>
@@ -63,4 +72,17 @@ switch ($case) {
 
     </form>
 </body>
+<script>
+    $('document').ready(
+        function(){
+            let id = 0
+            $('#add-img').click(
+                function(){
+                    id++;
+                    $('#campos-img').append("<input type='file' name='img_post' id='img_post"+id+"'><br>")
+                }
+            );
+        }
+    );
+</script>
 </html>
