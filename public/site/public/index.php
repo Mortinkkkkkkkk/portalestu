@@ -216,11 +216,52 @@ if (isset($_SESSION['id_usuario'])){
                     <?php
                     $sqlimg = "SELECT  midia FROM tb_midia WHERE id_post= ?";
                     $midia = executaSql($sqlimg,'i',[$idpost]); 
+                    if (sizeof($midia[1]) == 1){
                     foreach ($midia[1] as $listimg) {
                         $img = $listimg['midia'];
                         ?>
                         <img src="<?= $img;?>" class="img-size rounded-start" alt="imagine uma">
                         <?php
+            
+                    }
+                    } else if (sizeof($midia[1]) > 1){
+                        ?>
+                            <div id="carouselExampleIndicators" class="carousel slide">
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                </div>
+                            <div class="carousel-inner">
+                            <?php
+                            $num = 1;
+                            foreach ($midia[1] as $listimg) {
+                                $img = $listimg['midia'];
+                                if ($num == 1) {
+                                ?>
+                                <div class="carousel-item active">
+                                    <img src="<?=$img?>" class="img-size" alt="imagine uma">
+                                </div>
+                                <?php
+                                } else {?>
+                                    <div class="carousel-item">
+                                        <img src="<?=$img?>" class="img-size" alt="imagine uma">
+                                    </div>
+                                    <?php
+                                }
+                            }
+                        ?>        
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                        </button>
+                            </div>
+                    <?
                     }
 
                     $legenda = $row['legenda'];
