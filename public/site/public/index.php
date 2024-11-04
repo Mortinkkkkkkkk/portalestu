@@ -225,13 +225,25 @@ if (isset($_SESSION['id_usuario'])){
             
                     }
                     } else if (sizeof($midia[1]) > 1){
-                        ?>
-                            <div id="carouselExampleIndicators" class="carousel slide">
-                                <div class="carousel-indicators">
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                </div>
+                        ?><div class="carousel slide">
+                            <div id="carouselExampleIndicators" class="carousel-indicators">
+                        
+                        <?php
+                            $qtn_btn = 0;
+                            for ($contador = 0;$contador == sizeof($midia);$contador++){
+                                if ($qtn_btn == 0) {
+                                ?>
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?=$qtn_btn?>" class="active" aria-current="true" aria-label="Slide <?=$qtn_btn + 1?>"></button>
+                                <?php 
+                                }else if ($qtn_btn > 0) {
+                                ?>
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?=$qtn_btn?>" aria-label="Slide <?=$qtn_btn + 1?>"></button>
+                                <?php
+                                }
+                                $qtn_btn++;
+                            }    
+                            ?>   
+                            </div>
                             <div class="carousel-inner">
                             <?php
                             $num = 1;
@@ -243,12 +255,14 @@ if (isset($_SESSION['id_usuario'])){
                                     <img src="<?=$img?>" class="img-size" alt="imagine uma">
                                 </div>
                                 <?php
-                                } else {?>
-                                    <div class="carousel-item">
-                                        <img src="<?=$img?>" class="img-size" alt="imagine uma">
-                                    </div>
-                                    <?php
-                                }
+                            } else if($num > 1) {
+                                ?>
+                                <div class="carousel-item">
+                                    <img src="<?=$img?>" class="img-size" alt="imagine uma">
+                                </div>
+                                <?php
+                            }
+                            $num++;
                             }
                         ?>        
                         </div>
@@ -269,7 +283,7 @@ if (isset($_SESSION['id_usuario'])){
                     $filtro = $row['filtro'];
                     ;
                     ?>
-                            </div>
+                            </>
                     <div class="col-md-12">
                         <div class="card-body">
                             <h5 class="card-title"><?= $legenda?></h5>
@@ -381,7 +395,7 @@ if (isset($_SESSION['id_usuario'])){
                     <?php
 
                 }
-            } else {
+            } else  {
                 ?>
                 <div class='post'>
                     <p>Nenhum Post Encontrado</p>
