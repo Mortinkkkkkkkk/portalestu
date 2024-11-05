@@ -23,16 +23,22 @@
                 }               
             $count = $_REQUEST['count'];
             for ($ximgs = 0;$ximgs <= $count;$ximgs++){    
-                $pasta_banco = "/public/assets/img/";
-                $pasta_servidor = $_SERVER['DOCUMENT_ROOT'] . "/public/assets/img/"; 
-                $ext_img = "." . pathinfo($_FILES['img_post'.$ximgs]['name'], PATHINFO_EXTENSION);
-                $nome_img = time() . md5(uniqid()) . rand(1,100);
-                $arq_img_bd = $pasta_banco . $nome_img . $ext_img;
-                $arq_img_server = $pasta_servidor . $nome_img . $ext_img;
-                move_uploaded_file($_FILES['img_post'.$ximgs]['tmp_name'], $arq_img_server);
-                
-                $sql_cad_img = "INSERT INTO tb_midia (midia, id_post) VALUES (?, ?) ";
-                $result_img = executaSql($sql_cad_img,'si',[$arq_img_bd,$idpost]);
+                if (pathinfo($_FILES['img_post'.$ximgs]['name'], PATHINFO_EXTENSION) != null) {
+                    $pasta_banco = "/public/assets/img/";
+                    $pasta_servidor = $_SERVER['DOCUMENT_ROOT'] . "/public/assets/img/"; 
+                    $ext_img = "." . pathinfo($_FILES['img_post'.$ximgs]['name'], PATHINFO_EXTENSION);
+                    $nome_img = time() . md5(uniqid()) . rand(1,100);
+                    $arq_img_bd = $pasta_banco . $nome_img . $ext_img;
+                    $arq_img_server = $pasta_servidor . $nome_img . $ext_img;
+                    move_uploaded_file($_FILES['img_post'.$ximgs]['tmp_name'], $arq_img_server);
+                    
+                    $sql_cad_img = "INSERT INTO tb_midia (midia, id_post) VALUES (?, ?) ";
+                    $result_img = executaSql($sql_cad_img,'si',[$arq_img_bd,$idpost]);
+                } else {
+                    // contiuna o loop
+                    continue;
+                }
+
             }
             
                    if (!$result_img){
