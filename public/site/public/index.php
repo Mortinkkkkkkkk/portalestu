@@ -17,9 +17,10 @@ if (isset($_SESSION['id_usuario'])){
     <link rel="icon" type="image/x-icon" href="/public/assets/img/logo.ico">
     <link rel="stylesheet" href="/public/assets/css/index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/assets/css/dark.css">
     <script src="/public/assets/js/jquery-3.7.1.min.js"></script>
 </head>
-<body>
+<body class="teste">
 <header>
     <div class="logo-container">
             <img src="/public/assets/img/logo.png" alt="Logo Universo Estudantil" class="logo">
@@ -71,6 +72,18 @@ if (isset($_SESSION['id_usuario'])){
                         <li><a href="#faq">Perguntas Frequentes (FAQ)</a></li>
                     </ul>
                 </li>
+        <label>
+            <input class="toggle-checkbox" type="checkbox">
+                <div class="toggle-slot">
+                    <div class="sun-icon-wrapper">
+                    <div class="iconify sun-icon" data-icon="feather-sun" data-inline="false"></div>
+                </div>
+                    <div class="toggle-button"></div>
+                    <div class="moon-icon-wrapper">
+                    <div class="iconify moon-icon" data-icon="feather-moon" data-inline="false"></div>
+                </div>
+            </div>
+        </label>
                 
     </header>
     <?php 
@@ -212,7 +225,7 @@ if (isset($_SESSION['id_usuario'])){
                         ?>
                             <div class="div-user">
                                 <img src="/public/assets/img/perfil/pessoasemfoto.jpeg" class="img-perfil float-start" alt="imagina uma">
-                                <a href="/public/dashboard/usuario/perfil.php?iduser=<?= $iduser_post?>"><?= $username?></a>
+                                <a class="username" href="/public/dashboard/usuario/perfil.php?iduser=<?= $iduser_post?>"><?= $username?></a>
                             </div>
                         <?php
                     } else if ($imgprfl != null) {
@@ -409,6 +422,7 @@ if (isset($_SESSION['id_usuario'])){
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="/public/assets/js/dark.js"></script>
 <script>
     $('document').ready(
         function() {
