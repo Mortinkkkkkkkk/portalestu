@@ -225,8 +225,8 @@ if (isset($_SESSION['id_usuario'])){
             
                     }
                     } else if (sizeof($midia[1]) > 1){
-                        ?><div class="carousel slide">
-                            <div id="carouselExampleIndicators" class="carousel-indicators">
+                        ?><div  id="carouselExampleIndicators" class="carousel slide">
+                            <div  class="carousel-indicators">
                         
                         <?php
                             $qtn_btn = 0;
