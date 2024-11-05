@@ -23,6 +23,9 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
+        body {
+            margin: 10px 0 0 10px;
+        }
         .pin {
             position: absolute;
             left: 46%;
@@ -30,12 +33,24 @@
             font-size: 50px;
             rotate: 45deg;
         }
+        .casa {
+            text-decoration: none;
+            color:black;
+        }
+        .casinha {
+            font-size: 50px;
+        }
+        .img-size {
+            width: 100%;
+            height: 300px;
+        }   
+    
 
     </style>
 
 </head>
 <body>
-    <a href="/public/index.php"><ion-icon name="home-outline"></ion-icon></a><br>
+    <a href="/public/index.php" class="casa"><ion-icon name="home" class="casinha"></ion-icon></a><br>
     <?php
         $sql_usr_prfl = "SELECT * FROM tb_usuario WHERE id_usuario = ?";
         $rslt_usr_prfl = executaSql($sql_usr_prfl, 'i', [$idusuario]);
@@ -51,9 +66,22 @@
             redirect("pagina_inicial","Usuario não existente");
         }
         ?>
-        <img src="<?= $foto?>" alt="imagine uma">
+        <div class="info-perfil">
+        <?php
+            if ($foto != null) {
+               ?>
+               <img src="<?= $foto?>" alt="imagine uma">
+               <? 
+            } else if ($foto == null) {
+                ?>
+                <img src="/public/assets/img/perfil/pessoasemfoto.jpeg" alt="">
+                <?
+            }
+
+        ?>
         <p><?= $nome?></p>
         <p><?= $email?></p>
+        <p>
         <?php 
             switch ($tipo){
                 case 'A':
@@ -67,8 +95,10 @@
                     break;
             }
         ?>
+        </p>
         <p><a href="form_usuario.php?caso=update&id=<?= $idusuario?>">Alterar o perfil</a></p>
         <p><a href="form_filtro.php?case=update&id=<?= $idusuario?>">Alterar os filtros</a></p>
+        </div>
         <?php
         if ($tipo != "A") {
             $sql_pst_prfl = "SELECT * FROM tb_post WHERE id_usuario = ? ORDER BY fixado DESC, data_postagem DESC";
@@ -83,11 +113,57 @@
                     $iduser_post = $row_pst['id_usuario'];
                     $sqlimg = "SELECT  midia FROM tb_midia WHERE id_post = ?";
                     $midia = executaSql($sqlimg,'i',[$idpost]); 
-                    foreach ($midia[1] as $listimg) {
-                        $img = $listimg['midia'];
-                        ?>
-                        <img src="<?= $img;?>" alt="imagine uma">
-                        <?php
+                    if (sizeof($midia[1]) == 1){
+                        foreach ($midia[1] as $listimg) {
+                            $img = $listimg['midia'];
+                            ?>
+                            <img src="<?= $img;?>" class="img-size rounded-start" alt="imagine uma">
+                            <?php
+                
+                        }
+                        } else if (sizeof($midia[1]) > 1){
+                            ?><div  id="carouselExampleIndicators"class="carousel carousel-dark slide">
+                            <?php
+                                $qtn_btn = 0;
+                                for ($contador = 0;$contador == sizeof($midia);$contador++){
+                                    ?>
+                                       teste
+                                    <?php 
+                                    $qtn_btn++;
+                                }    
+                                ?>   
+                                <div class="carousel-inner">
+                                <?php
+                                $num = 1;
+                                foreach ($midia[1] as $listimg) {
+                                    $img = $listimg['midia'];
+                                    if ($num == 1) {
+                                    ?>
+                                    <div class="carousel-item active">
+                                        <img src="<?=$img?>" class="img-size" alt="imagine uma">
+                                    </div>
+                                    <?php
+                                } else if($num > 1) {
+                                    ?>
+                                    <div class="carousel-item">
+                                        <img src="<?=$img?>" class="img-size" alt="imagine uma">
+                                    </div>
+                                    <?php
+                                }
+                                $num++;
+                                }
+                            ?>        
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                            </button>
+                                </div>
+                        <?
                     }
                     $legenda = $row_pst['legenda'];
                     $datapostagem = $row_pst['data_postagem'];

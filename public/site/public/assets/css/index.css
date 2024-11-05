@@ -23,7 +23,9 @@ header {
 h1 {
     color: var(--azul-claro);
 }
-
+.title-logo{
+    color: antiquewhite;
+}
 .menu {
     list-style-type: none;
     margin: 0;

@@ -23,7 +23,7 @@ if (isset($_SESSION['id_usuario'])){
 <header>
     <div class="logo-container">
             <img src="/public/assets/img/logo.png" alt="Logo Universo Estudantil" class="logo">
-            <h1>Universo Estudantil</h1>
+            <h1 class="title-logo">Universo Estudantil</h1>
         </div>
         <nav>
             <ul class="menu">
@@ -208,12 +208,21 @@ if (isset($_SESSION['id_usuario'])){
                         $imgprfl = $listprfl['foto_usuario'];
                         $username = $listprfl['nome_usuario'];
                     }
+                    if ($imgprfl == null) {
+                        ?>
+                            <div class="div-user">
+                                <img src="/public/assets/img/perfil/pessoasemfoto.jpeg" class="img-perfil float-start" alt="imagina uma">
+                                <a href="/public/dashboard/usuario/perfil.php?iduser=<?= $iduser_post?>"><?= $username?></a>
+                            </div>
+                        <?php
+                    } else if ($imgprfl != null) {
                     ?>
                     <div class="div-user">
                         <img src="<?= $imgprfl?>" class="img-perfil float-start" alt="imagina uma">
                         <a href="/public/dashboard/usuario/perfil.php?iduser=<?= $iduser_post?>"><?= $username?></a>
                     </div>
                     <?php
+                    }
                     $sqlimg = "SELECT  midia FROM tb_midia WHERE id_post= ?";
                     $midia = executaSql($sqlimg,'i',[$idpost]); 
                     if (sizeof($midia[1]) == 1){
@@ -225,25 +234,16 @@ if (isset($_SESSION['id_usuario'])){
             
                     }
                     } else if (sizeof($midia[1]) > 1){
-                        ?><div  id="carouselExampleIndicators" class="carousel slide">
-                            <div  class="carousel-indicators">
-                        
+                        ?><div  id="carouselExampleIndicators"class="carousel slide">
                         <?php
                             $qtn_btn = 0;
                             for ($contador = 0;$contador == sizeof($midia);$contador++){
-                                if ($qtn_btn == 0) {
                                 ?>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?=$qtn_btn?>" class="active" aria-current="true" aria-label="Slide <?=$qtn_btn + 1?>"></button>
+                                   teste
                                 <?php 
-                                }else if ($qtn_btn > 0) {
-                                ?>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?=$qtn_btn?>" aria-label="Slide <?=$qtn_btn + 1?>"></button>
-                                <?php
-                                }
                                 $qtn_btn++;
                             }    
                             ?>   
-                            </div>
                             <div class="carousel-inner">
                             <?php
                             $num = 1;
@@ -283,7 +283,7 @@ if (isset($_SESSION['id_usuario'])){
                     $filtro = $row['filtro'];
                     ;
                     ?>
-                            </>
+                            </div>
                     <div class="col-md-12">
                         <div class="card-body">
                             <h5 class="card-title"><?= $legenda?></h5>
@@ -339,11 +339,11 @@ if (isset($_SESSION['id_usuario'])){
                                 ?>
                                 <div id="form-resposta<?=$id_comentario?>">
                                 <form action="/controle/controle_comentario.php?case=comentario_resposta" method="post">
-                                    <input type="text"  name="resposta">
+                                    <input type="text"  name="resposta" id="txt-resposta<?=$id_comentario?>">
                                     <input type="hidden" name="id_user" value="<?= $iduser;?>">
                                     <input type="hidden" name="id_comentario" value="<?= $id_comentario;?>">
                                     <input type="hidden" name="id_post" value="<?= $idpost;?>">
-                                    <input type="submit" value="responder">
+                                    <input type="submit" value="responder" id="btn-enviar<?=$id_comentario?>">
                                 </form>
                                 </div>
                                 <p id="btn-responder<?= $id_comentario?>">Responder</p>
@@ -433,6 +433,14 @@ if (isset($_SESSION['id_usuario'])){
                         $(form_resposta).toggle(250);
                     }
                 );
+                let btn_enviar = "#btn-enviar"+listform[teste];
+                let txt_resposta = "#txt-resposta"+listform[teste];
+                $(btn_enviar).hide();
+                $(txt_resposta).blur(
+                    function(){
+                        $(btn_enviar).toggle(100);
+                    }
+                )
             }
         }
     );
