@@ -247,16 +247,7 @@ if (isset($_SESSION['id_usuario'])){
             
                     }
                     } else if (sizeof($midia[1]) > 1){
-                        ?><div  id="carouselExampleIndicators"class="carousel slide">
-                        <?php
-                            $qtn_btn = 0;
-                            for ($contador = 0;$contador == sizeof($midia);$contador++){
-                                ?>
-                                   teste
-                                <?php 
-                                $qtn_btn++;
-                            }    
-                            ?>   
+                        ?><div id="carousel<?=$idpost?>"class="carousel slide">
                             <div class="carousel-inner">
                             <?php
                             $num = 1;
@@ -268,8 +259,8 @@ if (isset($_SESSION['id_usuario'])){
                                     <img src="<?=$img?>" class="img-size" alt="imagine uma">
                                 </div>
                                 <?php
-                            } else if($num > 1) {
-                                ?>
+                                } else if($num > 1) {
+                                    ?>
                                 <div class="carousel-item">
                                     <img src="<?=$img?>" class="img-size" alt="imagine uma">
                                 </div>
@@ -279,11 +270,11 @@ if (isset($_SESSION['id_usuario'])){
                             }
                         ?>        
                         </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel<?=$idpost?>" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Previous</span>
                             </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                            <button class="carousel-control-next" type="button" data-bs-target="#carousel<?=$idpost?>" data-bs-slide="next">
                                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                 <span class="visually-hidden">Next</span>
                         </button>

@@ -6,6 +6,9 @@ a {
 .bg-dark-mode{
     background: #01121d;
 }
+.bg-dark-mode label, .bg-dark-mode h3 {
+    color: aliceblue
+}
 .container-posts-dark{
     background-color: #011725;
 }
