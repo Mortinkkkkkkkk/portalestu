@@ -1,6 +1,7 @@
 <?php
     include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
     include_once($_SERVER['DOCUMENT_ROOT']."/helpers/redirect.php");
+    session_start();
     $case = $_REQUEST['case'];
     $conexao = conectarDB();
     switch ($case) {
@@ -44,6 +45,8 @@
             break;
         case 'carregar':
             $idpost = $_REQUEST['id_post'];
+
+            $iduser = $_SESSION['id_usuario'];
             $sql_coment = "SELECT comentario,id_usuario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ? ORDER BY id_comentario, resposta_id";
             $resultcoment = executaSql($sql_coment,'i',[$idpost]);
                 if (sizeof($resultcoment[1]) > 0) {
