@@ -210,13 +210,14 @@ if (isset($_SESSION['id_usuario'])){
             }   
             if (!$nada) {
                 foreach ($rslt_pesq[1] as $row) {
-                    ?><div class="card mb-3" style="max-width: 540px">
-                        <div class="row g-0">
-                            <div class=""><?
                     $iduser_post = $row['id_usuario'];
                     $idpost = $row['id_post'];
+                    $list_coment_post[] = $idpost; 
                     $sqluser = "SELECT foto_usuario, nome_usuario FROM tb_usuario WHERE id_usuario = ?";
                     $rslt_usr_prfl = executaSql($sqluser,'i',[$iduser_post]);
+                    ?><div id="post-id<?= $idpost?>" class="card mb-3" style="max-width: 540px">
+                        <div class="row g-0">
+                            <div class=""><?
                     foreach ($rslt_usr_prfl[1] as $listprfl) {
                         $imgprfl = $listprfl['foto_usuario'];
                         $username = $listprfl['nome_usuario'];
@@ -285,8 +286,6 @@ if (isset($_SESSION['id_usuario'])){
                     $legenda = $row['legenda'];
                     $datapostagem = $row['data_postagem'];
                     $filtro = $row['filtro'];
-                    $list_coment_post[] = $idpost; 
-                    $list_form_id[] = $idpost;
                     ;
                     ?>
                             </div>
@@ -333,6 +332,17 @@ if (isset($_SESSION['id_usuario'])){
             $('.comentarios').load('teste.txt')
             let lista = [<?php foreach ($list_coment_post as $id_hider) {echo $id_hider . ",";}?>];
             for (let index in lista) {
+                let post_id = 'post-id'+lista[index];
+                $(post_id).click(
+                    function(){
+                        const myModal = document.getElementById(post_id)
+                        const myInput = document.getElementById('myInput')
+        
+                        myModal.addEventListener('shown.bs.modal', () => {
+                        myInput.focus()
+                    }
+                )
+                })
                 let btn_coment = "#btn-coment"+lista[index];
                 let coment = "#comentarios"+lista[index];
                 let refresh = "#refresh"+lista[index];
