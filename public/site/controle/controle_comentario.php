@@ -128,34 +128,6 @@
                         <input type="hidden" name="id_user" value="<?= $iduser;?>">
                         <input type="submit" value="enviar">
                     </form>
-                    <script>
-                        let listform = [<?php foreach($list_form_id as $id_form){echo $id_form.",";}?>];
-                            for (let teste in listform) {
-                        let btn_responder = "#btn-responder"+listform[teste];
-                        let form_resposta = "#form-resposta"+listform[teste];
-                        // enviar o form pelo ajax
-                        $(form_resposta).submit(
-                        function(test) {
-                            // preventDefault = Previne a alteracao do usuario após enviar 
-                            test.preventDefault();
-
-                            let form = $(this);
-                            let Urlform = form.attr('action');
-
-                            // serialize() = pega os conteudos dos inputs do form e separa ele 
-                            $.ajax({
-                                type:"POST",
-                                url: Urlform,
-                                data: form.serialize(),
-                                success: function(data){
-                                    alert(data);
-                                }
-                            });
-                        }
-                    
-                    );
-                }
-                    </script>
                     <?php 
                         // $iduser = id do usuario logado
                         // $iduser_post = id do usaurio que postou
