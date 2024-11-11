@@ -342,6 +342,10 @@ if (isset($_SESSION['id_usuario'])){
                         $(coment).load('/controle/controle_comentario.php?case=carregar&id_post='+lista[index])
                     }
                 );
+                
+
+
+                // esconde a div do comentario
                 $(coment).hide()
                 $(btn_coment).click(
                     function() {
@@ -354,12 +358,36 @@ if (isset($_SESSION['id_usuario'])){
             for (let teste in listform) {
                 let btn_responder = "#btn-responder"+listform[teste];
                 let form_resposta = "#form-resposta"+listform[teste];
+                // enviar o form pelo ajax
+                $(form_resposta).submit(
+                    function(test) {
+                        // preventDefault = Previne a alteracao do usuario após enviar 
+                        test.preventDefault();
+
+                        let form = $(this);
+                        let Urlform = form.attr('action');
+
+                        // serialize() = pega os conteudos dos inputs do form e separa ele 
+                        $.ajax({
+                            type:"POST",
+                            url: Urlform,
+                            data: form.serialize(),
+                            success: function(data){
+                                alert(data);
+                            }
+                        });
+                    }
+                );
+                
+                // alterna a caixa de resposta
                 $(form_resposta).hide();
                 $(btn_responder).click(
                     function(){
                         $(form_resposta).toggle(250);
                     }
                 );
+
+                // alterna o botao de confimar
                 let btn_enviar = "#btn-enviar"+listform[teste];
                 let txt_resposta = "#txt-resposta"+listform[teste];
                 $(btn_enviar).hide();

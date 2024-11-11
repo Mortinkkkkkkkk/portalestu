@@ -1,6 +1,12 @@
 <?php 
     function redirect($local,$mensagem,) {
         switch ($local){
+            case 'comentario':
+                ?>
+                <script>
+                    window.location.href='/public/index.php';
+                </script>
+                <?
             case 'pagina_inicial':
                 echo "<script>
                     window.alert('$mensagem');
