@@ -1,21 +1,53 @@
-<!-- INDEX LOGIN -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/public/assets/css/login.css">
-    <title>Document</title>
+    <title>Página de Login</title>
+    <!-- Importando Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- CSS personalizado -->
+    <link rel="stylesheet" href="/public/site/public/assets/css/login.css">
 </head>
 <body>
-    <h1>login</h1>
-    <form action="/controle/controle_usuario.php?case=login" method="post">
-        <label for="email">Email: </label>
-        <input type="email" name="email"><br>
-        <label for="senha">Senha: </label>
-        <input type="password" name="senha"><br>
-        <input type="submit" value="logar">
-    </form>
-    <a href="/public/dashboard/usuario/form_usuario.php?caso=insert">Cadastra-se</a>
+    <div class="container">
+        <!-- Seção da imagem (esquerda) -->
+        <div class="left-section">
+            <img src="/public/site/public/assets/img/kid.webp" alt="Imagem de alunos" class="img-fluid">
+        </div>
+        
+        <!-- Seção de login (direita) -->
+        <div class="right-section">
+            <h2 class="text-center mb-4">Login</h2>
+            <div class="login-options">
+                <div class="login-option">
+                    <img src="/public/site/public/assets/img/professor1.jpeg" alt="Aluno" class="login-image">
+                    <button class="login-button student active">Aluno</button>
+                </div>
+                <div class="login-option">
+                    <img src="/public/site/public/assets/img/professor-masculino-dos-desenhos-animados-no-fundo-branco-isolado-ilustracao-vetorial-ai-generated_894218-546.jpg" alt="Professor" class="login-image">
+                    <button class="login-button teacher">Professor</button>
+                </div>
+            </div>
+            <form action="/controle/controle_usuario.php?case=login" method="post">
+                <div class="form-group">
+                    <input type="email" name="email" class="form-control" placeholder="E-mail" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="senha" class="form-control" placeholder="Senha" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+            </form>
+            <div class="text-center mt-3">
+                <a href="#">Esqueci a senha</a>
+            </div>
+            <p class="text-center mt-2">Não tem acesso? <a href="/public/dashboard/usuario/form_usuario.php?caso=insert">Cadastra-se</a></p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

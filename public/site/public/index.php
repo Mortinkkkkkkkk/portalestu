@@ -18,6 +18,7 @@ if (isset($_SESSION['id_usuario'])){
     <link rel="stylesheet" href="/public/assets/css/index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/public/assets/css/dark.css">
+    <link rel="stylesheet" href="/public/assets/css/inputs.css">
     <script src="/public/assets/js/jquery-3.7.1.min.js"></script>
 </head>
 <body class="teste">
@@ -112,8 +113,11 @@ if (isset($_SESSION['id_usuario'])){
             }
             ?>
             <form action="/public/index.php" method="post">
-                <label for="pesquisa">Procurar:</label>
-                <input type="text" name="pesquisa" id="100">
+                <div class="div-input">
+                    <label for="pesquisa">Procurar:</label>
+                    <input class="input-ui" type="text" name="pesquisa" id="100">
+                    <span class="input-border"></span>
+                </div>
                 <select name="opcao_pesq" id="">
                     <option value="legenda">Legenda</option>
                     <option value="data">Data</option>
@@ -355,10 +359,10 @@ $resultcoment = executaSql($sql_coment,'i',[$idpost]);
                 let btn_coment = "#btn-coment"+lista[index];
                 let coment = "#comentarios"+lista[index];
                 let refresh = "#refresh"+lista[index];
-                $(coment).load('/controle/controle_comentario.php?case=carregar&id_post='+lista[index])
+                $(coment).load('/helpers/comentarios.php?id_post='+lista[index])
                 $(refresh).click(
                     function() {
-                        $(coment).load('/controle/controle_comentario.php?case=carregar&id_post='+lista[index])
+                        $(coment).load('/helpers/comentarios.php?id_post='+lista[index])
                     }
                 );
                 

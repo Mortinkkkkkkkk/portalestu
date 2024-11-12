@@ -1,116 +1,63 @@
-/* Estilos gerais */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* Estilos personalizados */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f6f9;
+    background-color: #f0f4f8;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     height: 100vh;
+    margin: 0;
 }
-/* Estrutura do container */
 .container {
-    display: flex;
-    width: 80%;
-    height: 500px;
-    border-radius: 10px;
+    max-width: 900px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    display: flex;
+    flex-direction: row;
 }
-/* Seção da esquerda */
 .left-section {
-    flex: 1;
-    background-color: #007bff;
+    background: url('/public/site/public/assets/img/kid.webp') center center / cover no-repeat;
+    width: 50%;
+    padding: 20px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    border-radius: 10px 0 0 10px;
+    justify-content: center;
 }
-.image {
-    width: 90%;
-    border-radius: 10px;
-}
-/* Seção da direita (login) */
 .right-section {
-    flex: 1;
+    width: 50%;
     padding: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0 10px 10px 0;
-    background-color: #fff;
-}
-.login-box {
-    width: 100%;
-    max-width: 400px;
-}
-.login-box h2 {
-    color: #007bff;
-    text-align: center;
-    margin-bottom: 20px;
 }
 .login-options {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 .login-option {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.login-image {
-    width: 100px;  /* Largura da imagem ajustada */
-    height: 100px; /* Altura da imagem ajustada */
-    object-fit: contain; /* Garante que a imagem mantenha a proporção sem distorção */
-    margin-bottom: 10px; /* Espaçamento entre a imagem e o botão */
-    /* Borda arredondada */
-     border: 3px solid #007bff; /* Cor da borda em azul */
-    border-radius: 50%; /* Faz a borda ficar circular */
-    padding: 5px; /* Espaço entre a borda e a imagem */
-    background-color: white; /* Cor de fundo para dar destaque à imagem */
-}
-.login-button {
-    width: 100px;
-    padding: 10px;
-    background-color: #ececec;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #333;
     text-align: center;
 }
-.login-button.active,
-.login-button:hover {
-    background-color: #007bff;
-    color: #fff;
+.login-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin-bottom: 8px;
 }
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.login-button {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
 }
-input {
-    padding: 15px;
-    border: 1px solid #ccc; 
-    border-radius: 5px;
-    font-size: 16px;
-}
-button[type="submit"] {
-    padding: 15px;
+.student {
     background-color: #007bff;
     color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
 }
-button[type="submit"]:hover {
+.teacher {
+    background-color: #6c757d;
+    color: white;
+}
+.student.active {
     background-color: #0056b3;
 }
