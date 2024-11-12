@@ -309,7 +309,15 @@ if (isset($_SESSION['id_usuario'])){
                 
                     
 <?php
+$sql_coment = "SELECT id_comentario FROM tb_comentario WHERE id_post = ? ORDER BY id_comentario, resposta_id";
+$resultcoment = executaSql($sql_coment,'i',[$idpost]);
+    if (sizeof($resultcoment[1]) > 0) {
+        foreach ($resultcoment[1] as $listcoment){
+            $id_comentario = $listcoment['id_comentario'];
+            $list_form_id[] = $id_comentario;
                 }
+            }
+        }
             } else  {
                 ?>
                 <div class='post'>
@@ -326,10 +334,11 @@ if (isset($_SESSION['id_usuario'])){
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="/public/assets/js/dark.js"></script>
 <script>
+    let listform = [<?php foreach($list_form_id as $id_form){echo $id_form.",";}?>];
     $('document').ready(
         function() {
+            
             // carregar os post pelo ajax
-            $('.comentarios').load('teste.txt')
             let lista = [<?php foreach ($list_coment_post as $id_hider) {echo $id_hider . ",";}?>];
             for (let index in lista) {
                 let post_id = 'post-id'+lista[index];
@@ -363,32 +372,10 @@ if (isset($_SESSION['id_usuario'])){
                         $(coment).toggle(300);
                     }
                 );
-            }     
-            let listform = [<?php foreach($list_form_id as $id_form){echo $id_form.",";}?>];
-            for (let teste in listform) {
-                let btn_responder = "#btn-responder"+listform[teste];
-                let form_resposta = "#form-resposta"+listform[teste];
-                // enviar o form pelo ajax
-                $(form_resposta).submit(
-                    function(test) {
-                        // preventDefault = Previne a alteracao do usuario após enviar 
-                        test.preventDefault();
-
-                        let form = $(this);
-                        let Urlform = form.attr('action');
-
-                        // serialize() = pega os conteudos dos inputs do form e separa ele 
-                        $.ajax({
-                            type:"POST",
-                            url: Urlform,
-                            data: form.serialize(),
-                            success: function(data){
-                                alert(data);
-                            }
-                        });
-                    }
-                );
-                
+            }
+            for (let index in listform) {
+                let btn_responder = "#btn-responder"+listform[index];
+                let form_resposta = "#form-resposta"+listform[index];
                 // alterna a caixa de resposta
                 $(form_resposta).hide();
                 $(btn_responder).click(
@@ -396,16 +383,17 @@ if (isset($_SESSION['id_usuario'])){
                         $(form_resposta).toggle(250);
                     }
                 );
-
+            
                 // alterna o botao de confimar
-                let btn_enviar = "#btn-enviar"+listform[teste];
-                let txt_resposta = "#txt-resposta"+listform[teste];
+                let btn_enviar = "#btn-enviar"+listform[index];
+                let txt_resposta = "#txt-resposta"+listform[index];
                 $(btn_enviar).hide();
                 $(txt_resposta).blur(
                     function(){
                         $(btn_enviar).toggle(100);
                     }
-                )
+                );
+            
             }
         }
     );

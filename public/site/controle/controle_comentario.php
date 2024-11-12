@@ -12,7 +12,7 @@
             $sql = "INSERT INTO tb_comentario (id_post,id_usuario,comentario) VALUES (?, ?, ?)";
             executaSql($sql,'iis',[$id_post, $id_user, $comentario]);
             
-            redirect('comentario','');
+            redirect('comentario','carregar');
             
             break;
             
@@ -25,7 +25,7 @@
             $sql = "INSERT INTO tb_comentario (id_post,id_usuario,resposta_id ,comentario) VALUES (?, ?, ?, ?)";
             executaSql($sql,'iiis',[$id_post,$iduser,$id_comentario,$comentario]);
             
-            redirect('comentario','');
+            redirect('comentario','carregar');
                     
                 
 
@@ -41,11 +41,10 @@
                 }
             }
             executaSql($sql_delete,'i',[$id_comentario]);
-            redirect('comentario','');
+            redirect('comentario','carregar');
             break;
         case 'carregar':
             $idpost = $_REQUEST['id_post'];
-
             $iduser = $_SESSION['id_usuario'];
             $sql_coment = "SELECT comentario,id_usuario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ? ORDER BY id_comentario, resposta_id";
             $resultcoment = executaSql($sql_coment,'i',[$idpost]);
@@ -94,6 +93,35 @@
                                     <input type="hidden" name="id_post" value="<?= $idpost;?>">
                                     <input type="submit" value="responder" id="btn-enviar<?=$id_comentario?>">
                                 </form>
+                                <script>
+                                    for (let teste in listform) {
+                                        let btn_responder = "#btn-responder"+listform[teste];
+                                        let form_resposta = "#form-resposta"+listform[teste];
+                                        // enviar o form pelo ajax
+                                        $(form_resposta).submit(
+                                        function(test) {
+                                            // preventDefault = Previne a alteracao do usuario após enviar 
+                                            test.preventDefault();
+
+                                            let form = $(form_resposta);
+                                            let Urlform = form.attr('action');
+
+                                            // serialize() = pega os conteudos dos inputs do form e separa ele 
+                                            $.ajax({
+                                                type:"POST",
+                                                url: Urlform,
+                                                data: form.serialize(),
+                                                success: function(data){
+                                                    $('#comentarios<?= $idpost?>').append(data);
+                                                }
+                                            });
+                                        }
+
+                                    );
+                                
+                                }
+                            
+                    </script>
                                 </div>
                                 <p id="btn-responder<?= $id_comentario?>">Responder</p>
                                 <?php
