@@ -341,7 +341,6 @@ $resultcoment = executaSql($sql_coment,'i',[$idpost]);
     let listform = [<?php foreach($list_form_id as $id_form){echo $id_form.",";}?>];
     $('document').ready(
         function() {
-            
             // carregar os post pelo ajax
             let lista = [<?php foreach ($list_coment_post as $id_hider) {echo $id_hider . ",";}?>];
             for (let index in lista) {
@@ -399,7 +398,7 @@ $resultcoment = executaSql($sql_coment,'i',[$idpost]);
                 );
             
             }
-        }
+        },
     );
 </script>
 </body>

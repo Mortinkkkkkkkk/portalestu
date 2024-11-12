@@ -22,6 +22,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/public/assets/css/dark.css">
+    <script src="/public/assets/js/dark.js"></script>
     <style>
         body {
             margin: 10px 0 0 10px;
@@ -49,7 +51,19 @@
     </style>
 
 </head>
-<body>
+<body class="teste">
+<label>
+    <input class="toggle-checkbox" type="checkbox">
+                <div class="toggle-slot">
+                    <div class="sun-icon-wrapper">
+                    <div class="iconify sun-icon" data-icon="feather-sun" data-inline="false"></div>
+                </div>
+                    <div class="toggle-button"></div>
+                    <div class="moon-icon-wrapper">
+                    <div class="iconify moon-icon" data-icon="feather-moon" data-inline="false"></div>
+                </div>
+            </div>
+        </label>
     <a href="/public/index.php" class="casa"><ion-icon name="home" class="casinha"></ion-icon></a><br>
     <?php
         $sql_usr_prfl = "SELECT * FROM tb_usuario WHERE id_usuario = ?";
