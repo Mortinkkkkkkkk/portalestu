@@ -6,7 +6,8 @@ a {
 .bg-dark-mode{
     background: #01121d;
 }
-.bg-dark-mode label, .bg-dark-mode h3 {
+
+.bg-dark-mode label, .bg-dark-mode h3, .bg-dark-mode ion-icon {
     color: aliceblue
 }
 .container-posts-dark{

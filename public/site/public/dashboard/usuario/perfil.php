@@ -23,7 +23,6 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/public/assets/css/dark.css">
-    <script src="/public/assets/js/dark.js"></script>
     <style>
         body {
             margin: 10px 0 0 10px;
@@ -136,7 +135,7 @@
                 
                         }
                         } else if (sizeof($midia[1]) > 1){
-                            ?><div  id="carouselExampleIndicators"class="carousel carousel-dark slide">
+                            ?><div  id="carousel<?= $idpost?>"class="carousel carousel-dark slide">
                             <?php
                                 $qtn_btn = 0;
                                 for ($contador = 0;$contador == sizeof($midia);$contador++){
@@ -168,11 +167,11 @@
                                 }
                             ?>        
                             </div>
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel<?= $idpost?>" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Previous</span>
                                 </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <button class="carousel-control-next" type="button" data-bs-target="#carousel<?= $idpost?>" data-bs-slide="next">
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Next</span>
                             </button>
@@ -225,6 +224,8 @@
                 </div><?php
         }
     ?>
+<script src="/public/assets/js/jquery-3.7.1.min.js"></script>
+<script src="/public/assets/js/dark.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
