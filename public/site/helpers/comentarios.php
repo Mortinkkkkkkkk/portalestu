@@ -43,26 +43,16 @@ session_start();
                                     echo $user_coment . ": " . $comentario ;?></p><?php
                                 }
                                 ?>
-                                <div id="form-resposta<?=$id_comentario?>">
-                                <form action="/controle/controle_comentario.php?case=comentario_resposta" method="post">
-                                <div class="div-input">
-                                    <input class="input-ui" placeholder="Digite seu comentario" type="text"  name="resposta" id="txt-resposta<?=$id_comentario?>">
-                                    <span class="input-border"></span>
-                                </div>     
-                                    <input type="hidden" name="id_user" value="<?= $iduser;?>">
-                                    <input type="hidden" name="id_comentario" value="<?= $id_comentario;?>">
-                                    <input type="hidden" name="id_post" value="<?= $idpost;?>">
-                                    <input type="submit" value="responder" id="btn-enviar<?=$id_comentario?>">
-                                </form>
                                 <script>
-                                    for (let teste in listform) {
-                                        let btn_responder = "#btn-responder"+listform[teste];
-                                        let form_resposta = "#form-resposta"+listform[teste];
+                                    for (let index in listform) {
+                                        let btn_responder = "#btn-responder"+listform[index];
+                                        let form_resposta = "#form-resposta"+listform[index];
                                         // enviar o form pelo ajax
                                         $(form_resposta).submit(
-                                            function(test) {
+                                            function(sptun) {
+                                            // sptun = Só Pra Ter Um Nome
                                             // preventDefault = Previne a alteracao do usuario após enviar 
-                                            test.preventDefault();
+                                            sptun.preventDefault();
                                                 
                                             let form = $(form_resposta);
                                             
@@ -72,7 +62,7 @@ session_start();
                                                 url: "/controle/controle_comentario.php?case=comentario_resposta",
                                                 data: form.serialize(),
                                                 success: function(data){
-                                                    $('#comentarios<?= $idpost?>').html(data);
+                                                    alert('Responeder');
                                                 }
                                             });
                                             
@@ -83,6 +73,17 @@ session_start();
                                 }
                             
                     </script>
+                                <div id="form-resposta">
+                                <form id="form-resposta<?=$id_comentario?>" action="/controle/controle_comentario.php?case=comentario_resposta" method="post">
+                                <div class="div-input">
+                                    <input class="input-ui" placeholder="Digite seu comentario" type="text"  name="resposta" id="txt-resposta<?=$id_comentario?>">
+                                    <span class="input-border"></span>
+                                </div>     
+                                    <input type="hidden" name="id_user" value="<?= $iduser;?>">
+                                    <input type="hidden" name="id_comentario" value="<?= $id_comentario;?>">
+                                    <input type="hidden" name="id_post" value="<?= $idpost;?>">
+                                    <input type="submit" value="responder" id="btn-enviar<?=$id_comentario?>">
+                                </form>
                                 </div>
                                 <p id="btn-responder<?= $id_comentario?>">Responder</p>
                                 <?php
@@ -110,6 +111,36 @@ session_start();
                     ?>
                             </div>
                         </div>
+                        <script>
+                                    for (let index in listform) {
+                                        let btn_responder = "#btn-responder"+listform[index];
+                                        let form_comentario = "#form-resposta"+listform[index];
+                                        // enviar o form pelo ajax
+                                        $(form_resposta).submit(
+                                            function(sptun) {
+                                            // sptun = Só Pra Ter Um Nome
+                                            // preventDefault = Previne a alteracao do usuario após enviar 
+                                            sptun.preventDefault();
+                                                
+                                            let form = $(form_resposta);
+                                            
+                                            // serialize() = pega os conteudos dos inputs do form e separa ele 
+                                            $.ajax({
+                                                type:"POST",
+                                                url: "/controle/controle_comentario.php?case=comentario_post",
+                                                data: form.serialize(),
+                                                success: function(data){
+                                                    alert('Comentado');
+                                                }
+                                            });
+                                            
+                                        }
+
+                                    );
+                                
+                                }
+                            
+                    </script>
                     <form action="/controle/controle_comentario.php?case=comentario_post" method="post">
                         <label for="comentario">Comente:</label>
                         <div class="div-input">
