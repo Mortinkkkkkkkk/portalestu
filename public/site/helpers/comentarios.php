@@ -60,22 +60,22 @@ session_start();
                                         let form_resposta = "#form-resposta"+listform[teste];
                                         // enviar o form pelo ajax
                                         $(form_resposta).submit(
-                                        function(test) {
+                                            function(test) {
                                             // preventDefault = Previne a alteracao do usuario após enviar 
                                             test.preventDefault();
-
+                                                
                                             let form = $(form_resposta);
-                                            let Urlform = form.attr('action');
-
+                                            
                                             // serialize() = pega os conteudos dos inputs do form e separa ele 
                                             $.ajax({
                                                 type:"POST",
-                                                url: Urlform,
+                                                url: "/controle/controle_comentario.php?case=comentario_resposta",
                                                 data: form.serialize(),
                                                 success: function(data){
-                                                    $('#comentarios<?= $idpost?>').append(data);
+                                                    $('#comentarios<?= $idpost?>').html(data);
                                                 }
                                             });
+                                            
                                         }
 
                                     );

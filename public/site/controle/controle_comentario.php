@@ -17,10 +17,10 @@
             break;
             
         case 'comentario_resposta':
-            $iduser = $_REQUEST['id_user'];
-            $id_post = $_REQUEST['id_post'];
-            $id_comentario = $_REQUEST['id_comentario'];
-            $comentario = $_REQUEST['resposta'];
+            $iduser = $_POST['id_user'];
+            $id_post = $_POST['id_post'];
+            $id_comentario = $_POST['id_comentario'];
+            $comentario = $_POST['resposta'];
 
             $sql = "INSERT INTO tb_comentario (id_post,id_usuario,resposta_id ,comentario) VALUES (?, ?, ?, ?)";
             executaSql($sql,'iiis',[$id_post,$iduser,$id_comentario,$comentario]);
