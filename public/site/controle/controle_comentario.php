@@ -12,7 +12,7 @@
             $sql = "INSERT INTO tb_comentario (id_post,id_usuario,comentario) VALUES (?, ?, ?)";
             executaSql($sql,'iis',[$id_post, $id_user, $comentario]);
             
-            redirect('comentario','carregar');
+            redirect('comentario',$id_post);
             
             break;
             
@@ -25,12 +25,13 @@
             $sql = "INSERT INTO tb_comentario (id_post,id_usuario,resposta_id ,comentario) VALUES (?, ?, ?, ?)";
             executaSql($sql,'iiis',[$id_post,$iduser,$id_comentario,$comentario]);
             
-            redirect('comentario','carregar');
+            redirect('comentario', $id_post);
                     
                 
 
             break;
         case 'deletar':
+            $id_post = $_REQUEST['id_post'];
             $id_comentario = $_REQUEST['id'];
             $sql_resposta = "SELECT id_comentario FROM tb_comentario WHERE resposta_id = ?";
             $sql_delete = "DELETE FROM tb_comentario WHERE id_comentario = ?";
@@ -41,6 +42,6 @@
                 }
             }
             executaSql($sql_delete,'i',[$id_comentario]);
-            redirect('comentario','carregar');
+            redirect('comentario',$id_post);
             break;
         }

@@ -4,7 +4,7 @@
             case 'comentario':
                 ?>
                 <script>
-                    window.location.href='/helpers/comentarios.php';
+                    window.location.href='/helpers/comentarios.php?id_post=<?= $mensagem?>';
                 </script>
                 <?
             case 'pagina_inicial':

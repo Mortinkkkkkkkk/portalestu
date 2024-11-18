@@ -2,7 +2,7 @@
 include_once($_SERVER['DOCUMENT_ROOT']."/bd/conexao.php");
 include_once($_SERVER['DOCUMENT_ROOT']."/helpers/redirect.php");
 session_start();
-$idpost = $_REQUEST['id_post'];
+            $idpost = $_REQUEST['id_post'];
             $iduser = $_SESSION['id_usuario'];
             $sql_coment = "SELECT comentario,id_usuario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ? ORDER BY id_comentario, resposta_id";
             $resultcoment = executaSql($sql_coment,'i',[$idpost]);
