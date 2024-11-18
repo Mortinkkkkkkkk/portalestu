@@ -38,15 +38,13 @@ session_start();
                                     // comentario:
                                     echo $user_coment ." Respondeu " .$nm_us_org . ": " . $comentario ;?></p><?php
 
-                                } else {
+                                } else {  
                                     ?><div class="comentario" id="comentario<?=$id_comentario?>" ><p class="txt-coment"><?php
                                     echo $user_coment . ": " . $comentario ;?></p><?php
                                 }
                                 ?>
                                 <script>
-                                    for (let index in listform) {
-                                        let btn_responder = "#btn-responder"+listform[index];
-                                        let form_resposta = "#form-resposta"+listform[index];
+                                        let form_resposta = "#form-resposta"+<?= $id_comentario?>;
                                         // enviar o form pelo ajax
                                         $(form_resposta).submit(
                                             function(sptun) {
@@ -69,8 +67,6 @@ session_start();
                                         }
 
                                     );
-                                
-                                }
                             
                     </script>
                                 <div id="form-resposta">
@@ -111,18 +107,16 @@ session_start();
                     ?>
                             </div>
                         </div>
-                        <script>
-                                    for (let index in listform) {
-                                        let btn_responder = "#btn-responder"+listform[index];
-                                        let form_comentario = "#form-resposta"+listform[index];
+                        <script>                                    
+                                        let form_comentario = "#form-comentario"+<?=$idpost?>;
                                         // enviar o form pelo ajax
-                                        $(form_resposta).submit(
+                                        $(form_comentario).submit(
                                             function(sptun) {
                                             // sptun = Só Pra Ter Um Nome
                                             // preventDefault = Previne a alteracao do usuario após enviar 
                                             sptun.preventDefault();
                                                 
-                                            let form = $(form_resposta);
+                                            let form = $(form_comentario);
                                             
                                             // serialize() = pega os conteudos dos inputs do form e separa ele 
                                             $.ajax({
@@ -137,8 +131,6 @@ session_start();
                                         }
 
                                     );
-                                
-                                }
                             
                     </script>
                     <form action="/controle/controle_comentario.php?case=comentario_post" method="post">
