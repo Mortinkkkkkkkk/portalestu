@@ -38,7 +38,7 @@ if (isset($_SESSION['id_usuario'])){
                 </li>
                 <li><a href="#enem">ENEM</a>
                     <ul class="submenu">
-                        <li><a href="/public/index.php?fltPsq=sim">Simulados</a></li>
+                        <li><a href="/public/Simulado.html">Simulados</a></li>
                         <li><a href="/public/index.php?fltPsq=dica">Dicas de Estudo</a></li>
                         <li><a href="/public/index.php?fltPsq=ins">Inscrições</a></li>
                         <li><a href="/public/index.php?fltPsq=edital">Editais</a></li>
@@ -56,8 +56,6 @@ if (isset($_SESSION['id_usuario'])){
                 <li><a href="#vocacional">Orientação Vocacional</a>
                     <ul class="submenu">
                         <li><a href="/public/index.php?fltPsq=testes">Testes Vocacionais</a></li>
-                        <li><a href="#carreiras">Carreiras</a></li>
-                        <li><a href="#depoimentos">Depoimentos de Profissionais</a></li>
                     </ul>
                 </li>
                 <li><a href="#blog">Blog</a>
@@ -364,6 +362,7 @@ $resultcoment = executaSql($sql_coment,'i',[$idpost]);
                         $(coment).load('/helpers/comentarios.php?id_post='+lista[index])
                     }
                 );
+                $()
                 
 
 

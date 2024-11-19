@@ -133,7 +133,7 @@ session_start();
                                     );
                             
                     </script>
-                    <form action="/controle/controle_comentario.php?case=comentario_post" method="post">
+                    <form id="form-comentario<?=$idpost?>" action="/controle/controle_comentario.php?case=comentario_post" method="post">
                         <label for="comentario">Comente:</label>
                         <div class="div-input">
                             <input class="input-ui" placeholder="teste" type="text" name="comentario">
