@@ -4,7 +4,7 @@ include_once($_SERVER['DOCUMENT_ROOT']."/helpers/redirect.php");
 session_start();
             $idpost = $_REQUEST['id_post'];
             $iduser = $_SESSION['id_usuario'];
-            $sql_coment = "SELECT comentario,id_usuario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ? ORDER BY id_comentario, resposta_id";
+            $sql_coment = "SELECT comentario,id_usuario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ? AND resposta_id IS NULL ORDER BY id_comentario, resposta_id";
             $resultcoment = executaSql($sql_coment,'i',[$idpost]);
                 if (sizeof($resultcoment[1]) > 0) {
                     foreach ($resultcoment[1] as $listcoment){
@@ -21,8 +21,16 @@ session_start();
                                 else {
                                     $user_coment = $nome_user_coment['nome_usuario'];
                                 }
-                                $resposta = $listcoment['resposta_id'];
-                                if ($resposta != null) {
+                                
+
+                                ?><div class="comentario" id="comentario<?=$id_comentario?>" ><p class="txt-coment"><?php
+                                    echo $user_coment . ": " . $comentario ;?></p></div><?php
+                                $sql_rspt = "SELECT * FROM tb_comentario WHERE resposta_id = ? ORDER BY id_comentario";
+                                $rslt_rspt = executaSql($sql_rspt,'i',[$id_comentario]);
+                                if (sizeof($rslt_rspt[1]) > 0) {
+                                    foreach ($rslt_rspt[1] as $lst_rspt) {
+                                    $resposta = $lst_rspt["resposta_id"];
+                                    $cmnt_rspt = $lst_rspt["comentario"];
                                     ?><div class="comentario resposta">
                                         <p class="txt-resposta"><?php
                                     // Pega o id do usuario do comentario de origem da resposta
@@ -36,23 +44,22 @@ session_start();
                                     $row_nm_us_org = $rslt_nm_us_org[1][0];
                                     $nm_us_org = $row_nm_us_org['nome_usuario'];
                                     // comentario:
-                                    echo $user_coment ." Respondeu " .$nm_us_org . ": " . $comentario ;?></p><?php
-
-                                } else {  
-                                    ?><div class="comentario" id="comentario<?=$id_comentario?>" ><p class="txt-coment"><?php
-                                    echo $user_coment . ": " . $comentario ;?></p><?php
+                                    echo $user_coment ." Respondeu " .$nm_us_org . ": " . $cmnt_rspt ;?></p></div><?php
+  
+                                    }
                                 }
+                            
                                 ?>
                                 <script>
-                                        let form_resposta = "#form-resposta"+<?= $id_comentario?>;
+                                        
                                         // enviar o form pelo ajax
-                                        $(form_resposta).submit(
+                                        $("#form-resposta<?=$id_comentario?>").submit(
                                             function(sptun) {
                                             // sptun = Só Pra Ter Um Nome
                                             // preventDefault = Previne a alteracao do usuario após enviar 
                                             sptun.preventDefault();
                                                 
-                                            let form = $(form_resposta);
+                                            let form = $("#form-resposta<?=$id_comentario?>");
                                             
                                             // serialize() = pega os conteudos dos inputs do form e separa ele 
                                             $.ajax({
@@ -67,7 +74,6 @@ session_start();
                                         }
 
                                     );
-                            
                     </script>
                                 <div>
                                 <form class="form-resposta" id="form-resposta<?=$id_comentario?>" action="/controle/controle_comentario.php?case=comentario_resposta" method="post">
@@ -93,11 +99,10 @@ session_start();
                                             <?php
                                     }
                                 }
-                                ?>
-                                      </div>
-                                <?
-                            };
-                        } else {
+                            }
+
+                            
+                    } else {
                            ?>
                             <div class="comentario">
                                 <p class="txt-coment">Esse Post não tem comentario</p>
@@ -108,29 +113,28 @@ session_start();
                             </div>
                         </div>
                         <script>                                    
-                                        let form_comentario = "#form-comentario"+<?=$idpost?>;
-                                        // enviar o form pelo ajax
-                                        $(form_comentario).submit(
-                                            function(sptun) {
-                                            // sptun = Só Pra Ter Um Nome
-                                            // preventDefault = Previne a alteracao do usuario após enviar 
-                                            sptun.preventDefault();
+                            // enviar o form pelo ajax
+                            $("#form-comentario<?=$idpost?>").submit(
+                                function(sptun) {
+                                // sptun = Só Pra Ter Um Nome
+                                // preventDefault = Previne a alteracao do usuario após enviar 
+                                sptun.preventDefault();
                                                 
-                                            let form = $(form_comentario);
+                                let form = $("#form-comentario<?=$idpost?>");
                                             
-                                            // serialize() = pega os conteudos dos inputs do form e separa ele 
-                                            $.ajax({
-                                                type:"POST",
-                                                url: "/controle/controle_comentario.php?case=comentario_post",
-                                                data: form.serialize(),
-                                                success: function(data){
-                                                    alert('Comentado');
-                                                }
-                                            });
+                                // serialize() = pega os conteudos dos inputs do form e separa ele 
+                                $.ajax({
+                                    type:"POST",
+                                    url: "/controle/controle_comentario.php?case=comentario_post",
+                                    data: form.serialize(),
+                                    success: function(data){
+                                            alert('Comentado');
+                                            }
+                                        });
                                             
-                                        }
+                                    }
 
-                                    );
+                                );
                             
                     </script>
                     <form class="form-comentario" id="form-comentario<?=$idpost?>" action="/controle/controle_comentario.php?case=comentario_post" method="post">
