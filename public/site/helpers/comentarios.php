@@ -69,8 +69,8 @@ session_start();
                                     );
                             
                     </script>
-                                <div id="form-resposta">
-                                <form id="form-resposta<?=$id_comentario?>" action="/controle/controle_comentario.php?case=comentario_resposta" method="post">
+                                <div>
+                                <form class="form-resposta" id="form-resposta<?=$id_comentario?>" action="/controle/controle_comentario.php?case=comentario_resposta" method="post">
                                 <div class="div-input">
                                     <input class="input-ui" placeholder="Digite seu comentario" type="text"  name="resposta" id="txt-resposta<?=$id_comentario?>">
                                     <span class="input-border"></span>
@@ -133,7 +133,7 @@ session_start();
                                     );
                             
                     </script>
-                    <form id="form-comentario<?=$idpost?>" action="/controle/controle_comentario.php?case=comentario_post" method="post">
+                    <form class="form-comentario" id="form-comentario<?=$idpost?>" action="/controle/controle_comentario.php?case=comentario_post" method="post">
                         <label for="comentario">Comente:</label>
                         <div class="div-input">
                             <input class="input-ui" placeholder="teste" type="text" name="comentario">

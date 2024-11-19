@@ -356,13 +356,23 @@ $resultcoment = executaSql($sql_coment,'i',[$idpost]);
                 let btn_coment = "#btn-coment"+lista[index];
                 let coment = "#comentarios"+lista[index];
                 let refresh = "#refresh"+lista[index];
-                $(coment).load('/helpers/comentarios.php?id_post='+lista[index])
+                let pagi_coment = '/helpers/comentarios.php?id_post='+lista[index];
+                $(coment).load(pagi_coment)
                 $(refresh).click(
                     function() {
-                        $(coment).load('/helpers/comentarios.php?id_post='+lista[index])
+                        $(coment).load(pagi_coment);
                     }
                 );
-                $()
+                $('.form-comentario').submit(
+                    function(){
+                        $(coment).load(pagi_coment);
+                    }
+                );
+                $(".form-resposta").submit(
+                    function(){
+                        $(coment).load(pagi_coment);
+                    }
+                )
                 
 
 
