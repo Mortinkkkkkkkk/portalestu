@@ -20,6 +20,8 @@ if (isset($_SESSION['id_usuario'])){
     <link rel="stylesheet" href="/public/assets/css/dark.css">
     <link rel="stylesheet" href="/public/assets/css/inputs.css">
     <script src="/public/assets/js/jquery-3.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
 </head>
 <body class="teste">
 <header>
@@ -217,8 +219,11 @@ if (isset($_SESSION['id_usuario'])){
                     $list_coment_post[] = $idpost; 
                     $sqluser = "SELECT foto_usuario, nome_usuario FROM tb_usuario WHERE id_usuario = ?";
                     $rslt_usr_prfl = executaSql($sqluser,'i',[$iduser_post]);
-                    ?><div id="post-id<?= $idpost?>" class="card mb-3" style="max-width: 540px">
+                    ?>
+                    <div id="post-id<?= $idpost?>" class="">
+                    <div id="card-id<?= $idpost?>" class="card mb-3" style="max-width: 540px">
                         <div class="row g-0">
+                            <button id="btn-modal<?= $idpost?>">teste moldalal</button>
                             <div class=""><?
                     foreach ($rslt_usr_prfl[1] as $listprfl) {
                         $imgprfl = $listprfl['foto_usuario'];
@@ -308,6 +313,7 @@ if (isset($_SESSION['id_usuario'])){
                 </div>
             </div>
         </div>
+    </div>
                 
                     
 <?php
@@ -342,17 +348,6 @@ $resultcoment = executaSql($sql_coment,'i',[$idpost]);
             // carregar os post pelo ajax
             let lista = [<?php foreach ($list_coment_post as $id_hider) {echo $id_hider . ",";}?>];
             for (let index in lista) {
-                let post_id = 'post-id'+lista[index];
-                $(post_id).click(
-                    function(){
-                        const myModal = document.getElementById(post_id)
-                        const myInput = document.getElementById('myInput')
-        
-                        myModal.addEventListener('shown.bs.modal', () => {
-                        myInput.focus()
-                    }
-                )
-                })
                 let btn_coment = "#btn-coment"+lista[index];
                 let coment = "#comentarios"+lista[index];
                 let refresh = "#refresh"+lista[index];
@@ -370,7 +365,7 @@ $resultcoment = executaSql($sql_coment,'i',[$idpost]);
                 );
                 $(".form-resposta").submit(
                     function(){
-                        $(coment).load(pagi_coment);
+                        $(coment).load(pagi_coment)
                     }
                 )
                 
