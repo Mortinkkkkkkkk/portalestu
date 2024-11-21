@@ -290,7 +290,6 @@ $resultcoment = executaSql($sql_coment,'i',[$idpost]);
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="/public/assets/js/dark.js"></script>
 <script>
     let listform = [<?php foreach($list_form_id as $id_form){echo $id_form.",";}?>];
     $('document').ready(
@@ -301,6 +300,7 @@ $resultcoment = executaSql($sql_coment,'i',[$idpost]);
                 let btn_coment = "#btn-coment"+lista[index];
                 let coment = "#comentarios"+lista[index];
                 let refresh = "#refresh"+lista[index];
+                let form_coment = "#form-comentario"+lista[index];
                 let pagi_coment = '/helpers/comentarios.php?id_post='+lista[index];
                 $(coment).load(pagi_coment)
                 $(refresh).click(
@@ -308,7 +308,7 @@ $resultcoment = executaSql($sql_coment,'i',[$idpost]);
                         $(coment).load(pagi_coment);
                     }
                 );
-                $('.form-comentario').submit(
+                $(form_coment).submit(
                     function(){
                         $(coment).load(pagi_coment);
                     }

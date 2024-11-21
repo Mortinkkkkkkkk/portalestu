@@ -35,19 +35,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/public/assets/css/form.css">
+    <link rel="stylesheet" href="/public/assets/css/inputs.css">
+    <style>
+        body{
+            background-color: rgb(244, 249, 255);
+        }
+    </style>
 </head>
 <body>
     <h1><?= $titulo;?>  do Usuario</h1>
-    <div>
+    <div class="container-form">
         <form action="/controle/controle_usuario.php?case=<?= $modo;?>&id=<?= $id;?>" enctype="multipart/form-data" method="post">
+        <div class="div-input">
             <label for="nome">Nome:</label>
-            <input value="<?= $nome;?>" type="text" name="nome"> <br>
+            <input class="input-ui" value="<?= $nome;?>" type="text" name="nome">
+            <span class="input-border"></span>
+        </div>
+        <div class="div-input">
             <label for="senha">Senha:</label>
-            <input value="<?= $senha;?>" type="password" name="senha" id=""> <br>
+            <input class="input-ui" value="<?= $senha;?>" type="password" name="senha" id="">
+            <span class="input-border"></span>
+        </div>
+        <div class="div-input">
             <label for="email">Email:</label>
-            <input value="<?= $email;?>" type="email" name="email"> <br>
+            <input class="input-ui" value="<?= $email;?>" type="email" name="email">
+            <span class="input-border"></span>
+        <div class="div-input">
             <label for="certificado">Certificado:</label>
-            <input value="<?= $certificado;?>" type="text" name="certificado"> <br>
+            <input class="input-ui" value="<?= $certificado;?>" type="text" name="certificado">
+            <span class="input-border"></span>
+        </div>
             <select name="tipo" id="de">
                 <option value="A">Aluno</option>
                 <option value="P">Professor</option>
@@ -56,7 +74,7 @@
             <label for="img">Foto de perfil</label><br>
             <input type="file" name="img" id="img">
             <br>
-            <input type="submit" value="enviar">
+            <input  type="submit" value="enviar">
         </form>
     </div>
 </body>

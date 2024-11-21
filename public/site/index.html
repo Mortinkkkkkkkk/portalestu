@@ -8,6 +8,8 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- CSS personalizado -->
     <link rel="stylesheet" href="/public/assets/css/login.css">
+    <script src="/public/assets/js/jquery-3.7.1.min.js"></script>
+    
 </head>
 <body>
     <div class="container">
@@ -29,7 +31,7 @@
                     <button class="login-button teacher">Professor</button>
                 </div>
             </div>
-            <form action="/controle/controle_usuario.php?case=login" method="post">
+            <form id="form-login" action="/controle/controle_usuario.php?case=login" method="post">
                 <div class="form-group">
                     <input type="email" name="email" class="form-control" placeholder="E-mail" required>
                 </div>
@@ -38,16 +40,35 @@
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Entrar</button>
             </form>
-            <div class="text-center mt-3">
-                <a href="#">Esqueci a senha</a>
-            </div>
             <p class="text-center mt-2">Não tem acesso? <a href="/public/dashboard/usuario/form_usuario.php?caso=insert">Cadastra-se</a></p>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(
+                $("#form-login").validate({
+                    rules: {
+                        email: {
+                            required: true,
+                            email: true
+                        },
+                        senha: "required"
+                    },
+                    messages: {
+                        email: {
+                            required: "O campo tem que ser preenchido",
+                            email: "Tem que ser um email"
+                        },
+                        senha: "O Campo tem que ser preenchido"
 
+                    }
+                })
+        )
+    </script>
     <!-- Bootstrap JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
