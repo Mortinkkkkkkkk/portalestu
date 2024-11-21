@@ -44,8 +44,8 @@
     </style>
 </head>
 <body>
-    <h1><?= $titulo;?>  do Usuario</h1>
     <div class="container-form">
+    <h1><?= $titulo;?>  do Usuario</h1>
         <form action="/controle/controle_usuario.php?case=<?= $modo;?>&id=<?= $id;?>" enctype="multipart/form-data" method="post">
         <div class="div-input">
             <label for="nome">Nome:</label>

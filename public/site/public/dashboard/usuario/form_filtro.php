@@ -17,8 +17,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/public/assets/css/form.css">
+    <link rel="stylesheet" href="/public/assets/css/inputs.css">
+    <style>
+        body{
+            background-color: rgb(244, 249, 255);
+        }
+    </style>
 </head>
 <body>
+    <div class="container-form">
     <h1><?= $titulo?> 3 filtros</h1>
     <form action="/controle/controle_usuario.php?case=<?= $action?>" method="post">
         <label for="flt1">Filtro 1</label>
@@ -48,5 +56,6 @@
         <input type="hidden" name="id" value="<?= $iduser?>">
         <input type="submit" name="gg" value="Enviar">
     </form>
+    </div>
 </body>
 </html>

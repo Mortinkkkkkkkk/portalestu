@@ -38,8 +38,16 @@ switch ($case) {
     <!-- chama o ion icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="/public/assets/css/form.css">
+    <link rel="stylesheet" href="/public/assets/css/inputs.css">
+    <style>
+        body{
+            background-color: rgb(244, 249, 255);
+        }
+    </style>
 </head>
 <body>
+    <div class="container-form">
     <h1><?= $titulo ?> um post</h1>
     <form action="/controle/controle_post.php?case=<?= $modo?>" enctype="multipart/form-data" method="post">
        <?php 
@@ -51,25 +59,24 @@ switch ($case) {
             <ion-icon name="add-circle-outline" id="add-img"></ion-icon><br>        
         </div>
         <?}?>
-        <label for="legenda">Legenda:</label>
-        <input type="text" name="legenda" value="<?= $legenda ?>"><br>
+        <div class="div-input">
+            <label for="legenda">Legenda:</label>
+            <input class="input-ui" type="text" name="legenda" value="<?= $legenda ?>">
+            <span class="input-border"></span>
+        </div><br><br>
         <select value="<?= $filtro?>" name="filtro" id="filtro">
             <option value="linguagem">Linguagem</option>
             <option value="matematica">Matematica</option>
             <option value="ciencias naturais">Ciencias da Natureza</option>
             <option value="ciencia humanas">Ciencia Humanas</option>
             <option value="redacao">Redação</option>
-            <option value="edital">Edital</option>
+            <option value="resultadovestibular">Resultado de vestibular</option>
             <option value="dicasdeestudo">Dicas de Estudo</option>
-            <option value="testesvocaional">Teste Vocaional</option>
-            <option value="artigos">Artigo</option>
-            <option value="entrevistas">Entrevista</option>
-            <option value="inscricao">Inscrição</option>
-            <option value="simulados">Simulado</option> 
         </select>
         <input type="hidden" name="id" value="<?= $idpost?>">
         <input class="btn-envia" type="submit" value="enviar">
     </form>
+    </div>
 </body>
 <script>
     $('document').ready(
