@@ -60,51 +60,35 @@ if (isset($_SESSION['id_usuario'])){
                         <li><a href="/public/index.php?fltPsq=testes">Testes Vocacionais</a></li>
                     </ul>
                 </li>
-                <li><a href="#blog">Blog</a>
-                    <ul class="submenu">
-                        <li><a href="/public/index.php?fltPsq=artigos">Artigos</a></li>
-                        <li><a href="/public/index.php?fltPsq=entrevistas">Entrevistas</a></li>
-                        <li><a href="/public/index.php?fltPsq=opiniao">Opinião</a></li>
-                    </ul>
-                </li>
                 <li><a href="#contato">Contato</a>
                     <ul class="submenu">
                         <li><a href="#fale-conosco">Fale Conosco</a></li>
                         <li><a href="#faq">Perguntas Frequentes (FAQ)</a></li>
                     </ul>
                 </li>
-        <label>
-            <input class="toggle-checkbox" type="checkbox">
-                <div class="toggle-slot">
-                    <div class="sun-icon-wrapper">
-                    <div class="iconify sun-icon" data-icon="feather-sun" data-inline="false"></div>
+                <div class="container-nav-icons">
+                <?php 
+                    if(!isset($iduser)) {
+                ?>
+                <a href="/index.html"><ion-icon class="nav-icons" name="log-in"></ion-icon></a>
+                <?php } else {?>
+                <a href="/controle/controle_usuario.php?case=logout"> <ion-icon class="nav-icons" name="log-out-outline"></ion-icon></a>
+                <?}?>
+                <?php 
+                    if (!isset($iduser)){
+                       ?><p><a href="/public/dashboard/usuario/form_usuario.php?caso=insert"><ion-icon class="nav-icons" name="person-add"></ion-icon></a></p><?
+                    } else if (isset($tipologado) && $tipologado == "X") {?>
+                    <a href="/public/dashboard/usuario/index.php"><ion-icon class="nav-icons" name="list"></ion-icon></a>
+                    <?php }
+                        if (isset($iduser)) {
+                    ?>
+                    <a href="/public/dashboard/usuario/perfil.php"><ion-icon class="nav-icons" name="people"></ion-icon></a>
+                    <?}?>
                 </div>
-                    <div class="toggle-button"></div>
-                    <div class="moon-icon-wrapper">
-                    <div class="iconify moon-icon" data-icon="feather-moon" data-inline="false"></div>
-                </div>
-            </div>
-        </label>
+            </nav>
+
                 
     </header>
-    <?php 
-        if(!isset($iduser)) {
-    ?>
-    <h3><a href="/index.html">login</a></h3>
-    <?php } else {?>
-    <h3><a href="/controle/controle_usuario.php?case=logout">Deslogin</a></h3>
-    <?}?>
-    <h3>usuario:</h3>
-    <?php 
-        if (!isset($iduser)){
-           ?><p><a href="/public/dashboard/usuario/form_usuario.php?caso=insert">Cadastra-se</a></p><?
-        } else if (isset($tipologado) && $tipologado == "X") {?>
-        <p>criacao e lista de <a href="/public/dashboard/usuario/index.php">usuario</a></p>
-        <?php }
-            if (isset($iduser)) {
-        ?>
-        <p><a href="/public/dashboard/usuario/perfil.php">Perfil</a></p>
-        <?}?>
     <h3>Noticias:</h3>
     <div class="container-posts">
         <?php
@@ -220,10 +204,8 @@ if (isset($_SESSION['id_usuario'])){
                     $sqluser = "SELECT foto_usuario, nome_usuario FROM tb_usuario WHERE id_usuario = ?";
                     $rslt_usr_prfl = executaSql($sqluser,'i',[$iduser_post]);
                     ?>
-                    <div id="post-id<?= $idpost?>" class="">
                     <div id="card-id<?= $idpost?>" class="card mb-3" style="max-width: 540px">
                         <div class="row g-0">
-                            <button id="btn-modal<?= $idpost?>">teste moldalal</button>
                             <div class=""><?
                     foreach ($rslt_usr_prfl[1] as $listprfl) {
                         $imgprfl = $listprfl['foto_usuario'];
@@ -313,7 +295,6 @@ if (isset($_SESSION['id_usuario'])){
                 </div>
             </div>
         </div>
-    </div>
                 
                     
 <?php
