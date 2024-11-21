@@ -141,24 +141,3 @@ h1 {
     margin-top: 10px;
     color: #000;
 }
-.resposta {
-    padding-left: 10px;
-    margin-left: 50px;
-    border-left: solid 2px gray;
-}
-.btn-coment {
-    font-size: 35px
-}
-
-.comentario .txt-coment{
-    font-size: 30px;
- }
-.comentario input[type=text] {
-    width: 150px;
-    height: 25px;
-}
-.comentario input[type=submit] {
-    padding: 0 0;
-    width: 120px;
-    height: 25px;
-}

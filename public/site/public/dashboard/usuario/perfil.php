@@ -23,6 +23,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/public/assets/css/posts.css">
+    <link rel="stylesheet" href="/public/assets/css/inputs.css">
     <style>
         body {
             margin: 10px 0 0 10px;
@@ -100,6 +101,7 @@
         <p><a href="form_usuario.php?caso=update&id=<?= $idusuario?>">Alterar o perfil</a></p>
         <p><a href="form_filtro.php?case=update&id=<?= $idusuario?>">Alterar os filtros</a></p>
         </div>
+        <div class="container-posts">
         <?php
         if ($tipo != "A") {
             $sql_pst_prfl = "SELECT * FROM tb_post WHERE id_usuario = ? ORDER BY fixado DESC, data_postagem DESC";
@@ -111,6 +113,7 @@
                             <div class=" ">
                             <?                    
                     $idpost = $row_pst['id_post'];
+                    $list_coment_post[] = $idpost; 
                     $iduser_post = $row_pst['id_usuario'];
                     $sqlimg = "SELECT  midia FROM tb_midia WHERE id_post = ?";
                     $midia = executaSql($sqlimg,'i',[$idpost]); 
@@ -219,11 +222,53 @@
                 </div><?php
         }
     ?>
+        </div>
 <script src="/public/assets/js/jquery-3.7.1.min.js"></script>
 <script src="/public/assets/js/dark.js"></script>
 <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script>
+    $('document').ready(
+        function() {
+            // carregar os post pelo ajax
+            let lista = [<?php foreach ($list_coment_post as $id_hider) {echo $id_hider . ",";}?>];
+            for (let index in lista) {
+                let btn_coment = "#btn-coment"+lista[index];
+                let coment = "#comentarios"+lista[index];
+                let refresh = "#refresh"+lista[index];
+                let pagi_coment = '/helpers/comentarios.php?id_post='+lista[index];
+                $(coment).load(pagi_coment)
+                $(refresh).click(
+                    function() {
+                        $(coment).load(pagi_coment);
+                    }
+                );
+                $('.form-comentario').submit(
+                    function(){
+                        $(coment).load(pagi_coment);
+                    }
+                );
+                $(".form-resposta").submit(
+                    function(){
+                        $(coment).load(pagi_coment)
+                    }
+                )
+                
+
+
+                // esconde a div do comentario
+                $(coment).hide()
+                $(btn_coment).click(
+                    function() {
+
+                        $(coment).toggle(300);
+                    }
+                );
+            }
+        }
+    )
+</script>
 
 
 </body>
