@@ -35,6 +35,7 @@ h1 {
 }
 
 .menu li {
+    z-index: 1;
     margin: 0 15px;
     position: relative;
 }

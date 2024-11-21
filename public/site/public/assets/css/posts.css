@@ -1,0 +1,19 @@
+.ion {
+    font-size: 40px;
+    color: black;
+}
+
+body {
+    background-color: rgb(244, 249, 255);
+}
+.container-posts{
+    background-color: rgb(232, 242, 252);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.post {
+    background-color: rgb(223, 234, 243);
+}

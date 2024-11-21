@@ -17,11 +17,9 @@ if (isset($_SESSION['id_usuario'])){
     <link rel="icon" type="image/x-icon" href="/public/assets/img/logo.ico">
     <link rel="stylesheet" href="/public/assets/css/index.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="/public/assets/css/dark.css">
+    <link rel="stylesheet" href="/public/assets/css/posts.css">
     <link rel="stylesheet" href="/public/assets/css/inputs.css">
     <script src="/public/assets/js/jquery-3.7.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
 </head>
 <body class="teste">
 <header>
@@ -31,22 +29,16 @@ if (isset($_SESSION['id_usuario'])){
         </div>
         <nav>
             <ul class="menu">
-                <li><a href="#noticias">Notícias</a>
-                    <ul class="submenu">
-                        <li><a href="index.php">Últimas notícias</a></li>
-                        <li><a href="/public/index.php?fltPsq=edu">Educação</a></li>
-                        <li><a href="/public/index.php?fltPsq=cie">Ciência</a></li>
-                    </ul>
+                <li><a href="index.php">Últimas notícias</a></a>
                 </li>
-                <li><a href="#enem">ENEM</a>
+                <li><a href="index.php">Enem</a>
                     <ul class="submenu">
                         <li><a href="/public/Simulado.html">Simulados</a></li>
                         <li><a href="/public/index.php?fltPsq=dica">Dicas de Estudo</a></li>
-                        <li><a href="/public/index.php?fltPsq=ins">Inscrições</a></li>
-                        <li><a href="/public/index.php?fltPsq=edital">Editais</a></li>
+                        <li><a href="/public/index.php?fltPsq=resultvest">Resultado</a></li>
                     </ul>
                 </li>
-                <li><a href="#materias">Matérias</a>
+                <li><a href="index.php">Materia</a>
                     <ul class="submenu">
                         <li><a href="/public/index.php?fltPsq=mat">Matemática</a></li>
                         <li><a href="/public/index.php?fltPsq=lin">Linguagens</a></li>
@@ -55,12 +47,7 @@ if (isset($_SESSION['id_usuario'])){
                         <li><a href="/public/index.php?fltPsq=red">Redação</a></li>
                     </ul>
                 </li>
-                <li><a href="#vocacional">Orientação Vocacional</a>
-                    <ul class="submenu">
-                        <li><a href="/public/index.php?fltPsq=testes">Testes Vocacionais</a></li>
-                    </ul>
-                </li>
-                <li><a href="#contato">Contato</a>
+                <li><a href="index.php">Contato</a>
                     <ul class="submenu">
                         <li><a href="#fale-conosco">Fale Conosco</a></li>
                         <li><a href="#faq">Perguntas Frequentes (FAQ)</a></li>
@@ -90,10 +77,9 @@ if (isset($_SESSION['id_usuario'])){
                 
     </header>
     <h3>Noticias:</h3>
-    <div class="container-posts">
         <?php
             if (isset($tipologado) && $tipologado != "A") {
-            ?><p>Criar um <a href="/public/form_post.php?case=insert">Noticias</a></p><?php
+            ?><a href="/public/form_post.php?case=insert"><ion-icon class="ion" name="newspaper-outline"></ion-icon></a><?php
             }
             ?>
             <form action="/public/index.php" method="post">
@@ -107,15 +93,18 @@ if (isset($_SESSION['id_usuario'])){
                     <option value="data">Data</option>
                     <option value="filtro">Filtro</option>
                 </select>
-                <input type="submit" value="Pesquisar">
+                <input class="btn btn-secondary" type="submit" value="Pesquisar">
             </form>
             <?php
             if (isset($_REQUEST['pesquisa'])) {
                 ?>
-                <a href="/public/index.php">Voltar</a>
+                <a href="/public/index.php"><ion-icon class="ion" name="arrow-back-outline"></ion-icon></a>
                 <?php
+                // coleta o valor do campo de pesquisa
                 $pesquisa ="%" . $_REQUEST['pesquisa'] . "%";
+                // coleta a opção pesquisada
                 $opcao_pesq = $_REQUEST['opcao_pesq'];
+                // troca o sql de acordo com a opção pesquisada pelo usuario
                 switch ($opcao_pesq) {
                     case "data" :
                         $sql = "SELECT * FROM tb_post WHERE data_postagem LIKE ? ORDER BY data_postagem DESC";
@@ -136,23 +125,14 @@ if (isset($_SESSION['id_usuario'])){
             } else if(!isset($_REQUEST['pesquisa']) && isset($_REQUEST['fltPsq'])){
                 $fltPsq = $_REQUEST['fltPsq'];
                 switch ($fltPsq) {
-                    case 'edu':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'linguagem' OR filtro = 'matematica' OR filtro = 'ciencia naturais' OR filtro = 'ciencia humanas' OR filtro = 'redacao' ORDER BY data_postagem DESC";
-                        break;
                     case 'cie':
                         $sql = "SELECT * FROM tb_post WHERE filtro = 'ciencia humanas' OR filtro = 'ciencias naturais' ORDER BY data_postagem DESC";
-                        break;
-                    case 'sim':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'simulados' ORDER BY data_postagem DESC";
                         break;
                     case 'dica':
                         $sql = "SELECT * FROM tb_post WHERE filtro = 'dicasdeestudo' ORDER BY data_postagem DESC";
                         break;
-                    case 'ins':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'inscricao' ORDER BY data_postagem DESC";
-                        break;
-                    case 'edital':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'edital' ORDER BY data_postagem DESC";
+                    case 'resultvest':
+                        $sql = "SELECT * FROM tb_post WHERE filtro = 'resultadovestibular' ORDER BY data_postagem DESC";
                         break;
                     case 'mat':
                         $sql = "SELECT * FROM tb_post WHERE filtro = 'matematica' ORDER BY data_postagem DESC";
@@ -169,18 +149,6 @@ if (isset($_SESSION['id_usuario'])){
                     case 'red':
                         $sql = "SELECT * FROM tb_post WHERE filtro = 'redacao' ORDER BY data_postagem DESC";
                         break;
-                    case 'testes':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'testesvocacional' ORDER BY data_postagem DESC";
-                        break;
-                    case 'artigos':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'artigos' ORDER BY data_postagem DESC";
-                        break;
-                    case 'entrevistas':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'entrevistas' ORDER BY data_postagem DESC";
-                        break;
-                    case 'opiniao':
-                        $sql = "SELECT * FROM tb_post WHERE filtro = 'opiniao' ORDER BY data_postagem DESC";
-                        break;
                     default: 
                         $sql = "SELECT * FROM tb_post WHERE filtro = 'filtronaoexitentepradarerrodeproposito'";
                         break;
@@ -195,7 +163,8 @@ if (isset($_SESSION['id_usuario'])){
                 $sql = "SELECT * FROM tb_post ORDER BY data_postagem DESC";
                 $rslt_pesq = SelectallSql($sql);
                 $nada = false;
-            }   
+            }
+            ?><div class="container-posts"><?php   
             if (!$nada) {
                 foreach ($rslt_pesq[1] as $row) {
                     $iduser_post = $row['id_usuario'];
@@ -204,7 +173,7 @@ if (isset($_SESSION['id_usuario'])){
                     $sqluser = "SELECT foto_usuario, nome_usuario FROM tb_usuario WHERE id_usuario = ?";
                     $rslt_usr_prfl = executaSql($sqluser,'i',[$iduser_post]);
                     ?>
-                    <div id="card-id<?= $idpost?>" class="card mb-3" style="max-width: 540px">
+                    <div id="card-id<?= $idpost?>" class="post card mb-3" style="max-width: 540px">
                         <div class="row g-0">
                             <div class=""><?
                     foreach ($rslt_usr_prfl[1] as $listprfl) {

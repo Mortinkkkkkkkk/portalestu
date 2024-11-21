@@ -22,18 +22,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="/public/assets/css/dark.css">
+    <link rel="stylesheet" href="/public/assets/css/posts.css">
     <style>
         body {
             margin: 10px 0 0 10px;
         }
-        .pin {
-            position: absolute;
-            left: 46%;
-            top: -8%;
-            font-size: 50px;
-            rotate: 45deg;
+
+        .fix {
+            color:black ;
+            position: relative;
+            left: 90%;
+            top: -20px;
         }
+
         .casa {
             text-decoration: none;
             color:black;
@@ -50,19 +51,6 @@
     </style>
 
 </head>
-<body class="teste">
-<label>
-    <input class="toggle-checkbox" type="checkbox">
-                <div class="toggle-slot">
-                    <div class="sun-icon-wrapper">
-                    <div class="iconify sun-icon" data-icon="feather-sun" data-inline="false"></div>
-                </div>
-                    <div class="toggle-button"></div>
-                    <div class="moon-icon-wrapper">
-                    <div class="iconify moon-icon" data-icon="feather-moon" data-inline="false"></div>
-                </div>
-            </div>
-        </label>
     <a href="/public/index.php" class="casa"><ion-icon name="home" class="casinha"></ion-icon></a><br>
     <?php
         $sql_usr_prfl = "SELECT * FROM tb_usuario WHERE id_usuario = ?";
@@ -118,7 +106,7 @@
             $rslt_pst_prfl = executaSql($sql_pst_prfl,'i',[$idusuario]);
             if (sizeof($rslt_pst_prfl[1]) > 0 ){
                 foreach ($rslt_pst_prfl[1] as $row_pst) {
-                    ?><div class="card mb-3" style="max-width: 720px">
+                    ?><div class="post card mb-3" style="max-width: 720px">
                         <div class="row g-0">
                             <div class=" ">
                             <?                    
@@ -182,9 +170,6 @@
                     $datapostagem = $row_pst['data_postagem'];
                     $filtro = $row_pst['filtro'];
                     $fixado = $row_pst['fixado'];
-                    if ($fixado == 1) { 
-                        ?><ion-icon name="pin-sharp" class="pin" ></ion-icon><?
-                    }
                     ?>
                     <div class="col-md-12">
                         <div class="card-body">
@@ -192,19 +177,29 @@
                             <p class="card-text"><?= $datapostagem?></p>
                         </div>
                     </div>
+                        <div class="ion toggler">
+                            <ion-icon name="chatbox-ellipses-outline" class="btn-coment" id="btn-coment<?=$idpost?>"></ion-icon>
+                        </div>
+                        <div class="ion refresh">
+                            <ion-icon name="refresh-outline" class="btn-coment" id="refresh<?= $idpost?>"></ion-icon>
+                        </div>
+                        <div class="comentarios" id="comentarios<?= $idpost?>">
+                    </div>   
                     <?php
                     if (isset($idusuario) && isset($tipologado)) {
                         if ($iduser_post == $idusuario || $tipologado == "X") {
                         ?>
-                        <p class="card-text">Editar post: <a href="/controle/controle_post.php?case=delete&id=<?=$idpost?>">Deletar</a> <a href="form_post.php?case=update&id=<?=$idpost?>">Atualizar</a></p>
+                        <p class="card-text">Editar post: <a href="/controle/controle_post.php?case=delete&id=<?=$idpost?>">Deletar</a> <a href="/public/form_post.php?case=update&id=<?=$idpost?>">Atualizar</a></p>
                         <?php
                         } 
                         if ($fixado == 0) {
                             $txt_pin = "Fixar";
+                            $icon_fix = "<ion-icon class='ion fix' name='bookmark-outline'></ion-icon>";
                         } else {
                             $txt_pin = "Desfixar";
+                            $icon_fix = "<ion-icon class='ion fix' name='bookmark'></ion-icon>";
                         }
-                        ?> <p class="card-text"><a href="/controle/controle_post.php?case=pin&id=<?= $idpost?>&func=<?= $txt_pin?>"><?= $txt_pin?></a></p>
+                        ?> <p class="card-text"><a href="/controle/controle_post.php?case=pin&id=<?= $idpost?>&func=<?= $txt_pin?>"><?= $icon_fix?></a></p>
                         <?php
                     }
                     ?>
