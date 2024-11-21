@@ -1,4 +1,4 @@
--- Adminer 4.8.1 MySQL 5.5.5-10.5.25-MariaDB-ubu2004 dump
+-- Adminer 4.8.1 MySQL 5.5.5-10.5.26-MariaDB-ubu2004 dump
 
 SET NAMES utf8;
 SET time_zone = '+00:00';
@@ -25,20 +25,6 @@ CREATE TABLE `tb_comentario` (
   CONSTRAINT `tb_comentario_ibfk_4` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `tb_comentario` (`id_comentario`, `id_post`, `id_usuario`, `resposta_id`, `comentario`) VALUES
-(3,	4,	2,	NULL,	'pppppppp'),
-(8,	4,	2,	3,	'aaaaaaaaaaaaaa'),
-(9,	5,	2,	NULL,	'Navio duh'),
-(10,	5,	7,	9,	'nao'),
-(11,	6,	7,	NULL,	'se meu '),
-(12,	7,	2,	NULL,	'teste'),
-(16,	5,	5,	9,	'teste'),
-(17,	5,	5,	NULL,	'comentario'),
-(18,	5,	5,	NULL,	'outro'),
-(19,	5,	5,	NULL,	'resto'),
-(21,	5,	5,	17,	'respota'),
-(22,	5,	5,	17,	'oiiiiiiiii'),
-(23,	5,	2,	22,	'teste');
 
 DROP TABLE IF EXISTS `tb_filtro`;
 CREATE TABLE `tb_filtro` (
@@ -51,21 +37,15 @@ CREATE TABLE `tb_filtro` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `tb_filtro` (`id_filtro`, `id_usuario`, `filtro`) VALUES
-(1,	2,	'redacao'),
-(2,	2,	'ciencia humanas'),
-(3,	2,	'matematica'),
-(7,	4,	'linguagem'),
-(8,	4,	'linguagem'),
-(9,	4,	'linguagem'),
-(10,	5,	'ciencia humanas'),
-(11,	5,	'matematica'),
-(12,	5,	'ciencias naturais'),
-(13,	6,	'ciencias naturais'),
-(14,	6,	'ciencias naturais'),
-(15,	6,	'ciencias naturais'),
-(16,	7,	'matematica'),
-(17,	7,	'matematica'),
-(18,	7,	'matematica');
+(19,	10,	'ciencia humanas'),
+(20,	10,	'matematica'),
+(21,	10,	'redacao'),
+(22,	11,	'matematica'),
+(23,	11,	'linguagem'),
+(24,	11,	'redacao'),
+(25,	12,	'ciencia humanas'),
+(26,	12,	'redacao'),
+(27,	12,	'ciencias naturais');
 
 DROP TABLE IF EXISTS `tb_midia`;
 CREATE TABLE `tb_midia` (
@@ -78,11 +58,35 @@ CREATE TABLE `tb_midia` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `tb_midia` (`id_midia`, `id_post`, `midia`) VALUES
-(3,	4,	'/public/assets/img/1727701137add4462f4ae25e0d50f262f76e14d7a632.jpeg'),
-(4,	5,	'/public/assets/img/172770349122bf7672bdf6d94bb2e3514bfcd63d5d23.png'),
-(5,	6,	'/public/assets/img/17277041585af90edbdb3fc08a50e8ed6cf7fae21b93.jpeg'),
-(6,	7,	'/public/assets/img/1728382589d3ab6dbb1747349bc3cb3f309fbbaf2670.jpeg'),
-(7,	8,	'/public/assets/img/1728382731336067bff510caba57fabae15049e0a762.jpeg');
+(8,	9,	'/public/assets/img/1732208259e37a4b25354f73fb15c2db910f66443e44.jpg'),
+(9,	9,	'/public/assets/img/1732208259ddab8c9d26ddc8ff02c04028eac4539630.jpg'),
+(10,	9,	'/public/assets/img/1732208259f4da7d50bf496f8ba5a564149baafebc64.jpg'),
+(11,	9,	'/public/assets/img/1732208259796342f4512ca8b1c1eb09cf991585d062.jpg'),
+(12,	9,	'/public/assets/img/1732208259ac1be63e3f454a4418f696a4525b0d1e68.jpg'),
+(13,	9,	'/public/assets/img/1732208259aae4d225930954b3fe7b49ca5378a05315.jpg'),
+(14,	10,	'/public/assets/img/17322083487ab204ec8bc5e56df5f45ec49ff5988e33.webp'),
+(15,	11,	'/public/assets/img/17322084715759634bd7150459f840df4846ec29d23.jpg'),
+(16,	11,	'/public/assets/img/1732208471271c33903eddcc2fbe3594fc4b77e06489.jpg'),
+(17,	11,	'/public/assets/img/1732208471bf10a011bf4ad63527c5f2242b05e33717.jpg'),
+(18,	11,	'/public/assets/img/17322084713b1d9d2a9c4c23cf884331105c04106890.jpg'),
+(19,	12,	'/public/assets/img/1732208535985d277fdec624b29224416eab8cad6020.jpg'),
+(20,	12,	'/public/assets/img/1732208536b3b8f3c003e1bf6205ac2a27f08b753f62.jpg'),
+(21,	13,	'/public/assets/img/1732208844986647dc30a8c2f3f535e89a004c2b5c40.jpg'),
+(22,	13,	'/public/assets/img/17322088443c201d119f4bfc40be2e55347c21ae2174.jpg'),
+(23,	13,	'/public/assets/img/1732208844e248abd0fc2b78d83581867bb5396edc18.jpg'),
+(24,	13,	'/public/assets/img/17322088444df6bd445c03e11aabe8f46845756cad59.jpg'),
+(25,	13,	'/public/assets/img/17322088443f9ac49c822327b39b0dd0baf97c830225.jpg'),
+(26,	13,	'/public/assets/img/1732208844ac93cdbb210156c3e73e7c196d1a9ebc44.jpg'),
+(27,	13,	'/public/assets/img/1732208844d1bea26c18c34052cdd5bfbea27fb9e851.jpg'),
+(28,	13,	'/public/assets/img/17322088446e397693649f4db2cfcac200879f186a25.jpg'),
+(29,	13,	'/public/assets/img/17322088442ceeecfec0e21986fa98a2fa4860e76b55.jpg'),
+(30,	13,	'/public/assets/img/173220884402aea1a74847395b29a1f881604515ae28.jpg'),
+(31,	13,	'/public/assets/img/173220884493ba596a4f5cfc9d610b66a976d1198048.jpg'),
+(32,	13,	'/public/assets/img/17322088448fb712e0426420ea29f38593f60107676.jpg'),
+(33,	13,	'/public/assets/img/1732208844edb569cc6f3ae436beaca9d511029fe02.jpg'),
+(34,	13,	'/public/assets/img/1732208844a652bcfc4d98152e7df7786cf0435b7089.jpg'),
+(35,	13,	'/public/assets/img/17322088440fde98acad6afbd1142cc3720475f6638.jpg'),
+(36,	14,	'/public/assets/img/1732208910bdc0a82feb52122fd871f7a4581cc9b790.heic');
 
 DROP TABLE IF EXISTS `tb_post`;
 CREATE TABLE `tb_post` (
@@ -98,11 +102,12 @@ CREATE TABLE `tb_post` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `tb_post` (`id_post`, `id_usuario`, `legenda`, `data_postagem`, `filtro`, `fixado`) VALUES
-(4,	2,	'img',	'2024-09-30 12:58:57',	'linguagem',	0),
-(5,	2,	'Nenhuma, palavra do português que começa com N  ',	'2024-09-30 01:38:11',	'linguagem',	0),
-(6,	7,	'Como acha a hipotenusa',	'2024-09-30 01:49:18',	'matematica',	0),
-(7,	2,	'quimica',	'2024-10-08 10:16:29',	'ciencias naturais',	0),
-(8,	2,	'filosofia',	'2024-10-08 10:18:51',	'ciencia humanas',	0);
+(9,	9,	'Nessa reta final para o ENEM_ garantir uma excelente nota na Redação pode ser o diferencial para a sua aprovação_ 📝__Agora é a hora de revisar_ aperfeiçoar e se preparar para entregar ',	'2024-11-21 04:57:39',	'redacao',	0),
+(10,	9,	'Confira essa dica sobre as funções dos lipídios que eu trouxe para você não esquecer mais e arrasar no Enem_📝🤩',	'2024-11-21 04:59:44',	'ciencias naturais',	0),
+(11,	9,	'Quer saber como usar Inteligência Artificial na redação do ENEM_ 🤖__📝 Preparamos um modelo completo de redação pra te ajudar a dominar esse tema atual e garantir argumentos sólidos ',	'2024-11-21 05:01:11',	'redacao',	0),
+(12,	9,	'Tema da redação do ENEM 2024',	'2024-11-21 05:02:15',	'linguagem',	0),
+(13,	9,	'Vem gabaritar natureza✨',	'2024-11-21 05:07:23',	'ciencias naturais',	0),
+(14,	9,	'Resumo de quimica',	'2024-11-21 05:08:30',	'linguagem',	0);
 
 DROP TABLE IF EXISTS `tb_usuario`;
 CREATE TABLE `tb_usuario` (
@@ -117,10 +122,10 @@ CREATE TABLE `tb_usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `tb_usuario` (`id_usuario`, `nome_usuario`, `senha_usuario`, `email_usuario`, `certificado`, `tipo`, `foto_usuario`) VALUES
-(2,	'Aaaaa',	'aaaa',	'aaaa@gmail.com',	'aaaa',	'X',	NULL),
-(4,	'pobre',	'erbop',	'pobre@gmail.com',	'',	'A',	NULL),
-(5,	'rico',	'ocir',	'rico@gmail.com',	'',	'A',	NULL),
-(6,	'Tree carvalho',	'arvore',	'palmeiras@gmail.com',	'Botanico',	'P',	NULL),
-(7,	'X',	'doismaisdois',	'hipotenusa@gmail.com',	'Matematico',	'P',	NULL);
+(8,	'fernando josé',	'senha',	'fernando@gmail.com',	'admin',	'X',	'/public/assets/img/perfil/1732206907c049e276609ba5c07ee9f0c8013d02525.jpg'),
+(9,	'professor universal',	'universal',	'professor@gmail.com',	'Em tudo',	'P',	'/public/assets/img/perfil/173220713559982d85643648849bab6083b0a15c3348.jpg'),
+(10,	'aluno 1',	'aluno',	'aluno1@gmail.com',	'',	'A',	'/public/assets/img/perfil/17322071823fcd751d549d30c8a22fb245c6e5cf1644.jpg'),
+(11,	'aluno 2',	'aluno2',	'aluno2@gmail.com',	'',	'A',	'/public/assets/img/perfil/1732207333b418df6c4d6f641efe7fbdabc2a09e6f11.jpg'),
+(12,	'aluno 3',	'aluno3',	'aluno3@gmail.com',	'',	'A',	'/public/assets/img/perfil/1732207385dc8c0041f32ec87eeda564fe4830a47f36.jpg');
 
--- 2024-10-15 10:57:37
+-- 2024-11-21 17:13:27
