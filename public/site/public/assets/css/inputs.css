@@ -7,13 +7,7 @@
     position: relative;
     width: var(--width-of-input);
    }
-.bg-dark-mode .div-input{
-    --border-before-color: rgb(194, 194, 194);
-}
-.bg-dark-mode .div-input .input-ui {
-    color: rgb(194, 194, 194);
-}
-   /* styling of Input */
+   /* Estilização do Input */
    .input-ui {
     color: rgb(31, 31, 31);
     font-size: 0.9rem;
@@ -25,7 +19,7 @@
     border: none;
     border-bottom: var(--border-height) solid var(--border-before-color);
    }
-   /* styling of animated border */
+   /* Estilização da bordar animada */
    .input-border {
     position: absolute;
     background: var(--border-after-color);
@@ -35,7 +29,7 @@
     left: 0;
     transition: 0.3s;
    }
-   /* Hover on Input */
+   /* Hover no input */
    input:hover {
     background: var(--input-hovered-color);
    }
@@ -43,12 +37,8 @@
    input:focus {
     outline: none;
    }
-   /* here is code of animated border */
+   /* Codigo da animação da borda */
    input:focus ~ .input-border {
     width: 100%;
    }
-   /* === if you want to do animated border on typing === */
-   /* remove input:focus code and uncomment below code */
-   /* input:valid ~ .input-border{
-     width: 100%;
-   } */
+   

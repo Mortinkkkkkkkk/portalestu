@@ -4,6 +4,7 @@ include_once($_SERVER['DOCUMENT_ROOT']."/helpers/redirect.php");
 session_start();
             $idpost = $_REQUEST['id_post'];
             $iduser = $_SESSION['id_usuario'];
+            $tipologado = $_SESSION['tipo'];
             $sql_coment = "SELECT comentario,id_usuario, id_comentario, resposta_id FROM tb_comentario WHERE id_post = ? AND resposta_id IS NULL ORDER BY id_comentario, resposta_id";
             $resultcoment = executaSql($sql_coment,'i',[$idpost]);
                 if (sizeof($resultcoment[1]) > 0) {
@@ -12,17 +13,10 @@ session_start();
                         $iduser_coment = $listcoment['id_usuario'];
                         $id_comentario = $listcoment['id_comentario'];
                         $sql_comt_name_user = "SELECT nome_usuario FROM tb_usuario WHERE id_usuario = ?";
-                                $resultnomeusuer = executaSql($sql_comt_name_user,'i',[$iduser_coment]);
-                                $nome_user_coment = $resultnomeusuer[1][0];
-                                $list_form_id[] = $id_comentario; 
-                                if ($iduser_coment == '1') {
-                                    $user_coment = "Anonimo";
-                                }
-                                else {
-                                    $user_coment = $nome_user_coment['nome_usuario'];
-                                }
-                                
-
+                        $resultnomeusuer = executaSql($sql_comt_name_user,'i',[$iduser_coment]);
+                            $nome_user_coment = $resultnomeusuer[1][0];
+                            $list_form_id[] = $id_comentario; 
+                            $user_coment = $nome_user_coment['nome_usuario'];
                                 ?><div class="comentario" id="comentario<?=$id_comentario?>" ><p class="txt-coment"><?php
                                     echo $user_coment . ": " . $comentario ;?></p></div><?php
                                 $sql_rspt = "SELECT * FROM tb_comentario WHERE resposta_id = ? ORDER BY id_comentario";
@@ -31,20 +25,17 @@ session_start();
                                     foreach ($rslt_rspt[1] as $lst_rspt) {
                                     $resposta = $lst_rspt["resposta_id"];
                                     $cmnt_rspt = $lst_rspt["comentario"];
+                                    $id_user_rspt = $lst_rspt['id_usuario'];
+                                    // pesquisa pelo nome do usuario que respondeu
+                                        $sql_nm_rspt = "SELECT nome_usuario FROM tb_usuario WHERE id_usuario = ?";
+                                        $rslt_nm_rspt = executaSql($sql_nm_rspt,"i",[$id_user_rspt]);
+                                        $lst_nm_rspt = $rslt_nm_rspt[1][0];
+                                        $nm_rspt = $lst_nm_rspt["nome_usuario"];
                                     ?><div class="comentario resposta">
                                         <p class="txt-resposta"><?php
-                                    // Pega o id do usuario do comentario de origem da resposta
-                                    $sql_cmnt_org = "SELECT id_usuario FROM tb_comentario WHERE id_comentario = ?";
-                                    $rslt_cmnt_org = executaSql($sql_cmnt_org,'i',[$resposta]);
-                                    $row_cmt_org = $rslt_cmnt_org[1][0];
-                                    $id_us_cmnt_org = $row_cmt_org['id_usuario'];
-                                    // Pega o nome do usario do comentario de origem
-                                    $sql_nm_us_org = "SELECT nome_usuario FROM tb_usuario WHERE id_usuario = ?";
-                                    $rslt_nm_us_org = executaSql($sql_nm_us_org,'i',[$id_us_cmnt_org]);
-                                    $row_nm_us_org = $rslt_nm_us_org[1][0];
-                                    $nm_us_org = $row_nm_us_org['nome_usuario'];
+
                                     // comentario:
-                                    echo $user_coment ." Respondeu " .$nm_us_org . ": " . $cmnt_rspt ;?></p></div><?php
+                                    echo $nm_rspt ." Respondeu " . $user_coment  . ": " . $cmnt_rspt ;?></p></div><?php
   
                                     }
                                 }
@@ -87,15 +78,11 @@ session_start();
                                     <input type="submit" value="responder" id="btn-enviar<?=$id_comentario?>">
                                 </form>
                                 </div>
-                                <p id="btn-responder<?= $id_comentario?>">Responder</p>
                                 <?php
                                 if (isset($_SESSION) && isset($tipologado)) {
-                                    if (!isset($iduser)){
-                                        $iduser = 1;
-                                    }
-                                    if ($iduser == $iduser_coment && $iduser != 1 ||  $tipologado == "X") {
+                                    if ($iduser == $iduser_coment || $tipologado == "X") {
                                         ?>
-                                            <p><a href="/controle/controle_comentario.php?case=deletar&id=<?=$id_comentario?>">DELETAR</a> COMENTARIO</p></div>
+                                            <p><a href="/controle/controle_comentario.php?case=deletar&id=<?=$id_comentario?>"><ion-icon style="font-size: 30px; color: black;" name="trash"></ion-icon></a></p></div>
                                             <?php
                                     }
                                 }
@@ -146,16 +133,4 @@ session_start();
                         <input type="hidden" name="id_post" value="<?echo $idpost?>">
                         <input type="hidden" name="id_user" value="<?= $iduser;?>">
                         <input type="submit" value="enviar">
-                    </form>
-                    <?php 
-                        // $iduser = id do usuario logado
-                        // $iduser_post = id do usaurio que postou
-                        if (isset($iduser)  && isset($tipologado)) {
-                            if ($iduser_post == $iduser || $tipologado == "X") {
-                            ?>
-                            <p>Editar post: <a href="/controle/controle_post.php?case=delete&id=<?=$idpost?>">Deletar</a> <a href="form_post.php?case=update&id=<?=$idpost?>">Atualizar</a></p>
-                            <?php
-                        }
-                    }                  
-
-?>
+                    </form>   

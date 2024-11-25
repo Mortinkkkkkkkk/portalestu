@@ -39,9 +39,10 @@
         if ($resultados) {
                 $resultados = mysqli_fetch_all($resultados, MYSQLI_ASSOC);
            }
-           return [$result, $resultados];
 
-        mysqli_stmt_close($stmt);
+           mysqli_stmt_close($stmt);
+           
+           return [$result, $resultados];
         
     }   
 

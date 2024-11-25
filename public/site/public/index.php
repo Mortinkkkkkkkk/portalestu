@@ -173,7 +173,7 @@ if (isset($_SESSION['id_usuario'])){
                     $sqluser = "SELECT foto_usuario, nome_usuario FROM tb_usuario WHERE id_usuario = ?";
                     $rslt_usr_prfl = executaSql($sqluser,'i',[$iduser_post]);
                     ?>
-                    <div id="card-id<?= $idpost?>" class="post card mb-3" style="max-width: 540px">
+                    <div id="card-id<?= $idpost?>" class="post card mb-3" style="width: 30rem;">
                         <div class="row g-0">
                             <div class=""><?
                     foreach ($rslt_usr_prfl[1] as $listprfl) {
@@ -330,28 +330,8 @@ $resultcoment = executaSql($sql_coment,'i',[$idpost]);
                     }
                 );
             }
-            for (let index in listform) {
-                let btn_responder = "#btn-responder"+listform[index];
-                let form_resposta = "#form-resposta"+listform[index];
-                // alterna a caixa de resposta
-                $(form_resposta).hide();
-                $(btn_responder).click(
-                    function(){
-                        $(form_resposta).toggle(250);
-                    }
-                );
             
-                // alterna o botao de confimar
-                let btn_enviar = "#btn-enviar"+listform[index];
-                let txt_resposta = "#txt-resposta"+listform[index];
-                $(btn_enviar).hide();
-                $(txt_resposta).blur(
-                    function(){
-                        $(btn_enviar).toggle(100);
-                    }
-                );
             
-            }
         },
     );
 </script>

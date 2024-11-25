@@ -24,35 +24,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/public/assets/css/posts.css">
     <link rel="stylesheet" href="/public/assets/css/inputs.css">
-    <style>
-        body {
-            margin: 10px 0 0 10px;
-        }
-
-        .fix {
-            color:black ;
-            position: relative;
-            left: 90%;
-            top: -20px;
-        }
-
-        .casa {
-            text-decoration: none;
-            color:black;
-        }
-        .casinha {
-            font-size: 50px;
-        }
-        .img-size {
-            width: 100%;
-            height: 300px;
-        }   
-    
-
-    </style>
-
+    <link rel="stylesheet" href="/public/assets/css/perfil.css">
 </head>
-    <a href="/public/index.php" class="casa"><ion-icon name="home" class="casinha"></ion-icon></a><br>
     <?php
         $sql_usr_prfl = "SELECT * FROM tb_usuario WHERE id_usuario = ?";
         $rslt_usr_prfl = executaSql($sql_usr_prfl, 'i', [$idusuario]);
@@ -69,6 +42,7 @@
         }
         ?>
         <div class="info-perfil">
+        <a href="/public/index.php" class="casa"><ion-icon name="home" class="casinha"></ion-icon></a><br>
         <?php
             if ($foto != null) {
                ?>
@@ -76,7 +50,7 @@
                <? 
             } else if ($foto == null) {
                 ?>
-                <img src="/public/assets/img/perfil/pessoasemfoto.jpeg" alt="">
+                <img class="info-perfil" src="/public/assets/img/perfil/pessoasemfoto.jpeg" alt="">
                 <?
             }
 
@@ -108,7 +82,7 @@
             $rslt_pst_prfl = executaSql($sql_pst_prfl,'i',[$idusuario]);
             if (sizeof($rslt_pst_prfl[1]) > 0 ){
                 foreach ($rslt_pst_prfl[1] as $row_pst) {
-                    ?><div class="post card mb-3" style="max-width: 720px">
+                    ?><div class="post card mb-3" style="width: 30rem;">
                         <div class="row g-0">
                             <div class=" ">
                             <?                    

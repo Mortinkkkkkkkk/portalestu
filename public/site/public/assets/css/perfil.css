@@ -1,0 +1,25 @@
+body {
+    margin: 10px 0 0 10px;
+}
+
+.fix {
+    color:black ;
+    position: relative;
+    left: 90%;
+    top: -20px;
+}
+
+.casa {
+    text-decoration: none;
+    color:black;
+}
+.casinha {
+    font-size: 50px;
+}
+.img-size {
+    width: 100%;
+    height: 300px;
+}   
+.info-perfil {
+    position: fixed;
+}
