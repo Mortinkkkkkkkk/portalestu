@@ -32,6 +32,7 @@ if (isset($_SESSION['id_usuario'])){
                 <li><a href="index.php">Últimas notícias</a></a>
                 </li>
                 <li><a href="index.php">Enem</a>
+                <!-- Menu com várias opções e submenus -->
                     <ul class="submenu">
                         <li><a href="/public/Simulado.html">Simulados</a></li>
                         <li><a href="/public/index.php?fltPsq=dica">Dicas de Estudo</a></li>
@@ -97,6 +98,7 @@ if (isset($_SESSION['id_usuario'])){
             </form>
             <?php
             if (isset($_REQUEST['pesquisa'])) {
+             // Processamento da pesquisa, filtrando posts no banco de dados
                 ?>
                 <a href="/public/index.php"><ion-icon class="ion" name="arrow-back-outline"></ion-icon></a>
                 <?php
@@ -167,6 +169,7 @@ if (isset($_SESSION['id_usuario'])){
             ?><div class="container-posts"><?php   
             if (!$nada) {
                 foreach ($rslt_pesq[1] as $row) {
+                    // Exibe os posts encontrados
                     $iduser_post = $row['id_usuario'];
                     $idpost = $row['id_post'];
                     $list_coment_post[] = $idpost; 
@@ -291,6 +294,7 @@ $resultcoment = executaSql($sql_coment,'i',[$idpost]);
 <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>
+    // Funções de interatividade para comentários, exibição e atualização
     let listform = [<?php foreach($list_form_id as $id_form){echo $id_form.",";}?>];
     $('document').ready(
         function() {

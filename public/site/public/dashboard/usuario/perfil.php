@@ -3,15 +3,18 @@
     include_once($_SERVER['DOCUMENT_ROOT']."/helpers/session.php");
     include_once($_SERVER['DOCUMENT_ROOT']."/helpers/redirect.php");
     session_start();
+    // caso o perfil for carregado com base em um ususario aleio
     if (isset($_REQUEST['iduser'])) {
         $idusuario = $_REQUEST['iduser'];
         $iduser = $_SESSION['id_usuario'];
     $tipologado = $_SESSION['tipo'];
+    // caso o usuario queira ver o proprio perfil
     } else if (isset($_SESSION['id_usuario'])) {
         $idusuario = $_SESSION['id_usuario'];
         $iduser = $_SESSION['id_usuario'];
         $tipologado = $_SESSION['tipo'];
-    } else {
+    // caso o usuario nao esteja logado
+    } else if (!isset($_SESSION['id_usuario'])){
         sessionPermit('aluno');
     }
 ?>
@@ -21,12 +24,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <!-- Importe do Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Importe do Css -->
     <link rel="stylesheet" href="/public/assets/css/posts.css">
     <link rel="stylesheet" href="/public/assets/css/inputs.css">
     <link rel="stylesheet" href="/public/assets/css/perfil.css">
 </head>
     <?php
+        // Procura o usuario pelo id do usuario 
         $sql_usr_prfl = "SELECT * FROM tb_usuario WHERE id_usuario = ?";
         $rslt_usr_prfl = executaSql($sql_usr_prfl, 'i', [$idusuario]);
         if (sizeof($rslt_usr_prfl[1]) > 0) {
@@ -37,6 +43,7 @@
                 $foto = $row_usr['foto_usuario'];
             }
         } 
+        // caso nao tenha resultado na procura
         else {
             redirect("pagina_inicial","Usuario não existente");
         }
@@ -44,10 +51,12 @@
         <div class="info-perfil">
         <a href="/public/index.php" class="casa"><ion-icon name="home" class="casinha"></ion-icon></a><br>
         <?php
+            // caso o usuario tenha um foto personalizada
             if ($foto != null) {
                ?>
                <img src="<?= $foto?>" alt="imagine uma">
-               <? 
+               <?
+            // caso o usuario não tenha foto personalizada
             } else if ($foto == null) {
                 ?>
                 <img class="info-perfil" src="/public/assets/img/perfil/pessoasemfoto.jpeg" alt="">
@@ -59,6 +68,7 @@
         <p><?= $email?></p>
         <p>
         <?php 
+        // altera o tipo do usario de abreviado a extenço
             switch ($tipo){
                 case 'A':
                     echo "Aluno";
@@ -77,7 +87,9 @@
         </div>
         <div class="container-posts">
         <?php
+        // caso o usuario não seja um aluno
         if ($tipo != "A") {
+            // Exibe todos os posts feito pelo o usuario do perfil
             $sql_pst_prfl = "SELECT * FROM tb_post WHERE id_usuario = ? ORDER BY fixado DESC, data_postagem DESC";
             $rslt_pst_prfl = executaSql($sql_pst_prfl,'i',[$idusuario]);
             if (sizeof($rslt_pst_prfl[1]) > 0 ){
@@ -90,8 +102,10 @@
                     $list_coment_post[] = $idpost; 
                     $iduser_post = $row_pst['id_usuario'];
                     $sqlimg = "SELECT  midia FROM tb_midia WHERE id_post = ?";
-                    $midia = executaSql($sqlimg,'i',[$idpost]); 
+                    $midia = executaSql($sqlimg,'i',[$idpost]);
+                    // caso o post tenha só uma imagem
                     if (sizeof($midia[1]) == 1){
+                    
                         foreach ($midia[1] as $listimg) {
                             $img = $listimg['midia'];
                             ?>
@@ -99,14 +113,13 @@
                             <?php
                 
                         }
+                        // caso o post tenha varias imagens
                         } else if (sizeof($midia[1]) > 1){
                             ?><div  id="carousel<?= $idpost?>"class="carousel carousel-dark slide">
                             <?php
                                 $qtn_btn = 0;
+                                // cria um contador da quatidade de imagens do post
                                 for ($contador = 0;$contador == sizeof($midia);$contador++){
-                                    ?>
-                                       teste
-                                    <?php 
                                     $qtn_btn++;
                                 }    
                                 ?>   
